@@ -32,5 +32,21 @@ if (args[0] == "read")
         Console.WriteLine("The file could not be read:");
         Console.WriteLine(e.Message);
     }
+} else if (args[0] == "cheep")
+{
+    try
+    {
+        using StreamWriter writer = new("Data/chirp_cli_db.csv", append: true);
+        writer.WriteLine(Environment.UserName + ",\"" + args[1] + "\"," + DateTimeOffset.Now.ToUnixTimeSeconds());
+    }
+    catch (IOException e)
+    {
+        Console.WriteLine("The file could not be written:");
+        Console.WriteLine(e.Message);
+    }
+}
+else
+{
+    Console.WriteLine("Invalid command");
 }
 
