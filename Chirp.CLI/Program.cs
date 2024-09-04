@@ -1,4 +1,7 @@
 ﻿using System.Text.RegularExpressions;
+using SimpleDB.CSVDatabase;
+
+public CSVDatabase database = new CSVDatabase();
 
 
 //Check weather the firs command line is read
