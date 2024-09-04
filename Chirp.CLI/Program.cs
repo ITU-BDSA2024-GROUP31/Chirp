@@ -1,63 +1,88 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Globalization;
+using CsvHelper;
+using CsvHelper.Configuration;
+using System.IO;
+using System.Linq;
 
-
-//Check weather the firs command line is read
-if (args[0] == "read")
+public class Program
 {
-    try
+    
+    public record Cheep
     {
-        // Open the text file using a stream reader.
-        using (StreamReader reader = new("Data/chirp_cli_db.csv")) {
-            reader.ReadLine();
+        public required string Author { get; set; }
+        public required string Message { get; set; }
+        public long Timestamp { get; set; }
+    }
+    
 
-            // Checks weather the SyreamReader has reached the end of the file
-            while (!reader.EndOfStream)
+    public static void Main(string[] args)
+    {
+        if (args[0] == "read")
+        {
+            try
             {
-                // Reads each line
-                var text = reader.ReadLine();
-
-                if (text != null)
-                {
-                    /* We split the line we are reading on the commas excluding the commas inside ""
-                    Example: "Hello, World" the comma inside would not be considered*/
-                    string[] words = Regex.Split(text, @",(?=(?:[^""]*""[^""]*"")*[^""]*$)");
-
-                    if (words.Length > 2)
-                    {
-                        /* We convert the given timestap from UnixTimeSeconds to a DateTimeOffset object and also format it
-                        to a standart format*/
-                        var date = DateTimeOffset.FromUnixTimeSeconds(long.Parse(words[2]));
-                        var formattedDate = date.ToString("dd/MM/yyyy HH:mm:ss");
-                        Console.WriteLine(words[0] + " @ " + formattedDate + ": " + words[1]);
-                    }
-
-                }
-
-            } 
+                ReadCheeps();
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
         }
+        else if (args[0] == "cheep")
+        {
+            try
+            {
+                WriteCheep(args[1]);
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine("The file could not be written:");
+                Console.WriteLine(e.Message);
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Console.WriteLine("Please provide a message to cheep");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Invalid command");
+        }
+    }
 
-    }
-    catch (IOException e)
+    private static void ReadCheeps()
     {
-        Console.WriteLine("The file could not be read:");
-        Console.WriteLine(e.Message);
+        using (var reader = new StreamReader("Data/chirp_cli_db.csv"))
+        using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
+               {
+                   HasHeaderRecord = true,
+               }))
+        {
+            var records = csv.GetRecords<Cheep>().ToList();
+            foreach (var record in records)
+            {
+                var date = DateTimeOffset.FromUnixTimeSeconds(record.Timestamp);
+                var formattedDate = date.ToString("dd/MM/yyyy HH:mm:ss");
+                Console.WriteLine($"{record.Author} @ {formattedDate}: {record.Message}");
+            }
+        }
     }
-} else if (args[0] == "cheep")
-{
-    try
+
+     private static void WriteCheep(string message)
     {
-        // Using StreamWriter we give it the csv file and set the appned to true so we can append to the file
-        using StreamWriter writer = new("Data/chirp_cli_db.csv", append: true);
-        writer.WriteLine(Environment.UserName + ",\"" + args[1] + "\"," + DateTimeOffset.Now.ToUnixTimeSeconds());
-    }
-    catch (IOException e)
-    {
-        Console.WriteLine("The file could not be written:");
-        Console.WriteLine(e.Message);
+        var newCheep = new Cheep
+        {
+            Author = Environment.UserName,
+            Message = message,
+            Timestamp = DateTimeOffset.Now.ToUnixTimeSeconds()
+        };
+
+        using (var writer = new StreamWriter("Data/chirp_cli_db.csv", append: true))
+        using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+        {
+            csv.WriteRecord(newCheep);
+            writer.WriteLine();
+        }
     }
 }
-else
-{
-    Console.WriteLine("Invalid command");
-}
-
