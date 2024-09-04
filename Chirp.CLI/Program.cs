@@ -38,7 +38,7 @@ else if (arguments["cheep"].IsTrue) // Checks if cheep is the first in the comma
 {
     try
     {
-        var message = arguments["message"].ToString();
+        var message = arguments["<message>"].ToString();
         WriteCheep(message);
     }
     catch (IOException e)
