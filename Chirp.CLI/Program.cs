@@ -1,10 +1,27 @@
 ﻿using System.Text.RegularExpressions;
+using DocoptNet;
 
+const string usage = @"Chirp CLI version.
 
-//Check weather the firs command line is read
-if (args[0] == "read")
+Usage:
+  chirp read <limit>
+  chirp cheep <message> 
+  chirp (-h | --help)
+  chirp --version
+
+Options:
+  -h --help     Show this screen.
+  --version     Show version.
+";
+
+var arguments = new Docopt().Apply(usage, args, version: "0.1", exit: true)!;
+
+    //check if "read" appears
+// run read by typing: dotnet run -- read <limit>
+if(arguments["read"].IsTrue)
+
 {
-    // 
+    
     try
     {
         // Open the text file using a stream reader.
@@ -42,7 +59,8 @@ if (args[0] == "read")
         Console.WriteLine("The file could not be read:");
         Console.WriteLine(e.Message);
     }
-} else if (args[0] == "cheep") // Checks if cheep is the first in the command line
+    // to make a cheep write: dotnet run -- cheep"xyz"
+} else if(arguments["cheep"].IsTrue) //check if cheep appears
 {
     try
     {
@@ -60,4 +78,6 @@ else
 {
     Console.WriteLine("Invalid command");
 }
+
+
 
