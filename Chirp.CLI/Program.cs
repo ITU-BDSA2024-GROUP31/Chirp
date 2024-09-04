@@ -16,13 +16,16 @@ Options:
   -h --help     Show this screen.
   --version     Show version.
 ";
+
 var arguments = new Docopt().Apply(usage, args, version: "0.1", exit: true)!;
-//Check weather the firs command line is read
+
+//Check weather the first command line is read
 if (arguments["read"].IsTrue)
 {
     try
     {
-        var cheeps = cheepDb.Read();
+        var limit = arguments["<limit>"].AsInt; 
+        var cheeps = cheepDb.Read(limit);
         foreach (var cheep in cheeps)
         {
             Console.WriteLine($"{cheep.Author} cheeped: {cheep.Message} at {DateTimeOffset.FromUnixTimeSeconds(cheep.Timestamp)}");
@@ -43,7 +46,7 @@ if (arguments["read"].IsTrue)
         Console.WriteLine("Please provide a message to cheep");
     } 
 }
-else if (arguments["cheep"].IsTrue) // Checks if cheep is the first in the command line
+else if (arguments["cheep"].IsTrue) // Checks if "cheep" is the first in the command line
 {
     try
     {
