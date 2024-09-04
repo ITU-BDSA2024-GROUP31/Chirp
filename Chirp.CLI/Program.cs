@@ -28,29 +28,20 @@ if (arguments["read"].IsTrue)
         var cheeps = cheepDb.Read(limit);
         foreach (var cheep in cheeps)
         {
-            Console.WriteLine($"{cheep.Author} cheeped: {cheep.Message} at {DateTimeOffset.FromUnixTimeSeconds(cheep.Timestamp)}");
+            var formattedTime = DateTimeOffset.FromUnixTimeSeconds(cheep.Timestamp).ToString("yyyy-MM-dd HH:mm:ss");
+            Console.WriteLine($"{cheep.Author} @ {formattedTime}: {cheep.Message}");
         }
     } catch (IOException e) 
     { 
         Console.WriteLine("The file could not be read:"); 
         Console.WriteLine(e.Message); 
     } 
-} else if(arguments["cheep"].IsTrue) //check if cheep appears
-{
-    try {
-        cheepDb.Store(new Cheep(Environment.UserName, args[1], DateTimeOffset.Now.ToUnixTimeSeconds()));
-    } catch (IOException e) {
-        Console.WriteLine("The file could not be written:");
-        Console.WriteLine(e.Message);
-    } catch (IndexOutOfRangeException) {
-        Console.WriteLine("Please provide a message to cheep");
-    } 
 }
 else if (arguments["cheep"].IsTrue) // Checks if "cheep" is the first in the command line
 {
     try
     {
-        var message = arguments["message"].ToString();
+        var message = arguments["<message>"].ToString();
         cheepDb.Store(new Cheep(Environment.UserName, message, DateTimeOffset.Now.ToUnixTimeSeconds()));
     }
     catch (IOException e)
