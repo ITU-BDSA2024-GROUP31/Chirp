@@ -16,13 +16,9 @@ Options:
   -h --help     Show this screen.
   --version     Show version.
 ";
-
 var arguments = new Docopt().Apply(usage, args, version: "0.1", exit: true)!;
-
-    //check if "read" appears
-// run read by typing: dotnet run -- read <limit>
-if(arguments["read"].IsTrue)
-
+//Check weather the firs command line is read
+if (arguments["read"].IsTrue)
 {
     try
     {
@@ -38,14 +34,27 @@ if(arguments["read"].IsTrue)
     } 
 } else if(arguments["cheep"].IsTrue) //check if cheep appears
 {
-     try {
-            cheepDb.Store(new Cheep(Environment.UserName, args[1], DateTimeOffset.Now.ToUnixTimeSeconds()));
-        } catch (IOException e) {
-            Console.WriteLine("The file could not be written:");
-            Console.WriteLine(e.Message);
-        } catch (IndexOutOfRangeException) {
-            Console.WriteLine("Please provide a message to cheep");
-        } 
+    try {
+        cheepDb.Store(new Cheep(Environment.UserName, args[1], DateTimeOffset.Now.ToUnixTimeSeconds()));
+    } catch (IOException e) {
+        Console.WriteLine("The file could not be written:");
+        Console.WriteLine(e.Message);
+    } catch (IndexOutOfRangeException) {
+        Console.WriteLine("Please provide a message to cheep");
+    } 
+}
+else if (arguments["cheep"].IsTrue) // Checks if cheep is the first in the command line
+{
+    try
+    {
+        var message = arguments["message"].ToString();
+        cheepDb.Store(new Cheep(Environment.UserName, message, DateTimeOffset.Now.ToUnixTimeSeconds()));
+    }
+    catch (IOException e)
+    {
+        Console.WriteLine("The file could not be read:");
+        Console.WriteLine(e.Message);
+    }
 }
 else
 {
