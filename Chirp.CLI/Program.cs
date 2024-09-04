@@ -4,36 +4,36 @@
 //Check weather the firs command line is read
 if (args[0] == "read")
 {
-    // 
     try
     {
         // Open the text file using a stream reader.
-        using StreamReader reader = new("Data/chirp_cli_db.csv");
-        reader.ReadLine();
+        using (StreamReader reader = new("Data/chirp_cli_db.csv")) {
+            reader.ReadLine();
 
-        // Checks weather the SyreamReader has reached the end of the file
-        while (!reader.EndOfStream)
-        {
-            // Reads each line
-            var text = reader.ReadLine();
-
-            if (text != null)
+            // Checks weather the SyreamReader has reached the end of the file
+            while (!reader.EndOfStream)
             {
-                /* We split the line we are reading on the commas excluding the commas inside ""
-                Example: "Hello, World" the comma inside would not be considered*/
-                string[] words = Regex.Split(text, @",(?=(?:[^""]*""[^""]*"")*[^""]*$)");
+                // Reads each line
+                var text = reader.ReadLine();
 
-                if (words.Length > 2)
+                if (text != null)
                 {
-                    /* We convert the given timestap from UnixTimeSeconds to a DateTimeOffset object and also format it
-                    to a standart format*/
-                    var date = DateTimeOffset.FromUnixTimeSeconds(long.Parse(words[2]));
-                    var formattedDate = date.ToString("dd/MM/yyyy HH:mm:ss");
-                    Console.WriteLine(words[0] + " @ " + formattedDate + ": " + words[1]);
+                    /* We split the line we are reading on the commas excluding the commas inside ""
+                    Example: "Hello, World" the comma inside would not be considered*/
+                    string[] words = Regex.Split(text, @",(?=(?:[^""]*""[^""]*"")*[^""]*$)");
+
+                    if (words.Length > 2)
+                    {
+                        /* We convert the given timestap from UnixTimeSeconds to a DateTimeOffset object and also format it
+                        to a standart format*/
+                        var date = DateTimeOffset.FromUnixTimeSeconds(long.Parse(words[2]));
+                        var formattedDate = date.ToString("dd/MM/yyyy HH:mm:ss");
+                        Console.WriteLine(words[0] + " @ " + formattedDate + ": " + words[1]);
+                    }
+
                 }
 
-            }
-
+            } 
         }
 
     }
@@ -42,7 +42,7 @@ if (args[0] == "read")
         Console.WriteLine("The file could not be read:");
         Console.WriteLine(e.Message);
     }
-} else if (args[0] == "cheep") // Checks if cheep is the first in the command line
+} else if (args[0] == "cheep")
 {
     try
     {
