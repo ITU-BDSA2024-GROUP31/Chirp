@@ -22,15 +22,29 @@ var arguments = new Docopt().Apply(usage, args, version: "0.1", exit: true)!;
 //Check weather the first command line is read
 if (arguments["read"].IsTrue)
 {
-  
+    try
+    {
         var limit = arguments["<limit>"].AsInt; 
-        UserInterface.Read(cheepDb, limit);
+        var cheeps = cheepDb.Read(limit);
+        UserInterface.Read(cheeps);
+    } catch (IOException e) 
+    { 
+        Console.WriteLine("The file could not be read:"); 
+        Console.WriteLine(e.Message); 
+    } 
 }
 else if (arguments["cheep"].IsTrue) // Checks if "cheep" is the first in the command line
 {
-
+    try
+    {
         var message = arguments["<message>"].ToString();
-        UserInterface.Cheep(cheepDb, message);
+        cheepDb.Store(new Cheep(Environment.UserName, message, DateTimeOffset.Now.ToUnixTimeSeconds()));
+    }
+    catch (IOException e)
+    {
+        Console.WriteLine("The file could not be read:");
+        Console.WriteLine(e.Message);
+    }
 }
 else
 {
