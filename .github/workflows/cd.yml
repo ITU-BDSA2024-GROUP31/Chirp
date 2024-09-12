@@ -27,15 +27,14 @@ jobs:
       
       # Build for Windows
       - name: Build Windows Executable
-        run: dotnet publish -c Release -r win-x64 --self-contained --output ./publish/windows
+        run: dotnet publish -c Release -r win-x64 --self-contained
       
       # Build for linux 
       - name: Build Linux Executable
-        run: dotnet publish -c Release -r linux-x64 --self-contained --output ./publish/linux
-      
+        run: dotnet publish -c Release -r linux-x64 --self-contained
       # Build for macOS
       - name: Build macOS Executable
-        run: dotnet publish -c Release -r osx-x64 --self-contained --output ./publish/macos
+        run: dotnet publish -c Release -r osx-x64 --self-contained
       
       # Zip the executables for distribution
       - name: Compress Windows Executable
