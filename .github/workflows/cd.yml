@@ -3,7 +3,6 @@ run-name: ${{ github.actor }} is running ${{ github.workflow }}
 
 on:
   push:
-    branches: [ main ]
     tags:
       - 'v*.*.*'
 jobs:
