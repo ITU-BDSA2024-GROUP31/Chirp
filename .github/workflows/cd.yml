@@ -8,7 +8,7 @@ on:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-
+    
     steps:
       - uses: actions/checkout@v4
       - name: Setup .NET
@@ -24,19 +24,18 @@ jobs:
 
       - name: Test
         run: dotnet test --no-build --verbosity normal
-
+      
       # Build for Windows
       - name: Build Windows Executable
-        run: dotnet publish -c Release -r win-x64 --self-contained -o ./publish/windows/
-
-      # Build for linux
+        run: dotnet publish -c Release -r win-x64 --self-contained
+      
+      # Build for linux 
       - name: Build Linux Executable
-        run: dotnet publish -c Release -r linux-x64 --self-contained -o ./publish/linux/
-
+        run: dotnet publish -c Release -r linux-x64 --self-contained
       # Build for macOS
       - name: Build macOS Executable
-        run: dotnet publish -c Release -r osx-x64 --self-contained -o ./publish/macos/
-
+        run: dotnet publish -c Release -r osx-x64 --self-contained
+      
       # Zip the executables for distribution
       - name: Compress Windows Executable
         run: zip -r Chirp-Windows-x64.zip ./publish/windows/
@@ -46,7 +45,8 @@ jobs:
 
       - name: Compress macOS Executable
         run: zip -r Chirp-macOS-x64.zip ./publish/macos/
-
+      
+      
       # Create a GitHub Release and upload the zips
       - name: Create Release
         id: release
@@ -57,4 +57,4 @@ jobs:
             Chirp-Linux-x64.zip
             Chirp-macOS-x64.zip
         env:
-          GITHUB_TOKEN: ${{ secrets.SECRET_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.SECRET_TOKEN }}
