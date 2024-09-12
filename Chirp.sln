@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3C4C22FB-085A-4002-A85A-66371CE6A0C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.CLI", "src\Chirp.CLI\Chirp.CLI.csproj", "{10DD61C7-A68F-4EEB-8ADA-B32DD622D4E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleDB", "src\SimpleDB\SimpleDB.csproj", "{7AC4D93F-6AB5-45F3-817E-2135ACDF3CA5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{75101ED3-5D8B-40CE-BFAB-549E4BD34D9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.CLI.Tests", "test\Chirp.CLI.Tests\Chirp.CLI.Tests.csproj", "{8DBB7327-65BD-48AD-81B2-A175FBF0F20F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.SimpleDB.Tests", "test\Chirp.SimpleDB.Tests\Chirp.SimpleDB.Tests.csproj", "{FA63D135-3076-4E5B-8361-1014FC70189C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{10DD61C7-A68F-4EEB-8ADA-B32DD622D4E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10DD61C7-A68F-4EEB-8ADA-B32DD622D4E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10DD61C7-A68F-4EEB-8ADA-B32DD622D4E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10DD61C7-A68F-4EEB-8ADA-B32DD622D4E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AC4D93F-6AB5-45F3-817E-2135ACDF3CA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AC4D93F-6AB5-45F3-817E-2135ACDF3CA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AC4D93F-6AB5-45F3-817E-2135ACDF3CA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AC4D93F-6AB5-45F3-817E-2135ACDF3CA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DBB7327-65BD-48AD-81B2-A175FBF0F20F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DBB7327-65BD-48AD-81B2-A175FBF0F20F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DBB7327-65BD-48AD-81B2-A175FBF0F20F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DBB7327-65BD-48AD-81B2-A175FBF0F20F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA63D135-3076-4E5B-8361-1014FC70189C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA63D135-3076-4E5B-8361-1014FC70189C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA63D135-3076-4E5B-8361-1014FC70189C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA63D135-3076-4E5B-8361-1014FC70189C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{10DD61C7-A68F-4EEB-8ADA-B32DD622D4E5} = {3C4C22FB-085A-4002-A85A-66371CE6A0C2}
+		{7AC4D93F-6AB5-45F3-817E-2135ACDF3CA5} = {3C4C22FB-085A-4002-A85A-66371CE6A0C2}
+		{8DBB7327-65BD-48AD-81B2-A175FBF0F20F} = {75101ED3-5D8B-40CE-BFAB-549E4BD34D9F}
+		{FA63D135-3076-4E5B-8361-1014FC70189C} = {75101ED3-5D8B-40CE-BFAB-549E4BD34D9F}
+	EndGlobalSection
+EndGlobal
