@@ -27,15 +27,15 @@ jobs:
 
       # Build for Windows
       - name: Build Windows Executable
-        run: dotnet publish -c Release -r win-x64 --self-contained -o ./publish/windows/
-
-      # Build for linux
+        run: dotnet publish src/Chirp.CLI/Chirp.CLI.csproj -c Release -r win-x64 --self-contained -o ./publish/windows/
+      
+      # Build for Linux
       - name: Build Linux Executable
-        run: dotnet publish -c Release -r linux-x64 --self-contained -o ./publish/linux/
-
+        run: dotnet publish src/Chirp.CLI/Chirp.CLI.csproj -c Release -r linux-x64 --self-contained -o ./publish/linux/
+      
       # Build for macOS
       - name: Build macOS Executable
-        run: dotnet publish -c Release -r osx-x64 --self-contained -o ./publish/macos/
+        run: dotnet publish src/Chirp.CLI/Chirp.CLI.csproj -c Release -r osx-x64 --self-contained -o ./publish/macos/
 
       # Zip the executables for distribution
       - name: Compress Windows Executable
