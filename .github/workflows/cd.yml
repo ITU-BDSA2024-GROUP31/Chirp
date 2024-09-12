@@ -1,0 +1,61 @@
+﻿name: Publish application on Tagged Release
+run-name: ${{ github.actor }} is running ${{ github.workflow }}
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.401
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore
+
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
+      
+      # Build for Windows
+      - name: Build Windows Executable
+        run: dotnet publish -c Release -r win-x64 --self-contained --output ./publish/windows
+      
+      # Build for linux 
+      - name: Build Linux Executable
+        run: dotnet publish -c Release -r linux-x64 --self-contained --output ./publish/linux
+      
+      # Build for macOS
+      - name: Build macOS Executable
+        run: dotnet publish -c Release -r osx-x64 --self-contained --output ./publish/macos
+      
+      # Zip the executables for distribution
+      - name: Compress Windows Executable
+        run: zip -r Chirp-Windows-x64.zip ./publish/windows/
+
+      - name: Compress Linux Executable
+        run: zip -r Chirp-Linux-x64.zip ./publish/linux/
+
+      - name: Compress macOS Executable
+        run: zip -r Chirp-macOS-x64.zip ./publish/macos/
+      
+      
+      # Create a GitHub Release and upload the zips
+      - name: Create Release
+        id: release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            Chirp-Windows-x64.zip
+            Chirp-Linux-x64.zip
+            Chirp-macOS-x64.zip
+        env:
+            GITHUB_TOKEN: ${{ secrets.SECRET_TOKEN }}
