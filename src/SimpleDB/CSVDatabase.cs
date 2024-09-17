@@ -13,7 +13,7 @@ public sealed class CsvDatabase<T> : IDatabaseRepository<T>
     // Private constructor to prevent external instantiation
     private CsvDatabase()
     {
-        _path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", "chirp_cli_db.csv");
+        _path = Path.Combine(AppContext.BaseDirectory, "chirp_cli_db.csv");
     }
     public static CsvDatabase<T> Instance => _instance.Value;
     public IEnumerable<T> Read(int? limit = null)
@@ -24,8 +24,8 @@ public sealed class CsvDatabase<T> : IDatabaseRepository<T>
                    HasHeaderRecord = true,
                }))
         {
-            var records = csv.GetRecords<T>().ToList();
-            return limit.HasValue ? records.TakeLast(limit.Value).ToList() : records;
+            var records = limit.HasValue ? csv.GetRecords<T>().Take(limit.Value).ToList() : csv.GetRecords<T>().ToList();
+            return records;
         }
     }
 
