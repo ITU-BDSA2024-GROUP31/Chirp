@@ -1,7 +1,7 @@
 using SimpleDB;
 using DocoptNet;
 
-CsvDatabase<Cheep> cheepDb = new CsvDatabase<Cheep>();
+CsvDatabase<Cheep> cheepDb = CsvDatabase<Cheep>.Instance;
 
 
 const string usage = @"Chirp CLI version.
@@ -17,7 +17,7 @@ Options:
   --version     Show version.
 ";
 
-var arguments = new Docopt().Apply(usage, args, version: "0.1", exit: true)!;
+var arguments = new Docopt().Apply(usage, args, version: "0.0.4", exit: true)!;
 
 //Check weather the first command line is read
 if (arguments["read"].IsTrue)
