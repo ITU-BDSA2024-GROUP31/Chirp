@@ -1,7 +1,7 @@
 class UserInterface
 {
 
-    public static void Read(IEnumerable<Cheep> cheeps)
+    public static void PrintCheeps(IEnumerable<Cheep> cheeps)
     {
         foreach (var cheep in cheeps)
         {

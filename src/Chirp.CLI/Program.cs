@@ -26,7 +26,7 @@ if (arguments["read"].IsTrue)
     {
         var limit = arguments["<limit>"].AsInt; 
         var cheeps = cheepDb.Read(limit);
-        UserInterface.Read(cheeps);
+        UserInterface.PrintCheeps(cheeps);
     } catch (IOException e) 
     { 
         Console.WriteLine("The file could not be read:"); 
