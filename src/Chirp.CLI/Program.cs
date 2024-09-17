@@ -1,7 +1,7 @@
 using SimpleDB;
 using DocoptNet;
 
-CsvDatabase<Cheep> cheepDb = new CsvDatabase<Cheep>();
+CsvDatabase<Cheep> cheepDb = CsvDatabase<Cheep>.Instance;
 
 
 const string usage = @"Chirp CLI version.
