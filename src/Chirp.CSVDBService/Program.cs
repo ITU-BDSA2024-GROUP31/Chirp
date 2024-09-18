@@ -1,14 +1,14 @@
+
 using CsvHelper;
 using CsvHelper.Configuration;
 using System.Globalization;
 
-
 var builder = WebApplication.CreateBuilder(args);
+
 var app = builder.Build();
 
-
 app.MapGet("/cheeps", () => Read());
-app.MapPost("/cheep", (Cheep cheep) => cheep);
+app.MapPost("/cheep", Store);
 
 app.Run();
 
@@ -35,6 +35,4 @@ void Store(Cheep record)
     }
 }
 
-
 public record Cheep(string Author, string Message, long Timestamp);
-
