@@ -12,6 +12,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        # Fetch only the latest commit to avoid pulling the entire repository's history
+        with:
+          fetch-depth: 1  # This ensures only the latest commit is fetched
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -39,7 +42,7 @@ jobs:
       - name: Build macOS Executable
         run: dotnet publish src/Chirp.CLI/Chirp.CLI.csproj -c Release -r osx-x64 --self-contained -o ./publish/macos/
 
-      # Zip the executables
+      # Zip only the executables (no source code)
       - name: Compress Windows Executable
         run: zip -j Chirp-Windows-x64.zip ./publish/windows/Chirp.CLI.exe
 
