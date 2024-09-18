@@ -45,9 +45,9 @@ public class UnitTest1
         // Act
         foreach (var chp in cheeps) 
         {
-           cheepDb.Store(chp);
+            cheepDb.Store(chp);
 
-       }
+        }
         
         // Assert
         Assert.Contains(cheeps[0], cheepDb.Read(15));
