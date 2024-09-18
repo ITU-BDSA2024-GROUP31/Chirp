@@ -44,10 +44,10 @@ jobs:
         run: zip -j Chirp-Windows-x64.zip ./publish/windows/Chirp.CLI.exe
 
       - name: Compress Linux Executable
-        run: zip -j Chirp-Linux-x64.zip ./publish/linux/Chirp.CLI.exe
+        run: zip -j Chirp-Linux-x64.zip ./publish/linux/Chirp.CLI
 
       - name: Compress macOS Executable
-        run: zip -j Chirp-macOS-x64.zip ./publish/macos/Chirp.CLI.exe
+        run: zip -j Chirp-macOS-x64.zip ./publish/macos/Chirp.CLI
 
       # Create a GitHub Release and upload the zips
       - name: Create Release
