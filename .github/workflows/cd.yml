@@ -5,12 +5,14 @@ on:
   push:
     tags:
       - 'v*.*.*'
+
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
@@ -28,24 +30,24 @@ jobs:
       # Build for Windows
       - name: Build Windows Executable
         run: dotnet publish src/Chirp.CLI/Chirp.CLI.csproj -c Release -r win-x64 --self-contained -o ./publish/windows/
-      
+
       # Build for Linux
       - name: Build Linux Executable
         run: dotnet publish src/Chirp.CLI/Chirp.CLI.csproj -c Release -r linux-x64 --self-contained -o ./publish/linux/
-      
+
       # Build for macOS
       - name: Build macOS Executable
         run: dotnet publish src/Chirp.CLI/Chirp.CLI.csproj -c Release -r osx-x64 --self-contained -o ./publish/macos/
 
-      # Zip the executables for distribution
+      # Zip the executables
       - name: Compress Windows Executable
-        run: zip -r Chirp-Windows-x64.zip ./publish/windows/
+        run: zip -j Chirp-Windows-x64.zip ./publish/windows/Chirp.CLI.exe
 
       - name: Compress Linux Executable
-        run: zip -r Chirp-Linux-x64.zip ./publish/linux/
+        run: zip -j Chirp-Linux-x64.zip ./publish/linux/Chirp.CLI.exe
 
       - name: Compress macOS Executable
-        run: zip -r Chirp-macOS-x64.zip ./publish/macos/
+        run: zip -j Chirp-macOS-x64.zip ./publish/macos/Chirp.CLI.exe
 
       # Create a GitHub Release and upload the zips
       - name: Create Release
