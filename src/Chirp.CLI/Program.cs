@@ -1,8 +1,9 @@
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using SimpleDB;
 using DocoptNet;
 
 CsvDatabase<Cheep> cheepDb = CsvDatabase<Cheep>.Instance;
-
 
 const string usage = @"Chirp CLI version.
 
@@ -19,30 +20,43 @@ Options:
 
 var arguments = new Docopt().Apply(usage, args, version: "0.0.4", exit: true)!;
 
-//Check weather the first command line is read
+var baseURL = "https://bdsagroup31chirpremotedb.azurewebsites.net/";
+using HttpClient client = new();
+client.DefaultRequestHeaders.Accept.Clear();
+client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+client.BaseAddress = new Uri(baseURL);
+
 if (arguments["read"].IsTrue)
 {
     try
     {
-        var limit = arguments["<limit>"].AsInt; 
-        var cheeps = cheepDb.Read(limit);
+        var limit = arguments["<limit>"].AsInt;
+        var cheeps = await client.GetFromJsonAsync<List<Cheep>>($"cheeps?limit={limit}");
+        if (cheeps is null)
+        {
+            Console.WriteLine("No cheeps found");
+            return;
+        }
         UserInterface.PrintCheeps(cheeps);
-    } catch (IOException e) 
-    { 
-        Console.WriteLine("The file could not be read:"); 
-        Console.WriteLine(e.Message); 
-    } 
+    }
+    catch (HttpRequestException e)
+    {
+        Console.WriteLine("Request error:");
+        Console.WriteLine(e.Message);
+    }
 }
-else if (arguments["cheep"].IsTrue) // Checks if "cheep" is the first in the command line
+else if (arguments["cheep"].IsTrue)
 {
     try
     {
         var message = arguments["<message>"].ToString();
-        cheepDb.Store(new Cheep(Environment.UserName, message, DateTimeOffset.Now.ToUnixTimeSeconds()));
+        var username = Environment.UserName;
+        var cheep = new Cheep(username, message, DateTimeOffset.Now.ToUnixTimeSeconds());
+        await client.PostAsJsonAsync("cheep", cheep);
     }
-    catch (IOException e)
+    catch (HttpRequestException e)
     {
-        Console.WriteLine("The file could not be read:");
+        Console.WriteLine("Request error:");
         Console.WriteLine(e.Message);
     }
 }
