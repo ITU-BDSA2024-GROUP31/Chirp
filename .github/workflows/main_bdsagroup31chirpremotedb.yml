@@ -21,17 +21,20 @@ jobs:
         with:
           dotnet-version: '8.x'
 
+      - name: Set DOTNET_ROOT environment variable
+        run: echo "DOTNET_ROOT=$(dirname $(which dotnet))" >> $GITHUB_ENV
+
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish -c Release -o ${{ env.DOTNET_ROOT }}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: ${{ env.DOTNET_ROOT }}/myapp
 
   deploy:
     runs-on: ubuntu-latest
