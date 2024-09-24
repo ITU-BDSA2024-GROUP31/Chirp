@@ -21,9 +21,6 @@ jobs:
         with:
           dotnet-version: '8.x'
 
-      - name: Set DOTNET_ROOT environment variable
-        run: echo "DOTNET_ROOT=$(dirname $(which dotnet))" >> $GITHUB_ENV
-
       - name: Build with dotnet
         run: dotnet build src/Chirp.CSVDBService --configuration Release
 
