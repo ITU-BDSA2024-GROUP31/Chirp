@@ -13,9 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="../../data/schema.sql" />
-    <EmbeddedResource Include="../../data/dump.sql" />
-    <EmbeddedResource Include="../../data/ChirpProd.db"/>
+    <ProjectReference Include="..\src\SimpleDB\SimpleDB.csproj" />
+    <EmbeddedResource Include="../data/schema.sql" />
+    <EmbeddedResource Include="../data/dump.sql" />
+    <EmbeddedResource Include="../data/ChirpProd.db"/>
   </ItemGroup>
 
 </Project>
