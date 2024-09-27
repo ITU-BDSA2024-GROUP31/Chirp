@@ -4,7 +4,7 @@ run-name: ${{ github.actor }} is running ${{ github.workflow }}
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - "v*.*.*"
 
 jobs:
   build-and-publish:
@@ -29,25 +29,25 @@ jobs:
 
       # Build for Windows
       - name: Build Windows Executable
-        run: dotnet publish src/Chirp.CLI/Chirp.CLI.csproj -c Release -r win-x64 --self-contained -o ./publish/windows/
+        run: dotnet publish src/Chirp.Razor/Chirp.Razor.csproj -c Release -r win-x64 --self-contained -o ./publish/windows/
 
       # Build for Linux
       - name: Build Linux Executable
-        run: dotnet publish src/Chirp.CLI/Chirp.CLI.csproj -c Release -r linux-x64 --self-contained -o ./publish/linux/
+        run: dotnet publish src/Chirp.Razor/Chirp.Razor.csproj -c Release -r linux-x64 --self-contained -o ./publish/linux/
 
       # Build for macOS
       - name: Build macOS Executable
-        run: dotnet publish src/Chirp.CLI/Chirp.CLI.csproj -c Release -r osx-x64 --self-contained -o ./publish/macos/
+        run: dotnet publish src/Chirp.Razor/Chirp.Razor.csproj -c Release -r osx-x64 --self-contained -o ./publish/macos/
 
       # Zip the executables
       - name: Compress Windows Executable
-        run: zip -j Chirp-Windows-x64.zip ./publish/windows/Chirp.CLI.exe
+        run: zip -j Chirp-Windows-x64.zip ./publish/windows/Chirp.Razor.exe
 
       - name: Compress Linux Executable
-        run: zip -j Chirp-Linux-x64.zip ./publish/linux/Chirp.CLI
+        run: zip -j Chirp-Linux-x64.zip ./publish/linux/Chirp.Razor
 
       - name: Compress macOS Executable
-        run: zip -j Chirp-macOS-x64.zip ./publish/macos/Chirp.CLI
+        run: zip -j Chirp-macOS-x64.zip ./publish/macos/Chirp.Razor
 
       # Create a GitHub Release and upload the zips
       - name: Create Release
