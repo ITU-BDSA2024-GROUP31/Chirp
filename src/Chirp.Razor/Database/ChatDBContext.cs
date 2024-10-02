@@ -9,7 +9,6 @@ public class ChatDbContext : DbContext
     
     public ChatDbContext(DbContextOptions<ChatDbContext> options) : base(options)
     {
-        DbInitializer.SeedDatabase(this);
     }
     
     
