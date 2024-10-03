@@ -1,26 +1,33 @@
+using Chirp.Razor.Repositories;
+
 namespace Chirp.Razor
 {
     public interface ICheepService
     {
-        public List<CheepViewModel> GetCheeps(int page);
-        public List<CheepViewModel> GetCheepsFromAuthor(string author, int page);
+        public List<CheepDto> GetCheeps(int page);
+        public List<CheepDto> GetCheepsFromAuthor(string author, int page);
     }
 
     public class CheepService : ICheepService
     {
-        private readonly DBFacade _dbFacade = new DBFacade();
+        private readonly ICheepRepository _cheepRepository;
         private const int PageSize = 32;
 
-        public List<CheepViewModel> GetCheeps(int page)
+        public CheepService(ICheepRepository cheepRepository)
         {
-            int pagesToSkip = (page - 1) * PageSize;
-            return _dbFacade.GetCheeps().Skip(pagesToSkip).Take(PageSize).ToList();
+            _cheepRepository = cheepRepository;
         }
 
-        public List<CheepViewModel> GetCheepsFromAuthor(string author, int page)
+        public List<CheepDto> GetCheeps(int page)
         {
             int pagesToSkip = (page - 1) * PageSize;
-            return _dbFacade.GetCheepsFromAuthor(author).Skip(pagesToSkip).Take(PageSize).ToList();
+            return _cheepRepository.ReadAllCheeps().Result.Skip(pagesToSkip).Take(PageSize).ToList();
+        }
+
+        public List<CheepDto> GetCheepsFromAuthor(string author, int page)
+        {
+            int pagesToSkip = (page - 1) * PageSize;
+            return _cheepRepository.ReadCheepsFromAuthor(author).Result.Skip(pagesToSkip).Take(PageSize).ToList();
         }
     }
 }
