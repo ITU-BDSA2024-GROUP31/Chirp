@@ -6,9 +6,9 @@ namespace Chirp.Razor.Pages;
 public class PublicModel : PageModel
 {
     private readonly ICheepService _service;
-    public List<CheepDto> Cheeps { get; set; }
+    public List<CheepDto> Cheeps { get; set; } = new List<CheepDto>();
 
-    public PublicModel(ICheepService service)
+    public PublicModel(ICheepService service )
     {
         _service = service;
     }
