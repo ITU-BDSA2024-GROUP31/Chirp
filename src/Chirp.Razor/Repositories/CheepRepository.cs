@@ -36,5 +36,10 @@ namespace Chirp.Razor.Repositories
 
             return cheeps;
         }
+
+        public Task<List<CheepDto>> CreateNewCheep(string text, string userName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
