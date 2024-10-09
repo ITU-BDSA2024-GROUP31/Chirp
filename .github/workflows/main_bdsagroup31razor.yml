@@ -22,7 +22,8 @@ jobs:
         run: dotnet build src/Chirp.Razor/ --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish src/Chirp.Razor/ -c Release -o ./publish
+        run: dotnet publish src/Chirp.Razor/ -c Release -r linux-x64 --self-contained true -o ./publish
+
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -58,5 +59,7 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'bdsagroup31razor'
-          slot-name: 'Production'
-          package: ./publish  # Point to the correct package path
+          package: ./publish
+          enable-detailed-logging: true
+          clean: true  # This will clean the target directory before deployment
+
