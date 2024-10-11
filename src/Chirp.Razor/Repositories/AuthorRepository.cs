@@ -19,7 +19,7 @@ public class AuthorRepository : IAuthorRepository
                 throw new NotImplementedException();
         }
 
-        public Task<Author> CreateNewAuthor(int authorId, string name, string email)
+        public Task<Author> NewAuthor(string name, string email)
         {
                 throw new NotImplementedException();
         }

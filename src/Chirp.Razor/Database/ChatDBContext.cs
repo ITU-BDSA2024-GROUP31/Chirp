@@ -11,5 +11,17 @@ public class ChatDbContext : DbContext
     {
     }
     
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // TOODO: dotnet ef migrations add UniqueAuthorNamesAndEmails
+        //implement it they all are on one modelbuilder
+        base.OnModelCreating(modelBuilder);
     
+        modelBuilder.Entity<Author>()
+            .HasIndex(c => c.Name)
+            .IsUnique();
+        modelBuilder.Entity<Author>()
+            .HasIndex(c => c.Email)
+            .IsUnique();
+    }
 }
