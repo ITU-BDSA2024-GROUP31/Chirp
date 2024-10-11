@@ -1,4 +1,6 @@
-﻿namespace Chirp.Razor.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Chirp.Razor.Repositories;
 
 public class AuthorRepository : IAuthorRepository
 {
@@ -9,18 +11,33 @@ public class AuthorRepository : IAuthorRepository
                 _context = context;
         }
 
-        public Task<Author> FindAuthorByName(string userName)
+        public async Task<Author?> FindAuthorByName(string userName)
         {
-                throw new NotImplementedException();
+                var author = await _context.Authors.Where(a => a.Name == userName).FirstOrDefaultAsync();
+
+                return author;
         }
 
-        public Task<Author> FindAuthorByEmail(string email)
+        public async Task<Author?> FindAuthorByEmail(string email)
         {
-                throw new NotImplementedException();
+                var author = await _context.Authors.Where(a => a.Email == email).FirstOrDefaultAsync();
+
+                return author;
         }
 
-        public Task<Author> NewAuthor(string name, string email)
+        public async Task<Author> NewAuthor(int id, string name, string email)
         {
-                throw new NotImplementedException();
+                var nwAuthor = new Author()
+                {
+                        AuthorId = id,
+                        Name = name,
+                        Email = email
+                        
+                };
+
+                await _context.Authors.AddAsync(nwAuthor);
+                await _context.SaveChangesAsync();
+
+                return nwAuthor;
         }
 }
