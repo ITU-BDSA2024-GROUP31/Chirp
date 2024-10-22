@@ -21,7 +21,7 @@ public class UserTimelineModel : PageModel
         return Page();
     }
 
-    public ActionResult OnGetCreateNewCheep(string text, string userName)
+    public ActionResult OnPostNewCheep(string text, string userName)
     {
         Cheeps = _service.CreateNewCheep(text, userName);
         return Page();
@@ -40,7 +40,7 @@ public class UserTimelineModel : PageModel
         return Page();
     }
     
-    public ActionResult OnGetCreateAutor(int id, string name, string email)
+    public ActionResult OnPostCreateAuthor(int id, string name, string email)
     {
         Author = _service.CreateNewAuthor(id, name, email);
         return Page();
