@@ -25,13 +25,14 @@ public class AuthorRepository : IAuthorRepository
                 return author;
         }
 
-        public async Task<Author> NewAuthor(int id, string name, string email)
+        public async Task<Author> NewAuthor(int id, string name, string email, List<Cheep> cheeps)
         {
                 var nwAuthor = new Author()
                 {
                         AuthorId = id,
                         Name = name,
-                        Email = email
+                        Email = email,
+                        Cheeps = cheeps
                         
                 };
 

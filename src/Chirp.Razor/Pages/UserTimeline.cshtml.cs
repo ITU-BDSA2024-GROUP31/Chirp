@@ -40,9 +40,9 @@ public class UserTimelineModel : PageModel
         return Page();
     }
     
-    public ActionResult OnPostCreateAuthor(int id, string name, string email)
+    public ActionResult OnPostCreateAuthor(int id, string name, string email, List<Cheep> cheeps)
     {
-        Author = _service.CreateNewAuthor(id, name, email);
+        Author = _service.CreateNewAuthor(id, name, email, cheeps);
         return Page();
     }
 }

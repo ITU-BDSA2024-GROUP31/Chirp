@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Chirp.Razor;
 
@@ -16,12 +17,23 @@ public class ChatDbContext : DbContext
         // Ensures that author names and email are required and unique
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Author>()
+        /** modelBuilder.Entity<Author>()
             .HasIndex(c => c.Name)
+            .IsUnique();
+            **/
+        
+        /**modelBuilder.Entity<Author>()
+            .HasIndex(c => c.Email)
             .IsUnique();
         
         modelBuilder.Entity<Author>()
-            .HasIndex(c => c.Email)
-            .IsUnique();
+            .Property(c => c.Name)
+            .IsRequired();
+        
+        modelBuilder.Entity<Author>()
+            .Property(c => c.Email)
+            .IsRequired(); 
+        **/
+            
     }
 }

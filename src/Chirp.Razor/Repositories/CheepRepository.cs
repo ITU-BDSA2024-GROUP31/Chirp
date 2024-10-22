@@ -43,13 +43,15 @@ namespace Chirp.Razor.Repositories
 
             if (author == null)
             {
-                var nwAuthor = new Author()
+                var nwAuthor = new Author
                 {
-                    Name = userName
+                    Name = userName,
+                    Email = null
                 };
 
                 await _context.Authors.AddAsync(nwAuthor);
-                await _context.SaveChangesAsync(); 
+                await _context.SaveChangesAsync();
+                author = nwAuthor;
             }
             
             

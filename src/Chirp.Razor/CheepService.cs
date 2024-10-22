@@ -9,7 +9,7 @@ namespace Chirp.Razor
         public List<CheepDto> CreateNewCheep(string text, string userName);
         public Author? GetAuthorByName(string name);
         public Author? GetAuthorByEmail(string email);
-        public Author CreateNewAuthor(int id, string name, string email);
+        public Author CreateNewAuthor(int id, string name, string email, List<Cheep> cheeps);
     }
 
     public class CheepService : ICheepService
@@ -52,9 +52,9 @@ namespace Chirp.Razor
             return _authorRepository.FindAuthorByEmail(email).Result;
         }
         
-        public Author CreateNewAuthor(int id, string name, string email)
+        public Author CreateNewAuthor(int id, string name, string email, List<Cheep> cheeps)
         {
-            return _authorRepository.NewAuthor(id, name, email).Result;
+            return _authorRepository.NewAuthor(id, name, email, cheeps).Result;
         }
         
     }
