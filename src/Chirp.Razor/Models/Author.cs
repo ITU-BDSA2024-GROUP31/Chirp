@@ -4,11 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Chirp.Razor;
 
-public class Author : IdentityUser<int> // Use int here
+public class Author : IdentityUser<int>
 {
-    [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int AuthorId { get; set; } 
 
     [StringLength(254)]
     [Required]

@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{378E8953-481B-4054-A272-CC0718DE2771}"
-	ProjectSection(SolutionItems) = preProject
-		chirp.db = chirp.db
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chirp.Razor", "src\Chirp.Razor\Chirp.Razor.csproj", "{E75162F5-8D3B-4E52-AC32-21340FDC2E62}"
 EndProject
