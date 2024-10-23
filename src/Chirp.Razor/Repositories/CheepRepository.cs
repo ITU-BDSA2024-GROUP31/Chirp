@@ -36,5 +36,42 @@ namespace Chirp.Razor.Repositories
 
             return cheeps;
         }
+
+        public async Task<List<CheepDto>> NewCheep(string text, string userName)
+        {
+            var author = await _context.Authors.Where(a => a.Name == userName).FirstOrDefaultAsync();
+
+            if (author == null)
+            {
+                var nwAuthor = new Author
+                {
+                    Name = userName,
+                    Email = null
+                };
+
+                await _context.Authors.AddAsync(nwAuthor);
+                await _context.SaveChangesAsync();
+                author = nwAuthor;
+            }
+            
+            
+            var nwCheep = new Cheep()
+            {
+                Text = text,
+                AuthorId = author.AuthorId,
+                Author = author,
+                Timestamp = DateTime.Now
+            };
+
+            var nwListCheep = new List<CheepDto>()
+            {
+                new(nwCheep.Author.Name, nwCheep.Text, nwCheep.Timestamp)
+            };
+            
+            await _context.Cheeps.AddAsync(nwCheep);
+            await _context.SaveChangesAsync();
+
+            return nwListCheep;
+        }
     }
 }

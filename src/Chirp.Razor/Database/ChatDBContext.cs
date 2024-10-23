@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Chirp.Razor;
 
@@ -10,6 +11,4 @@ public class ChatDbContext : DbContext
     public ChatDbContext(DbContextOptions<ChatDbContext> options) : base(options)
     {
     }
-    
-    
 }
