@@ -4,20 +4,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{378E8953-481B-4054-A272-CC0718DE2771}"
+	ProjectSection(SolutionItems) = preProject
+		chirp.db = chirp.db
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.Razor", "src\Chirp.Razor\Chirp.Razor.csproj", "{E75162F5-8D3B-4E52-AC32-21340FDC2E62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chirp.Razor", "src\Chirp.Razor\Chirp.Razor.csproj", "{E75162F5-8D3B-4E52-AC32-21340FDC2E62}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6C2F0792-EBFE-4368-928C-FBAF5691573C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.Razor.Tests", "test\Chirp.Razor.Tests\Chirp.Razor.Tests.csproj", "{6AA7E06B-7E9E-42F4-80DC-E3D8EA7B385A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chirp.Razor.Tests", "test\Chirp.Razor.Tests\Chirp.Razor.Tests.csproj", "{6AA7E06B-7E9E-42F4-80DC-E3D8EA7B385A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{E75162F5-8D3B-4E52-AC32-21340FDC2E62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -29,8 +29,14 @@ Global
 		{6AA7E06B-7E9E-42F4-80DC-E3D8EA7B385A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AA7E06B-7E9E-42F4-80DC-E3D8EA7B385A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E75162F5-8D3B-4E52-AC32-21340FDC2E62} = {378E8953-481B-4054-A272-CC0718DE2771}
 		{6AA7E06B-7E9E-42F4-80DC-E3D8EA7B385A} = {6C2F0792-EBFE-4368-928C-FBAF5691573C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7E457ED9-5B81-4294-B371-4D440D7EA8BC}
 	EndGlobalSection
 EndGlobal
