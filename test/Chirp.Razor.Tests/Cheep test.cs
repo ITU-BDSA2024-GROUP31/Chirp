@@ -1,4 +1,5 @@
 using Chirp.Razor.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
@@ -23,7 +24,7 @@ public class Cheep_test : IDisposable
         _context.Database.EnsureCreatedAsync().Wait(); 
 
         _repository = new CheepRepository(_context);
-        DbInitializer.SeedDatabase(_context);
+        DbInitializer.SeedTestDatabase(_context);
     }
 
     [Fact]

@@ -58,7 +58,7 @@ namespace Chirp.Razor.Repositories
             var nwCheep = new Cheep()
             {
                 Text = text,
-                AuthorId = author.AuthorId,
+                AuthorId = author.Id,
                 Author = author,
                 Timestamp = DateTime.Now
             };
