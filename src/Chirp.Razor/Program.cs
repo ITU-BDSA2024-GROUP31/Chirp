@@ -26,7 +26,7 @@ builder.Services.AddDbContext<ChatDbContext>(options =>
 
 // Add Identity services
 builder.Services.AddDefaultIdentity<Author>(options => 
- options.SignIn.RequireConfirmedAccount = true) 
+ options.SignIn.RequireConfirmedAccount = false) 
  .AddEntityFrameworkStores<ChatDbContext>();
 
 // Configure the default service provider

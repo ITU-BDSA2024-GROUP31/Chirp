@@ -134,6 +134,7 @@ namespace Chirp.Razor.Areas.Identity.Pages.Account
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user); 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email", code); 
                     await _signInManager.SignInAsync(user, isPersistent:false);
+
                     returnUrl = returnUrl ?? Url.Content($"~/{user.Name}");
                     return LocalRedirect(returnUrl);
                 }
