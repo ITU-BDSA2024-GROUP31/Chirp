@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.AspNetCore.Identity;
 
 namespace Chirp.Razor
 {
     public static class DbInitializer
     {
-        public static void SeedDatabase(ChatDbContext chirpContext)
+        public static async Task SeedDatabase(ChatDbContext chirpContext, UserManager<Author> userManager)
         {
+
+
             if (!(chirpContext.Authors.Any() && chirpContext.Cheeps.Any()))
             {
                 var a1 = new Author()
@@ -80,22 +80,29 @@ namespace Chirp.Razor
                     Email = "Jacqualine.Gilcoine@gmail.com",
                     Cheeps = new List<Cheep>()
                 };
-                var a11 = new Author()
+                var helge = new Author()
                 {
                     Id = 11,
                     Name = "Helge",
+                    UserName = "ropf@itu.dk",
                     Email = "ropf@itu.dk",
                     Cheeps = new List<Cheep>()
                 };
-                var a12 = new Author()
+
+                IdentityResult result = await userManager.CreateAsync(helge, "LetM31n!");
+
+                var adrian = new Author()
                 {
                     Id = 12,
                     Name = "Adrian",
+                    UserName = "adho@itu.dk",
                     Email = "adho@itu.dk",
                     Cheeps = new List<Cheep>()
                 };
 
-                var authors = new List<Author>() { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12 };
+                IdentityResult result2 = await userManager.CreateAsync(adrian, "M32Want_Access");
+
+                var authors = new List<Author>() { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10,};
 
                 var c1 = new Cheep()
                 {

@@ -25,9 +25,9 @@ builder.Services.AddDbContext<ChatDbContext>(options =>
     options.UseSqlite(connectionString));
 
 // Add Identity services
-builder.Services.AddDefaultIdentity<Author>(options => 
- options.SignIn.RequireConfirmedAccount = false) 
- .AddEntityFrameworkStores<ChatDbContext>();
+builder.Services.AddDefaultIdentity<Author>(options =>
+ options.SignIn.RequireConfirmedAccount = false)
+ .AddEntityFrameworkStores<ChatDbContext>().AddDefaultTokenProviders();
 
 // Configure the default service provider
 builder.Host.UseDefaultServiceProvider(p =>
@@ -40,13 +40,18 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    using var context = scope.ServiceProvider.GetRequiredService<ChatDbContext>();
+    var services = scope.ServiceProvider;
+    using var context = services.GetRequiredService<ChatDbContext>();
+
+    var userManager = services.GetRequiredService<UserManager<Author>>();
+
+    Console.WriteLine("usermanager: " + userManager);
 
     // Ensure the database is created and apply migrations
     context.Database.Migrate();
 
-    // Seed the database (optional)
-    DbInitializer.SeedDatabase(context);
+    // Seed the database
+    await DbInitializer.SeedDatabase(context, userManager);
 }
 
 // Configure the HTTP request pipeline.
