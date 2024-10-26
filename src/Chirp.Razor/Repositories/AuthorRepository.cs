@@ -29,7 +29,7 @@ public class AuthorRepository : IAuthorRepository
         {
                 var nwAuthor = new Author()
                 {
-                        AuthorId = id,
+                        Id = id,
                         Name = name,
                         Email = email,
                         Cheeps = cheeps
