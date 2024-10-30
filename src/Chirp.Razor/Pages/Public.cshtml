@@ -7,7 +7,17 @@
 
 <div>
     <h2> Public Timeline </h2>
-
+    @{
+    if (User.Identity?.IsAuthenticated ?? false)
+    { <div class = "cheepbox">
+        <h3>What's on your mind?</h3>
+        <form method="post" action="/submit">
+            <input type="text" name="Message" value="">
+            <input type="submit" value="Share">
+        </form>
+    </div>
+    }
+    }
     @if (Model.Cheeps.Any())
     {
         <ul id="messagelist" class="cheeps">

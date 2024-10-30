@@ -18,4 +18,9 @@ public class PublicModel : PageModel
         Cheeps = _service.GetCheeps(page);
         return Page();
     }
+    public ActionResult OnPost(string Message)
+    {
+       
+        return RedirectToPage("Public"); 
+    }
 }
