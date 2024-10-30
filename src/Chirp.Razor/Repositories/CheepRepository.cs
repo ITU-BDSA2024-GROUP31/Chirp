@@ -68,6 +68,8 @@ namespace Chirp.Razor.Repositories
                 new(nwCheep.Author.Name, nwCheep.Text, nwCheep.Timestamp)
             };
             
+          
+            author.Cheeps.Add(nwCheep);
             await _context.Cheeps.AddAsync(nwCheep);
             await _context.SaveChangesAsync();
 

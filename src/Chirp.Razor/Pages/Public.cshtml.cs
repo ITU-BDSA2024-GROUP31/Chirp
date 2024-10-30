@@ -18,14 +18,10 @@ public class PublicModel : PageModel
         Cheeps = _service.GetCheeps(page);
         return Page();
     }
-    public ActionResult OnPost(string Message, Author author, DateTime timestamp)
+    public ActionResult OnPost(string Message, Author author)
     {
-        var c = new Cheep
-        {
-            Text = Message,
-            Author = author,
-            Timestamp = timestamp 
-        }; 
+        _service.CreateNewCheep(Message, author.UserName);
+        
         return RedirectToPage("/"); 
     }
 }
