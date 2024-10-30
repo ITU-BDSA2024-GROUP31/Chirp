@@ -1,5 +1,7 @@
 using Chirp.Razor;
 using Chirp.Razor.Repositories;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -26,8 +28,16 @@ builder.Services.AddDbContext<ChatDbContext>(options =>
 
 // Add Identity services
 builder.Services.AddDefaultIdentity<Author>(options =>
- options.SignIn.RequireConfirmedAccount = false)
- .AddEntityFrameworkStores<ChatDbContext>().AddDefaultTokenProviders();
+        options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<ChatDbContext>().AddDefaultTokenProviders();
+
+builder.Services.AddSession(option =>
+{
+    option.IdleTimeout = TimeSpan.FromMinutes(30);
+    option.Cookie.HttpOnly = true;
+    option.Cookie.IsEssential = true;
+
+});
 
 // Configure the default service provider
 builder.Host.UseDefaultServiceProvider(p =>
@@ -35,6 +45,14 @@ builder.Host.UseDefaultServiceProvider(p =>
     p.ValidateScopes = true;
     p.ValidateOnBuild = true;
 });
+
+builder.Services.AddAuthentication()
+    .AddGitHub(o =>
+    {
+        o.ClientId = builder.Configuration["authentication:github:clientId"];
+        o.ClientSecret = builder.Configuration["authentication:github:clientSecret"];
+        o.CallbackPath = "/signin-github";
+    });
 
 var app = builder.Build();
 
@@ -64,6 +82,8 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+
+app.UseSession();
 
 // Add authentication and authorization middleware
 app.UseAuthentication();

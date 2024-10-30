@@ -10,20 +10,20 @@
     <h1><img src="/images/icon1.png" alt="Icon1"/>Chirp!</h1>
 
         <div class=navigation>
-            @if (User.Identity.IsAuthenticated)
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
             {
                 <div>
-                    <a href="/@(User.Identity.Name)">my timeline</a> |
-                    <a href="/">public timeline</a> |
-                    <a href="/Account/logout">logout [@(User.Identity.Name)]</a>
+                    <a href="/@(User.Identity.Name)">My Timeline</a> |
+                    <a href="/">Public Timeline</a> |
+                    <a href="/Account/logout">Logout [@(User.Identity.Name)]</a>
                 </div>
             }
             else
             {
                 <div>
-                    <a href="/">public timeline</a> |
-                    <a href="/Account/Register">register</a>
-                    <a href="/Account/Login">login</a>
+                    <a href="/">Public Timeline</a> |
+                    <a href="/Account/Register">Register</a> |
+                    <a href="/Account/Login">Login</a>
                 </div>
             }
         </div>
