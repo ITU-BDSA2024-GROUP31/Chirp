@@ -1,5 +1,6 @@
 using Chirp.Razor;
 using Chirp.Razor.Repositories;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -27,8 +28,8 @@ builder.Services.AddDbContext<ChatDbContext>(options =>
 
 // Add Identity services
 builder.Services.AddDefaultIdentity<Author>(options =>
- options.SignIn.RequireConfirmedAccount = false)
- .AddEntityFrameworkStores<ChatDbContext>().AddDefaultTokenProviders();
+        options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<ChatDbContext>().AddDefaultTokenProviders();
 
 builder.Services.AddSession(option =>
 {
@@ -45,13 +46,7 @@ builder.Host.UseDefaultServiceProvider(p =>
     p.ValidateOnBuild = true;
 });
 
-builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = "GitHub";
-    })
-    .AddCookie()
+builder.Services.AddAuthentication()
     .AddGitHub(o =>
     {
         o.ClientId = builder.Configuration["authentication:github:clientId"];
