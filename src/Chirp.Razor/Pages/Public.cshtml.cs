@@ -7,6 +7,10 @@ public class PublicModel : PageModel
 {
     private readonly ICheepService _service;
     public List<CheepDto> Cheeps { get; set; } = new List<CheepDto>();
+    [BindProperty]
+    public string Name { get; set; }
+    [BindProperty]
+    public string Message { get; set; }
 
     public PublicModel(ICheepService service )
     {
@@ -18,9 +22,9 @@ public class PublicModel : PageModel
         Cheeps = _service.GetCheeps(page);
         return Page();
     }
-    public ActionResult OnPost(string Message, Author author)
+    public ActionResult OnPost()
     {
-        _service.CreateNewCheep(Message, author.UserName);
+        _service.CreateNewCheep(Message, Name);
         
         return RedirectToPage("/"); 
     }
