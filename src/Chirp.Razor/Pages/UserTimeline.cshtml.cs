@@ -8,6 +8,8 @@ public class UserTimelineModel : PageModel
     private readonly ICheepService _service;
     public List<CheepDto> Cheeps { get; set; } = new List<CheepDto>();
     public Author? Author { get; set; }
+    [BindProperty]
+    public string Message { get; set; }
 
     public UserTimelineModel(ICheepService service)
     {

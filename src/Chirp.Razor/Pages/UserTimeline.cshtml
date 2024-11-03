@@ -12,9 +12,12 @@
         if (User.Identity?.IsAuthenticated ?? false)
         { <div class = "cheepbox">
             <h3>What's on your mind, @routeName?</h3>
-            <form method="post" action="/submit">
-                <input type="text" name="Message" value="">
-                <input type="submit" value="Share">
+            <form asp-page="SubmitMessage" method="post">
+                
+                <textarea asp-for="Message"></textarea>
+                <span asp-validation-for="Message"></span>
+                
+                <input type="submit" value="Share" />
             </form>
             </div>
         }
