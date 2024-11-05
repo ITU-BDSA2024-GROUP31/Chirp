@@ -162,6 +162,11 @@ div.page div.cheepbox {
   -webkit-border-radius: 5px;
 }
 
+div.page div.cheepbox textarea{
+    width: 100%;
+    box-sizing: border-box;
+}
+
 div.page div.cheepbox h3 {
   margin: 0;
   font-size: 1em;
@@ -174,7 +179,7 @@ div.page div.cheepbox p {
 
 div.page div.cheepbox input[type="text"] {
   width: 585px;
-}
+}   
 
 div.page div.cheepbox input[type="submit"] {
   width: 70px;
