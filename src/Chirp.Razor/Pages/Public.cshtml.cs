@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace Chirp.Razor.Pages;
 
@@ -7,6 +9,11 @@ public class PublicModel : PageModel
 {
     private readonly ICheepService _service;
     public List<CheepDto> Cheeps { get; set; } = new List<CheepDto>();
+
+    [BindProperty]
+    [Required]
+    public string Message { get; set; }
+
 
     public PublicModel(ICheepService service )
     {
@@ -18,4 +25,5 @@ public class PublicModel : PageModel
         Cheeps = _service.GetCheeps(page);
         return Page();
     }
+    
 }

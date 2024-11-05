@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace Chirp.Razor.Pages;
 
@@ -8,6 +10,9 @@ public class UserTimelineModel : PageModel
     private readonly ICheepService _service;
     public List<CheepDto> Cheeps { get; set; } = new List<CheepDto>();
     public Author? Author { get; set; }
+    [BindProperty]
+    [Required]
+    public string Message { get; set; }
 
     public UserTimelineModel(ICheepService service)
     {

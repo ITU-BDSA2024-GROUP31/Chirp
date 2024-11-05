@@ -53,8 +53,7 @@ namespace Chirp.Razor.Repositories
                 await _context.SaveChangesAsync();
                 author = nwAuthor;
             }
-            
-            
+
             var nwCheep = new Cheep()
             {
                 Text = text,
@@ -64,10 +63,11 @@ namespace Chirp.Razor.Repositories
             };
 
             var nwListCheep = new List<CheepDto>()
-            {
-                new(nwCheep.Author.Name, nwCheep.Text, nwCheep.Timestamp)
-            };
-            
+    {
+        new(nwCheep.Author.Name, nwCheep.Text, nwCheep.Timestamp)
+    };
+
+            author.Cheeps.Add(nwCheep);
             await _context.Cheeps.AddAsync(nwCheep);
             await _context.SaveChangesAsync();
 
