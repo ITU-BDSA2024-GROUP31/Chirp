@@ -165,6 +165,7 @@ div.page div.cheepbox {
 div.page div.cheepbox textarea{
     width: 100%;
     box-sizing: border-box;
+    min-height: 80px;
 }
 
 div.page div.cheepbox h3 {
