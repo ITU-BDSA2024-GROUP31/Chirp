@@ -7,6 +7,7 @@ public class SubmitMessageModel : PageModel
 {
     private readonly ICheepService _service;
     [BindProperty]
+    [Required]
     public string Message { get; set; }
 
     public SubmitMessageModel(ICheepService service)

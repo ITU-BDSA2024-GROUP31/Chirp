@@ -8,6 +8,7 @@ public class PublicModel : PageModel
     private readonly ICheepService _service;
     public List<CheepDto> Cheeps { get; set; } = new List<CheepDto>();
     [BindProperty]
+    [Required]
     public string Message { get; set; }
 
 

@@ -9,6 +9,7 @@ public class UserTimelineModel : PageModel
     public List<CheepDto> Cheeps { get; set; } = new List<CheepDto>();
     public Author? Author { get; set; }
     [BindProperty]
+    [Required]
     public string Message { get; set; }
 
     public UserTimelineModel(ICheepService service)
