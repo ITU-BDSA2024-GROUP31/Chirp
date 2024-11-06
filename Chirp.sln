@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6C2F0792-E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chirp.Razor.Tests", "test\Chirp.Razor.Tests\Chirp.Razor.Tests.csproj", "{6AA7E06B-7E9E-42F4-80DC-E3D8EA7B385A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chirp.Razor.UI.Tests", "Chirp.Razor.UI.Tests", "{9B508634-75C1-4729-80A1-332BDE0D3226}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaywrightTests", "test\Chirp.Razor.UI.Tests\PlaywrightTests\PlaywrightTests.csproj", "{42B6B251-2647-4B64-AA7D-20C5EDB8C15F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,10 @@ Global
 		{6AA7E06B-7E9E-42F4-80DC-E3D8EA7B385A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AA7E06B-7E9E-42F4-80DC-E3D8EA7B385A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AA7E06B-7E9E-42F4-80DC-E3D8EA7B385A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42B6B251-2647-4B64-AA7D-20C5EDB8C15F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42B6B251-2647-4B64-AA7D-20C5EDB8C15F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42B6B251-2647-4B64-AA7D-20C5EDB8C15F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42B6B251-2647-4B64-AA7D-20C5EDB8C15F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +40,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E75162F5-8D3B-4E52-AC32-21340FDC2E62} = {378E8953-481B-4054-A272-CC0718DE2771}
 		{6AA7E06B-7E9E-42F4-80DC-E3D8EA7B385A} = {6C2F0792-EBFE-4368-928C-FBAF5691573C}
+		{9B508634-75C1-4729-80A1-332BDE0D3226} = {6C2F0792-EBFE-4368-928C-FBAF5691573C}
+		{42B6B251-2647-4B64-AA7D-20C5EDB8C15F} = {9B508634-75C1-4729-80A1-332BDE0D3226}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E457ED9-5B81-4294-B371-4D440D7EA8BC}
