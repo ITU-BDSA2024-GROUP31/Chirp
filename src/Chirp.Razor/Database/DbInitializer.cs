@@ -74,7 +74,7 @@ namespace Chirp.Razor
                 {
                     Id = 11,
                     Name = "Helge",
-                    UserName = "ropf@itu.dk",
+                    UserName = "Helge",
                     Email = "ropf@itu.dk",
                     Cheeps = new List<Cheep>()
                 };
@@ -85,7 +85,7 @@ namespace Chirp.Razor
                 {
                     Id = 12,
                     Name = "Adrian",
-                    UserName = "adho@itu.dk",
+                    UserName = "Adrian",
                     Email = "adho@itu.dk",
                     Cheeps = new List<Cheep>()
                 };

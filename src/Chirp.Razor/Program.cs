@@ -63,8 +63,6 @@ using (var scope = app.Services.CreateScope())
 
     var userManager = services.GetRequiredService<UserManager<Author>>();
 
-    Console.WriteLine("usermanager: " + userManager);
-
     // Ensure the database is created and apply migrations
     context.Database.Migrate();
 
