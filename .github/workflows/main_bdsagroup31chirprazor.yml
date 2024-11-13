@@ -1,14 +1,16 @@
 name: Build and deploy ASP.Net Core app to Azure Web App - bdsagroup31razor
+
 on:
   push:
     branches:
       - main
+
 env:
-  WEBAPP_NAME: bdsagroup31chirprazor
-  WEBAPP_PACKAGE_PATH: src/Chirp.Razor/published
+  WEBAPP_NAME: bdsagroup31chirprazor  # Name of your Azure Web App
+  WEBAPP_PACKAGE_PATH: src/Chirp.Razor/published  # Output path for published files
   CONFIGURATION: Release
   DOTNET_VERSION: 8.0.x
-  DIRECTORY: src/Chirp.Razor
+  DIRECTORY: src/Chirp.Razor  # Project directory
 
 jobs:
   build:
@@ -16,16 +18,21 @@ jobs:
     
     steps:
       - uses: actions/checkout@v4
+      
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+      
       - name: Restore
         run: dotnet restore "${{ env.DIRECTORY }}"
+      
       - name: Build
         run: dotnet build "${{ env.DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore
+      
       - name: Publish
         run: dotnet publish "${{ env.DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.WEBAPP_PACKAGE_PATH }}"
+      
       - name: Publish Artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -35,14 +42,16 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: webapp
           path: ${{ env.WEBAPP_PACKAGE_PATH }}
+      
       - name: Deploy to Azure WebApp
-        uses: azure/webapps-deploy@v3
+        uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.WEBAPP_NAME }}
           publish-profile: ${{ secrets.PUBLISH_PROFILE }}
