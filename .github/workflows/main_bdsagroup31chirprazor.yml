@@ -7,7 +7,7 @@ env:
   WEBAPP_NAME: bdsagroup31chirprazor
   WEBAPP_PACKAGE_PATH: src/Chirp.Razor/published
   CONFIGURATION: Release
-  DOTNET_VERSION: 8.0.x
+  DOTNET_VERSION: 8.0.403
   DIRECTORY: src/Chirp.Razor
 
 jobs:
