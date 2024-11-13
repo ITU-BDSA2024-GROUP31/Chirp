@@ -13,6 +13,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     steps:
       - uses: actions/checkout@v4
       - name: Setup .NET SDK
@@ -41,7 +42,7 @@ jobs:
           name: webapp
           path: ${{ env.WEBAPP_PACKAGE_PATH }}
       - name: Deploy to Azure WebApp
-        uses: azure/webapps-deploy@v2
+        uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ env.WEBAPP_NAME }}
           publish-profile: ${{ secrets.PUBLISH_PROFILE }}
