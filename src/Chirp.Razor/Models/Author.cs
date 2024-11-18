@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System.Collections.Generic; 
+using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Chirp.Razor;
@@ -15,4 +16,5 @@ public class Author : IdentityUser<int>
 
 
     public List<Cheep> Cheeps { get; set; } = new List<Cheep>();
+    public HashSet<Author> Followers { get; set; } = new HashSet<Author>();
 }

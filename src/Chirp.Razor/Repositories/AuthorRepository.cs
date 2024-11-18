@@ -33,12 +33,24 @@ public class AuthorRepository : IAuthorRepository
                         Name = name,
                         Email = email,
                         Cheeps = cheeps
-                        
+
                 };
 
                 await _context.Authors.AddAsync(nwAuthor);
                 await _context.SaveChangesAsync();
 
                 return nwAuthor;
+        }
+
+        public async Task FollowAuthor(int followerId, int beingFollowedId)
+        {
+                var follower = await _context.Authors.FindAsync(followerId);
+                var beingFollowed = await _context.Authors.FindAsync(beingFollowedId);
+
+                if (follower != null && beingFollowed != null)
+                {
+                        beingFollowed.Followers.Add(follower);
+                        await _context.SaveChangesAsync();
+                }
         }
 }
