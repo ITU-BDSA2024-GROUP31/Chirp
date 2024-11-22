@@ -1,27 +1,15 @@
-namespace Chirp.Razor;
-
-public class CheepDto
+namespace Chirp.Razor
 {
-    public string Author;
-    public string Message;
-    public string Timestamp;
-    private string name;
-    private string text;
-    private DateTime timestamp;
-
-    public HashSet<Author> Followers { get; set; }
-
-    public CheepDto(string author, string message, DateTime timestamp, HashSet<Author> Followers)
+    public record CheepDto(string Author, string Message, string Timestamp, HashSet<Author> Followers)
     {
-        this.Author = author;
-        this.Message = message;
-        this.Timestamp = ConvertDateTimeToString(timestamp);
-        //this.Followers = Followers;
-    }
+        public CheepDto(string author, string message, DateTime timestamp, HashSet<Author> followers)
+            : this(author, message, ConvertDateTimeToString(timestamp), followers)
+        {
+        }
 
-    private string ConvertDateTimeToString(DateTime timestamp)
-    {
-        return timestamp.ToString("yyyy-MM-dd HH:mm:ss");
+        private static string ConvertDateTimeToString(DateTime timestamp)
+        {
+            return timestamp.ToString("yyyy-MM-dd HH:mm:ss");
+        }
     }
-
 }
