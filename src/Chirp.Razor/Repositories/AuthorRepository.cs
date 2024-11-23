@@ -1,56 +1,76 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
-namespace Chirp.Razor.Repositories;
-
-public class AuthorRepository : IAuthorRepository
+namespace Chirp.Razor.Repositories
 {
+    public class AuthorRepository : IAuthorRepository
+    {
         private readonly ChatDbContext _context;
 
         public AuthorRepository(ChatDbContext context)
         {
-                _context = context;
+            _context = context;
         }
 
         public async Task<Author?> FindAuthorByName(string userName)
         {
-                var author = await _context.Authors.Where(a => a.Name == userName).FirstOrDefaultAsync();
-
-                return author;
+            return await _context.Authors.FirstOrDefaultAsync(a => a.UserName == userName);
         }
 
         public async Task<Author?> FindAuthorByEmail(string email)
         {
-                var author = await _context.Authors.Where(a => a.Email == email).FirstOrDefaultAsync();
-
-                return author;
+            return await _context.Authors.FirstOrDefaultAsync(a => a.Email == email);
         }
 
         public async Task<Author> NewAuthor(int id, string name, string email, List<Cheep> cheeps)
         {
-                var nwAuthor = new Author()
-                {
-                        Id = id,
-                        Name = name,
-                        Email = email,
-                        Cheeps = cheeps
+            var nwAuthor = new Author
+            {
+                Id = id,
+                Name = name,
+                Email = email,
+                Cheeps = cheeps
+            };
 
+            await _context.Authors.AddAsync(nwAuthor);
+            await _context.SaveChangesAsync();
+
+            return nwAuthor;
+        }
+
+        public async Task FollowAuthor(int followerId, int followeeId)
+        {
+            var followee = await _context.Authors
+                .Include(a => a.Followers)
+                .FirstOrDefaultAsync(a => a.Id == followeeId);
+
+            var follower = await _context.Authors.FindAsync(followerId);
+
+            if (followee != null && follower != null && followerId != followeeId)
+            {
+                var followerRecord = new Follower
+                {
+                    FollowerId = followerId,
+                    FolloweeId = followeeId,
+                    FollowerAuthor = follower,
+                    FolloweeAuthor = followee
                 };
 
-                await _context.Authors.AddAsync(nwAuthor);
+                _context.Followers.Add(followerRecord);
                 await _context.SaveChangesAsync();
-
-                return nwAuthor;
+            }
         }
 
-        public async Task FollowAuthor(int followerId, int beingFollowedId)
+        public async Task UnfollowAuthor(int followerId, int followeeId)
         {
-                var follower = await _context.Authors.FindAsync(followerId);
-                var beingFollowed = await _context.Authors.FindAsync(beingFollowedId);
+            var followerRecord = await _context.Followers
+                .FirstOrDefaultAsync(f => f.FollowerId == followerId && f.FolloweeId == followeeId);
 
-                if (follower != null && beingFollowed != null)
-                {
-                        beingFollowed.Followers.Add(follower);
-                        await _context.SaveChangesAsync();
-                }
+            if (followerRecord != null)
+            {
+                _context.Followers.Remove(followerRecord);
+                await _context.SaveChangesAsync();
+            }
         }
+    }
 }

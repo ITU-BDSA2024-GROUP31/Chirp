@@ -14,4 +14,27 @@ public class ChatDbContext : IdentityDbContext<Author, IdentityRole<int>, int>
     public ChatDbContext(DbContextOptions<ChatDbContext> options) : base(options)
     {
     }
+
+    
+        public DbSet<Follower> Followers { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<Follower>()
+                .HasKey(f => new { f.FollowerId, f.FolloweeId });
+
+            builder.Entity<Follower>()
+                .HasOne(f => f.FollowerAuthor)
+                .WithMany(a => a.Following)
+                .HasForeignKey(f => f.FollowerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Follower>()
+                .HasOne(f => f.FolloweeAuthor)
+                .WithMany(a => a.Followers)
+                .HasForeignKey(f => f.FolloweeId)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
 }

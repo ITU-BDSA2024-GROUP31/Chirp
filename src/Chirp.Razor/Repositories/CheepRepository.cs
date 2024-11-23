@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Chirp.Razor.Repositories
 {
@@ -14,13 +14,16 @@ namespace Chirp.Razor.Repositories
             _context = context;
         }
 
-        public async Task<List<CheepDto>> ReadCheepsFromAuthor(string userName)
+        public async Task<List<CheepDto>> GetCheepsByUserName(string userName)
         {
             var cheeps = await _context.Cheeps
                 .Include(c => c.Author)
-                .Where(c => c.Author.Name == userName)
+                .Where(c => c.Author.UserName == userName)
                 .OrderByDescending(c => c.Timestamp)
-                .Select(c => new CheepDto(c.Author.Name, c.Text, c.Timestamp, c.Author.Followers))
+                .Select(c => new CheepDto(
+                    new AuthorDto(c.Author.Id, c.Author.Name, c.Author.Email ?? string.Empty),
+                    c.Text,
+                    c.Timestamp))
                 .ToListAsync();
 
             return cheeps;
@@ -31,7 +34,41 @@ namespace Chirp.Razor.Repositories
             var cheeps = await _context.Cheeps
                 .Include(c => c.Author)
                 .OrderByDescending(c => c.Timestamp)
-                .Select(c => new CheepDto(c.Author.Name, c.Text, c.Timestamp, c.Author.Followers))
+                .Select(c => new CheepDto(
+                    new AuthorDto(c.Author.Id, c.Author.Name, c.Author.Email ?? string.Empty),
+                    c.Text,
+                    c.Timestamp))
+                .ToListAsync();
+
+            return cheeps;
+        }
+
+        public async Task<List<CheepDto>> AddCheepAsync(Author author, Cheep newCheep)
+        {
+            author.Cheeps.Add(newCheep);
+            await _context.Cheeps.AddAsync(newCheep);
+            await _context.SaveChangesAsync();
+
+            var cheepList = author.Cheeps
+                .Select(c => new CheepDto(
+                    new AuthorDto(c.Author.Id, c.Author.Name, c.Author.Email ?? string.Empty),
+                    c.Text,
+                    c.Timestamp))
+                .ToList();
+
+            return cheepList;
+        }
+
+        public async Task<List<CheepDto>> ReadCheepsFromAuthor(string authorName)
+        {
+            var cheeps = await _context.Cheeps
+                .Include(c => c.Author)
+                .Where(c => c.Author.Name == authorName)
+                .OrderByDescending(c => c.Timestamp)
+                .Select(c => new CheepDto(
+                    new AuthorDto(c.Author.Id, c.Author.Name, c.Author.Email ?? string.Empty),
+                    c.Text,
+                    c.Timestamp))
                 .ToListAsync();
 
             return cheeps;
@@ -39,25 +76,14 @@ namespace Chirp.Razor.Repositories
 
         public async Task<List<CheepDto>> NewCheep(string text, string userName)
         {
-
             var author = await _context.Authors
                 .Include(a => a.Cheeps)
-                .FirstOrDefaultAsync(a => a.Name == userName);
+                .FirstOrDefaultAsync(a => a.UserName == userName);
 
             if (author == null)
             {
-
-                author = new Author
-                {
-                    Name = userName,
-                    Email = null,
-                    Cheeps = new List<Cheep>()
-                };
-
-                await _context.Authors.AddAsync(author);
-                await _context.SaveChangesAsync();
+                throw new Exception("Author not found");
             }
-
 
             var newCheep = new Cheep
             {
@@ -67,38 +93,18 @@ namespace Chirp.Razor.Repositories
                 Timestamp = DateTime.Now
             };
 
-
-            author.Cheeps.Add(newCheep);
-
-
-            await _context.Cheeps.AddAsync(newCheep);
-
-
-            await _context.SaveChangesAsync();
-
-
-            var cheepList = author.Cheeps
-                .Select(c => new CheepDto(c.Author.Name, c.Text, c.Timestamp, c.Author.Followers))
-                .ToList();
-
-            return cheepList;
-        }
-        public async Task<List<CheepDto>> AddCheepAsync(Author author, Cheep newCheep)
-        {
             author.Cheeps.Add(newCheep);
             await _context.Cheeps.AddAsync(newCheep);
             await _context.SaveChangesAsync();
 
             var cheepList = author.Cheeps
                 .Select(c => new CheepDto(
-                    c.Author.Name,
+                    new AuthorDto(c.Author.Id, c.Author.Name, c.Author.Email ?? string.Empty),
                     c.Text,
-                    c.Timestamp,
-                    c.Author.Followers))
+                    c.Timestamp))
                 .ToList();
 
             return cheepList;
         }
-
     }
 }

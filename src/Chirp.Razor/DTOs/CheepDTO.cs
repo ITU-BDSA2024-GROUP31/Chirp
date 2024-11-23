@@ -1,9 +1,9 @@
 namespace Chirp.Razor
 {
-    public record CheepDto(string Author, string Message, string Timestamp, HashSet<Author> Followers)
+    public record CheepDto(AuthorDto Author, string Message, string Timestamp)
     {
-        public CheepDto(string author, string message, DateTime timestamp, HashSet<Author> followers)
-            : this(author, message, ConvertDateTimeToString(timestamp), followers)
+        public CheepDto(AuthorDto author, string message, DateTime timestamp)
+            : this(author, message, ConvertDateTimeToString(timestamp))
         {
         }
 

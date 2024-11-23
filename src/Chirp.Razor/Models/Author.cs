@@ -12,9 +12,11 @@ public class Author : IdentityUser<int>
     public string Name { get; set; }
 
     [StringLength(254)]
-    public string? Email { get; set; }
+    public new string? Email { get; set; } 
 
 
     public List<Cheep> Cheeps { get; set; } = new List<Cheep>();
-    public HashSet<Author> Followers { get; set; } = new HashSet<Author>();
+    public ICollection<Follower> Followers { get; set; } = new List<Follower>();
+    public ICollection<Follower> Following { get; set; } = new List<Follower>();
+
 }
