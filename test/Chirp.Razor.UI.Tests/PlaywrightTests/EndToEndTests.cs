@@ -1,60 +1,55 @@
 using System.Diagnostics;
-using System.Net.Http;
 using System.Text.RegularExpressions;
 using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
 
+
 namespace PlaywrightTests;
-[Parallelizable(ParallelScope.Self)]
+
+[Parallelizable(ParallelScope.None)]
 [TestFixture]
-public class Tests : PageTest
+
+/*
+ * Setup and Cleanup methods are adapted from the following source:
+ * https://github.com/ITU-BDSA2024-GROUP21/Chirp/blob/main/test/Chirp.Razor.Tests/PlaywrightTests/UIEnd2EndTest.cs
+ * 
+ * The cleanup method is modified to also kill any "dotnet" processes that may be running after the test is executed.
+ *
+ * Credit: Group 21, ITU BDSA 2024 Course
+ */ 
+
+public class EndToEndTests : PageTest
 {
     private Process _serverProcess;
-
-    [OneTimeSetUp]
-    public async Task StartServer()
+    protected IBrowser _browser;
+    public override BrowserNewContextOptions ContextOptions()
     {
-        _serverProcess = new Process
+        return new BrowserNewContextOptions
         {
-            StartInfo = new ProcessStartInfo
-            {
-                FileName = "dotnet",
-                Arguments = "run --project \"C:/Users/denni/OneDrive - ITU/GitHub/TwitterAnalysisDesign/Chirp/src/Chirp.Razor/Chirp.Razor.csproj\"",
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            }
+            IgnoreHTTPSErrors = true
         };
-        
-        /*_serverProcess = new Process
-        {
-            StartInfo = new ProcessStartInfo
-            {
-                FileName = "dotnet",
-                Arguments = "run --project \"C:/Users/denni/OneDrive - ITU/GitHub/TwitterAnalysisDesign/Chirp/src/Chirp.Razor/Chirp.Razor.csproj\"",
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            }
-        };*/
-
-        _serverProcess.Start();
     }
-    
-    
-    
-    
-    [OneTimeTearDown]
-    public void StopServer()
+    [SetUp]
+    public async Task Setup()
+    {
+        _serverProcess = await TestingUtilForServer.StartServer();
+        Thread.Sleep(1000); // Increase this if needed
+
+        _browser = await Playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions {Headless = true});
+
+    }
+
+    [TearDown]
+    public async Task Cleanup()
     {
         if (!_serverProcess.HasExited)
         {
-            _serverProcess.Kill();
-            _serverProcess.Dispose();
+            _serverProcess.Kill(true); // Forcefully kill the process and child processes.
+            await _serverProcess.WaitForExitAsync();
         }
+        _serverProcess?.Dispose();
     }
+
     
     // Minimize redundancy for now while we don't have a server to reset the database
     private async Task LoginHelper()
@@ -71,15 +66,15 @@ public class Tests : PageTest
     }
     
     // Minimize redundancy for now while we don't have a server to reset the database
-    private async Task LogginoutHelper()
-    {
-        var logoutLink = Page.GetByRole(AriaRole.Link, new() { Name = "Logout [Test123@itu.dk]" });
-        if (await logoutLink.IsVisibleAsync())
-        {
-            await logoutLink.ClickAsync();
-            await Page.GetByRole(AriaRole.Button, new() { Name = "Click here to Logout" }).ClickAsync();
-        }
-    }
+    // private async Task LogginoutHelper()
+    // {
+    //     var logoutLink = Page.GetByRole(AriaRole.Link, new() { Name = "Logout [Test123@itu.dk]" });
+    //     if (await logoutLink.IsVisibleAsync())
+    //     {
+    //         await logoutLink.ClickAsync();
+    //         await Page.GetByRole(AriaRole.Button, new() { Name = "Click here to Logout" }).ClickAsync();
+    //     }
+    // }
     
     
     [Test]
@@ -175,7 +170,7 @@ public class Tests : PageTest
     public async Task TestRegistering()
     {
         await Page.GotoAsync("http://localhost:5273/Account/Register");
-        
+
         await Page.GetByPlaceholder("Your Name").ClickAsync();
         await Page.GetByPlaceholder("Your Name").FillAsync("TheTester");
         await Page.GetByPlaceholder("name@example.com").ClickAsync();
@@ -185,12 +180,12 @@ public class Tests : PageTest
         await Page.GetByLabel("Confirm Password").ClickAsync();
         await Page.GetByLabel("Confirm Password").FillAsync("Test!123");
         await Page.GetByRole(AriaRole.Button, new() { Name = "Register" }).ClickAsync();
-        
-        // Expect 
+
+        // Expect
         await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "My Timeline" })).ToBeVisibleAsync();
-        
+
         await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "Public Timeline" })).ToBeVisibleAsync();
-        
+
         await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "Logout [Test123@itu.dk]" })).ToBeVisibleAsync();
         
     }*/
@@ -213,33 +208,23 @@ public class Tests : PageTest
     }
     
     
-    /*[Test]
+    [Test]
     public async Task TestCheepsInMyTimeLineAndPublic()
     {
         await LoginHelper();
-        
-        await Page.GetByRole(AriaRole.Link, new() { Name = "My Timeline" }).ClickAsync();
+
+        /*await Page.GetByRole(AriaRole.Link, new() { Name = "My Timeline" }).ClickAsync();
         await Page.Locator("#Message").ClickAsync();
-        await Page.Locator("#Message").FillAsync("2 hours in the gym #GymLife #GettingStrong\ud83d\udcaa");
+        await Page.Locator("#Message").FillAsync("6 hours in the gym #GymLife #GettingStrong💪");
         await Page.GetByRole(AriaRole.Button, new() { Name = "Share" }).ClickAsync();
-        
+
         await Page.GetByRole(AriaRole.Link, new() { Name = "My Timeline" }).ClickAsync();
-        
-        await Expect(Page.Locator("#messagelist")).ToContainTextAsync("Test123@itu.dk 2 hours in the gym #GymLife #GettingStrong💪 — 2024-11-12 21:37:13");
-        
+
+        await Expect(Page.Locator("#messagelist")).ToContainTextAsync("Test123@itu.dk 6 hours in the gym #GymLife #GettingStrong💪 — 2024-11-12 21:37:13");
+
         await Page.GetByRole(AriaRole.Link, new() { Name = "Public Timeline" }).ClickAsync();
-        
-        await Expect(Page.Locator("#messagelist")).ToContainTextAsync("Test123@itu.dk 2 hours in the gym #GymLife #GettingStrong💪 — 2024-11-12 21:37:13");
-        
-    }*/
-    
-    
-    
-    [Test]
-    public async Task TestAccountRecorvering()
-    {
-        
-        
+
+        await Expect(Page.Locator("#messagelist")).ToContainTextAsync("Test123@itu.dk 6 hours in the gym #GymLife #GettingStrong💪 — 2024-11-12 21:37:13");*/
+
     }
-    
 }
