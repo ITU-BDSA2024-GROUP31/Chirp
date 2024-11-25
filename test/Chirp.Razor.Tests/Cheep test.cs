@@ -30,10 +30,10 @@ public class Cheep_test : IDisposable
     [Fact]
     public void TestCheepInfo()
     {
-        
+        // Act
         var allCheeps =  _repository.ReadAllCheeps();
 
-        
+        // Assert
         Assert.NotNull(allCheeps);
         Assert.NotNull(_context.Authors);
 
@@ -45,29 +45,43 @@ public class Cheep_test : IDisposable
     public void TestNumOfCheepsForAuthor()
     {
         
-
-        foreach (var author in _context.Authors)
-        {
-            if (author.Name == "Helge")
-            {
-                Assert.True(author.Cheeps.Count == 1);
-            }
-        }
+        // Act
+        var author = _context.Authors.FirstOrDefault(a => a.Name == "Helge");
+        
+        // Assert
+        Assert.NotNull(author);
+        Assert.True(author.Cheeps.Count == 1);
+        
+        // foreach (var author in _context.Authors)
+        // {
+        //     if (author.Name == "Helge")
+        //     {
+        //         Assert.True(author.Cheeps.Count == 1);
+        //     }
+        // }
         
         Dispose();
 
     }
 
     [Fact]
-    public void testContentOfCheep()
+    public void TestContentOfCheep()
     {
-        foreach (var C in _context.Cheeps)
-        {
-            if (C.AuthorId == 11) 
-            {
-                Assert.True(C.Text == "Hello, BDSA students!");
-            }
-        }
+        
+        // Act
+        var cheep = _context.Cheeps.FirstOrDefault(c => c.AuthorId == 11);
+        
+        // Assert
+        Assert.NotNull(cheep);
+        Assert.Equal("Hello, BDSA students!", cheep.Text);
+        
+        // foreach (var C in _context.Cheeps)
+        // {
+        //     if (C.AuthorId == 11) 
+        //     {
+        //         Assert.True(C.Text == "Hello, BDSA students!");
+        //     }
+        // }
         
         Dispose();
         
