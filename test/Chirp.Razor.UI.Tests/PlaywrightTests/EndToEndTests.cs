@@ -1,15 +1,8 @@
 using System.Diagnostics;
 using System.Text.RegularExpressions;
-using Chirp.Razor;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
-using Microsoft.EntityFrameworkCore;
-using Chirp.Razor;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection; 
+
 
 namespace PlaywrightTests;
 
@@ -28,13 +21,7 @@ namespace PlaywrightTests;
 public class EndToEndTests : PageTest
 {
     private Process _serverProcess;
-    protected IBrowser _browser;
-    private IServiceProvider _serviceProvider;
-    private ChatDbContext _context;
-    private UserManager<Author> _userManager;
-    private readonly DbContextOptions<ChatDbContext> _options = new DbContextOptionsBuilder<ChatDbContext>()
-        .UseInMemoryDatabase("TestDatabase")
-        .Options;
+    private IBrowser _browser;
     
     public override BrowserNewContextOptions ContextOptions()
     {
@@ -53,58 +40,20 @@ public class EndToEndTests : PageTest
         Thread.Sleep(1000); // Increase this if needed
 
         _browser = await Playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions {Headless = true});
-        
-        // Create a service collection and configure in-memory database
-        var services = new ServiceCollection();
-        
-        services.AddLogging();
-
-        // Add DbContext with in-memory database
-        services.AddDbContext<ChatDbContext>(options =>
-            options.UseInMemoryDatabase("TestDatabase"));
-
-        // Add Identity
-        services.AddIdentity<Author, IdentityRole<int>>()
-            .AddEntityFrameworkStores<ChatDbContext>()
-            .AddDefaultTokenProviders();
-
-        // Build the service provider
-        _serviceProvider = services.BuildServiceProvider();
-
-        // Resolve the DbContext and UserManager
-        _context = _serviceProvider.GetRequiredService<ChatDbContext>();
-        _userManager = _serviceProvider.GetRequiredService<UserManager<Author>>();
-
-        // Ensure the database is created and seed it
-        await _context.Database.EnsureCreatedAsync();
-        await DbInitializer.SeedDatabase(_context, _userManager);
-
     }
     
     
     [TearDown]
     public async Task Cleanup()
     {
-
-
-        if (_context != null)
+        if (!_serverProcess.HasExited)
         {
             _serverProcess.Kill(true); // Forcefully kill the process and child processes.
             await _serverProcess.WaitForExitAsync();
+            
+            await _browser.DisposeAsync();
 
-            await _context.Database.EnsureDeletedAsync();
-            await _context.DisposeAsync();
             _serverProcess.Dispose();
-        }
-
-        if (_userManager is IDisposable disposableUserManager)
-        {
-            disposableUserManager.Dispose();
-        }
-
-        if (_serviceProvider is IDisposable disposableServiceProvider)
-        {
-            disposableServiceProvider.Dispose();
         }
         
     }
@@ -238,6 +187,8 @@ public class EndToEndTests : PageTest
     
     
     // Registering a dummy user to use for login test and future tests
+    // Cant test this without a delete info button since once we test the test dummy is alreay in the database
+    // We need to delete the dummy user from the database after each test 
     /*[Test]
     public async Task TestRegistering()
     {
@@ -263,7 +214,8 @@ public class EndToEndTests : PageTest
         
         await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "Logout [Debug123@itu.dk]" })).ToBeVisibleAsync();
         
-    }*/
+    }
+    */
     
     [Test]
     public async Task TestingIfWeSuccefullyLoggedInByCheckingUi()
@@ -317,7 +269,8 @@ public class EndToEndTests : PageTest
 
     }
     
-    
+    // Need to make a delete cheep button since every time we run dotnet test we add the same cheep to the database
+    // We need to delete the cheep from the database after each test
     [Test]
     public async Task TestCheepsInMyTimeLineAndPublic()
     {
@@ -330,11 +283,11 @@ public class EndToEndTests : PageTest
         
         await Page.GetByRole(AriaRole.Button, new() { Name = "Share" }).ClickAsync();
         
-        await Expect(Page.Locator("li").Filter(new() { HasText = "Debug123@itu.dk Motivated — 2024-11-24 19:51:" })).ToBeVisibleAsync();
+        await Expect(Page.Locator("li").Filter(new() { HasText = "Debug123@itu.dk Motivated — 2024-11-26 14:40:02" })).ToBeVisibleAsync();
         
         await Page.GetByRole(AriaRole.Link, new() { Name = "My Timeline" }).ClickAsync();
         
-        await Expect(Page.Locator("li").Filter(new() { HasText = "Debug123@itu.dk Motivated — 2024-11-24 19:51:" })).ToBeVisibleAsync();
+        await Expect(Page.Locator("li").Filter(new() { HasText = "Debug123@itu.dk Motivated — 2024-11-26 14:40:02" })).ToBeVisibleAsync();
         
         
     }
