@@ -7,8 +7,7 @@ namespace Chirp.Razor;
 public class Author : IdentityUser<int>
 {
     [StringLength(254)]
-    [Required]
-    public string Name { get; set; }
+    public required string Name { get; set; }
 
     [StringLength(254)]
     public string? Email { get; set; }

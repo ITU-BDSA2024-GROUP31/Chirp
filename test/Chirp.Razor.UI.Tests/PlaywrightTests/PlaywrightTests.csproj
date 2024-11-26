@@ -23,4 +23,8 @@
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Chirp.Razor\Chirp.Razor.csproj" />
+  </ItemGroup>
+
 </Project>

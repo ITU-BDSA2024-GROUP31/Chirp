@@ -3,6 +3,8 @@ run-name: ${{ github.actor }} is running ${{ github.workflow }}
 on:
   push:
     branches: [ main ]
+    
+  workflow_dispatch:
   pull_request:
     branches: [ main ]
 jobs:
