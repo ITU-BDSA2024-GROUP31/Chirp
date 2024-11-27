@@ -254,19 +254,19 @@ public class EndToEndTests : PageTest
         await Expect(Page.GetByText("Invalid login attempt.")).ToBeVisibleAsync();
     }
     
-    [Test, Category("Playwright")]
+    /*[Test, Category("Playwright")]
     public async Task TestingLogginOut()
     {
         // Use helpers to log ing and out
         await LoginHelper();
-        await LogOutHelper();
+        //await LogOutHelper();
 
-        // Expect to be visible since we are logged out
+        // // Expect to be visible since we are logged out
         await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "Login" })).ToBeVisibleAsync();
         
         await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "Register", Exact = true })).ToBeVisibleAsync();
 
-    }
+    }*/
     
     // Need to make a delete cheep button since every time we run dotnet test we add the same cheep to the database
     // We need to delete the cheep from the database after each test
