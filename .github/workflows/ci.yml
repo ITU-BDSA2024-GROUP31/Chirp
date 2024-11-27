@@ -20,17 +20,14 @@ jobs:
         with:
           dotnet-version: 8.0.401
 
-      - name: Install Playwright CLI for .NET
-        run: dotnet tool install --global Microsoft.Playwright.CLI
-
-      - name: Install Playwright Browsers
-        run: playwright install --force
-
       - name: Restore dependencies
         run: dotnet restore
 
       - name: Build the project
-        run: dotnet build --no-restore
+        run: dotnet build
+
+      - name: Install Playwright Browsers
+        run: playwright install --force
 
       - name: Run Playwright Tests
         run: dotnet test --no-build --verbosity normal
