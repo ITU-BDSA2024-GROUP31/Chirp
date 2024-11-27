@@ -41,6 +41,7 @@ namespace Chirp.Razor.Pages
 
         public async Task<IActionResult> OnPostFollow(int followeeId)
         {
+            //var followerId = CurrentUser?.Id;
             var followerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "0");
             await _authorRepository.FollowAuthor(followerId, followeeId);
             return RedirectToPage(new { author = Author?.Name });
@@ -48,6 +49,7 @@ namespace Chirp.Razor.Pages
 
         public async Task<IActionResult> OnPostUnfollow(int followeeId)
         {
+            //var followerId = CurrentUser?.Id;
             var followerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "0");
             await _authorRepository.UnfollowAuthor(followerId, followeeId);
             return RedirectToPage(new { author = Author?.Name });
