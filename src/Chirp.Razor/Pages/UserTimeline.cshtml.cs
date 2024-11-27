@@ -31,7 +31,7 @@ namespace Chirp.Razor.Pages
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> OnGetAsync(string author, [FromQuery] int page = 1)
+        public async Task<IActionResult> OnGet(string author, [FromQuery] int page = 1)
         {
             Author = await _authorRepository.FindAuthorByName(author);
             Cheeps = _service.GetCheepsFromAuthor(author, page);
@@ -39,14 +39,14 @@ namespace Chirp.Razor.Pages
             return Page();
         }
 
-        public async Task<IActionResult> OnPostFollowAsync(int followeeId)
+        public async Task<IActionResult> OnPostFollow(int followeeId)
         {
             var followerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "0");
             await _authorRepository.FollowAuthor(followerId, followeeId);
             return RedirectToPage(new { author = Author?.Name });
         }
 
-        public async Task<IActionResult> OnPostUnfollowAsync(int followeeId)
+        public async Task<IActionResult> OnPostUnfollow(int followeeId)
         {
             var followerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "0");
             await _authorRepository.UnfollowAuthor(followerId, followeeId);

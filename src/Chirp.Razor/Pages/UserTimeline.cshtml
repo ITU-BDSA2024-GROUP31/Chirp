@@ -9,9 +9,10 @@
 <div>
     <h2> @routeName's Timeline </h2>
     @{
-        if (User.Identity?.IsAuthenticated ?? false && User.Identity.Name != Model.Author?.Name)
+        if ((User.Identity?.IsAuthenticated ?? false) && !routeName.Equals(Model.CurrentUser?.Name ?? string.Empty)) 
         {
             <text>Current user is not viewing their own timeline.</text>
+          
             if (Model.CurrentUser?.Following.Any(f => f.FolloweeAuthor.Name == routeName) ?? false)
             {
                 <form method="post" asp-page-handler="Unfollow">
@@ -19,7 +20,7 @@
                     <button type="submit">Unfollow</button>
                 </form>
             }
-            else
+            else 
             {
                 <form method="post" asp-page-handler="Follow">
                     <input type="hidden" name="followeeId" value="@Model.Author?.Id" />
