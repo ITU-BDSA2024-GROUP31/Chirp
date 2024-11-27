@@ -1,9 +1,9 @@
 name: Build and test application
 run-name: ${{ github.actor }} is running ${{ github.workflow }}
-
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
   pull_request:
     branches: [ main ]
 
@@ -12,25 +12,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up .NET
+      - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.401
 
-      - name: Install Playwright CLI for .NET
-        run: dotnet tool install --global Microsoft.Playwright.CLI
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Build the project
-        run: dotnet build
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
 
-      - name: Install Playwright Browsers
-        run: dotnet playwright install
+      - name: Build
+        run: dotnet build --no-restore
 
-      - name: Run Playwright Tests
+      - name: Test
         run: dotnet test --no-build --verbosity normal
