@@ -40,14 +40,15 @@ namespace Chirp.Razor.Repositories
 
         public async Task FollowAuthor(int followerId, int followeeId)
         {
+            if (followerId == followeeId) return;
+
             var followee = await _context.Authors
                 .Include(a => a.Followers)
                 .FirstOrDefaultAsync(a => a.Id == followeeId);
 
             var follower = await _context.Authors.FindAsync(followerId);
 
-            if (followee != null && follower != null && followerId != followeeId)
-            {
+            
                 var followerRecord = new Follower
                 {
                     FollowerId = followerId,
@@ -58,7 +59,7 @@ namespace Chirp.Razor.Repositories
 
                 _context.Followers.Add(followerRecord);
                 await _context.SaveChangesAsync();
-            }
+            
         }
 
         public async Task UnfollowAuthor(int followerId, int followeeId)
