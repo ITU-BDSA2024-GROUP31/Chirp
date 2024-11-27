@@ -1,5 +1,6 @@
 name: Build and test application
 run-name: ${{ github.actor }} is running ${{ github.workflow }}
+
 on:
   push:
     branches: [ main ]
@@ -19,19 +20,20 @@ jobs:
         with:
           dotnet-version: 8.0.401
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+      - name: Install Playwright CLI for .NET
+        run: dotnet tool install --global Microsoft.Playwright.CLI
+
+      - name: Add .NET tools to PATH
+        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
 
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps
-
-      - name: Build
+      - name: Build the project
         run: dotnet build --no-restore
 
-      - name: Test
+      - name: Install Playwright Browsers for .NET
+        run: dotnet playwright install
+
+      - name: Run Playwright Tests
         run: dotnet test --no-build --verbosity normal
