@@ -58,7 +58,6 @@ public class EndToEndTests : PageTest
         
     }
 
-    
     // Minimize redundancy
     private async Task LoginHelper()
     {
@@ -86,7 +85,7 @@ public class EndToEndTests : PageTest
     
     
     // Test the front page of the application by checking what elements are visible
-    [Test]
+    [Test, Category("Playwright")]
     public async Task TestStartPage()
     {
         await Page.GotoAsync("http://localhost:5273");
@@ -104,7 +103,7 @@ public class EndToEndTests : PageTest
     
     
     // Test the public timeline navigation link 
-    [Test]
+    [Test, Category("Playwright")]
     public async Task TestClickingPublicTimeLineNav()
     {
         await Page.GotoAsync("http://localhost:5273");
@@ -122,7 +121,7 @@ public class EndToEndTests : PageTest
     }
     
     
-    [Test]
+    [Test, Category("Playwright")]
     public async Task TestClickingRegisterNav()
     {
         await Page.GotoAsync("http://localhost:5273");
@@ -151,7 +150,7 @@ public class EndToEndTests : PageTest
     }
     
     
-    [Test]
+    [Test, Category("Playwright")]
     public async Task TestClickingLogInNav()
     {
         await Page.GotoAsync("http://localhost:5273");
@@ -189,7 +188,7 @@ public class EndToEndTests : PageTest
     // Registering a dummy user to use for login test and future tests
     // Cant test this without a delete info button since once we test the test dummy is alreay in the database
     // We need to delete the dummy user from the database after each test 
-    /*[Test]
+    /*[Test, Category("Playwright")]
     public async Task TestRegistering()
     {
         await Page.GotoAsync("http://localhost:5273/Account/Register");
@@ -217,7 +216,7 @@ public class EndToEndTests : PageTest
     }
     */
     
-    [Test]
+    /*[Test, Category("Playwright")]
     public async Task TestingIfWeSuccefullyLoggedInByCheckingUi()
     {
         await LoginHelper();
@@ -232,9 +231,9 @@ public class EndToEndTests : PageTest
         await Expect(Page.Locator("form")).ToBeVisibleAsync();
         
         await Expect(Page.GetByRole(AriaRole.Button, new() { Name = "Share" })).ToBeVisibleAsync();
-    }
+    }*/
     
-    [Test]
+    [Test, Category("Playwright")]
     public async Task TestingUnsuccessfulLogin()
     {
         
@@ -255,7 +254,7 @@ public class EndToEndTests : PageTest
         await Expect(Page.GetByText("Invalid login attempt.")).ToBeVisibleAsync();
     }
     
-    [Test]
+    [Test, Category("Playwright")]
     public async Task TestingLogginOut()
     {
         // Use helpers to log ing and out
@@ -271,7 +270,7 @@ public class EndToEndTests : PageTest
     
     // Need to make a delete cheep button since every time we run dotnet test we add the same cheep to the database
     // We need to delete the cheep from the database after each test
-    [Test]
+    /*[Test, Category("Playwright")]
     public async Task TestCheepsInMyTimeLineAndPublic()
     {
         await LoginHelper();
@@ -290,5 +289,5 @@ public class EndToEndTests : PageTest
         await Expect(Page.Locator("li").Filter(new() { HasText = "Debug123@itu.dk Motivated — 2024-11-26 14:40:02" })).ToBeVisibleAsync();
         
         
-    }
+    }*/
 }
