@@ -121,7 +121,7 @@ namespace Chirp.Web.Areas.Identity.Pages.Account
             {
                 var user = new Author
                 {
-                    UserName = Input.Email,
+                    UserName = Input.Name,
                     Name = Input.Name,
                     Email = Input.Email,
                 };

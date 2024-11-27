@@ -75,7 +75,7 @@ namespace Chirp.Infrastructure.Database
                 {
                     Id = 11,
                     Name = "Helge",
-                    UserName = "ropf@itu.dk",
+                    UserName = "Helge",
                     Email = "ropf@itu.dk",
                     Cheeps = new List<Cheep>()
                 };
@@ -86,7 +86,7 @@ namespace Chirp.Infrastructure.Database
                 {
                     Id = 12,
                     Name = "Adrian",
-                    UserName = "adho@itu.dk",
+                    UserName = "Adrian",
                     Email = "adho@itu.dk",
                     Cheeps = new List<Cheep>()
                 };
