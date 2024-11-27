@@ -1,4 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Chirp.Core.Entities;
+using Chirp.Core.RepositoryInterfaces;
+using Chirp.Infrastructure.Database;
 
 namespace Chirp.Infrastructure.Repositories;
 

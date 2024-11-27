@@ -1,4 +1,5 @@
-namespace Chirp.Razor.Tests;
+using Chirp.Core.DTOs;
+namespace Chirp.Tests;
 
 public class CheepDtoUnitTests
 {

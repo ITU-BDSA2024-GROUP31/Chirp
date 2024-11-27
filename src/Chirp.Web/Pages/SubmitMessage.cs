@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Chirp.Infrastructure.Services;
 using System.ComponentModel.DataAnnotations;
 
 
-namespace Chirp.Razor.Pages;
+namespace Chirp.Web.Pages;
 
 public class SubmitMessageModel : PageModel
 {

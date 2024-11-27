@@ -1,4 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using Chirp.Core.Entities;
+using Chirp.Core.RepositoryInterfaces;
+using Chirp.Core.DTOs;
+using Chirp.Infrastructure.Database;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;

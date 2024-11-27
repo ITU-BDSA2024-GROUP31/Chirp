@@ -1,5 +1,5 @@
 ﻿namespace Chirp.Core.RepositoryInterfaces;
-using Chirp.Core;
+using Chirp.Core.Entities;
 
 public interface IAuthorRepository
 {

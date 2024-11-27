@@ -1,12 +1,24 @@
-using Chirp.Infrastructure.Repositories;
+using Chirp.Core.Entities;
+using Chirp.Core.RepositoryInterfaces;
+using Chirp.Core.DTOs;
+using System.Collections.Generic;
 
-namespace Chirp.Infrastructure
+namespace Chirp.Infrastructure.Services
 {
+    public interface ICheepService
+    {
+        List<CheepDto> GetCheeps(int page);
+        List<CheepDto> GetCheepsFromAuthor(string author, int page);
+        List<CheepDto> CreateNewCheep(string text, string userName);
+        Author? GetAuthorByName(string name);
+        Author? GetAuthorByEmail(string email);
+        Author CreateNewAuthor(int id, string name, string email, List<Cheep> cheeps);
+    }
+
     public class CheepService : ICheepService
     {
         private readonly ICheepRepository _cheepRepository;
         private readonly IAuthorRepository _authorRepository;
-
         private const int PageSize = 32;
 
         public CheepService(ICheepRepository cheepRepository, IAuthorRepository authorRepository)
@@ -46,6 +58,5 @@ namespace Chirp.Infrastructure
         {
             return _authorRepository.NewAuthor(id, name, email, cheeps).Result;
         }
-
     }
 }

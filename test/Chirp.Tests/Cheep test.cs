@@ -1,10 +1,12 @@
-using Chirp.Razor.Repositories;
+using Chirp.Infrastructure.Repositories;
+using Chirp.Core.RepositoryInterfaces;
+using Chirp.Infrastructure.Database;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
-namespace Chirp.Razor.Tests;
+namespace Chirp.Tests;
 
 public class Cheep_test : IDisposable
 {

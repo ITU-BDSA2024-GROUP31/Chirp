@@ -2,9 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Chirp.Core.Entities;
 
-
-namespace Chirp.Razor;
+namespace Chirp.Infrastructure.Database;
 
 public class ChatDbContext : IdentityDbContext<Author, IdentityRole<int>, int>
 {

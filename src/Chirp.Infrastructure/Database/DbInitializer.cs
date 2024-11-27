@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Identity;
+using Chirp.Core.Entities;
 using System;
 
-namespace Chirp.Razor
+namespace Chirp.Infrastructure.Database
 {
     public static class DbInitializer
     {

@@ -1,4 +1,6 @@
-﻿namespace Chirp.Infrastructure.Migrations
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+
+namespace Chirp.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class InitialIdentityMigration : Migration
