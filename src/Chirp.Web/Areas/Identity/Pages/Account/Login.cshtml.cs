@@ -8,7 +8,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+<<<<<<< Updated upstream
 using Chirp.Web.Pages;
+=======
+using Chirp.Core.Entities;
+>>>>>>> Stashed changes
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -16,7 +20,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace Chirp.Razor.Areas.Identity.Pages.Account
+namespace Chirp.Web.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
