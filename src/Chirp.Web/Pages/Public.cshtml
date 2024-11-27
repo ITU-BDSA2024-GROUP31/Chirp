@@ -1,5 +1,5 @@
 ﻿@page "/"
-@model Chirp.Razor.Pages.PublicModel
+@model Chirp.Web.Pages.PublicModel
 @{
     ViewData["Title"] = "Chirp!";
     Layout = "Shared/_Layout";
@@ -9,37 +9,37 @@
     @{
         if (User.Identity?.IsAuthenticated ?? false)
         {
-        <div class="cheepbox">
-            <h3>What's on your mind?</h3>
-            <form asp-page="SubmitMessage" method="post">
-                
-                <textarea asp-for="Message"></textarea>
-                <span asp-validation-for="Message"></span>
-         
-                <input required type="submit" value="Share" />
-            </form>
-        </div>
+            <div class="cheepbox">
+                <h3>What's on your mind?</h3>
+                <form asp-page="SubmitMessage" method="post">
+
+                    <textarea asp-for="Message"></textarea>
+                    <span asp-validation-for="Message"></span>
+
+                    <input required type="submit" value="Share" />
+                </form>
+            </div>
         }
     }
     @if (Model.Cheeps.Any())
     {
-    <ul id="messagelist" class="cheeps">
-        @foreach (var cheep in Model.Cheeps)
+        <ul id="messagelist" class="cheeps">
+            @foreach (var cheep in Model.Cheeps)
             {
-        <li>
-            <p>
-                <strong>
-                    <a href="/@cheep.Author">@cheep.Author</a>
-                </strong>
-                @cheep.Message
-                <small>&mdash; @cheep.Timestamp</small>
-            </p>
-        </li>
+                <li>
+                    <p>
+                        <strong>
+                            <a href="/@cheep.Author">@cheep.Author</a>
+                        </strong>
+                        @cheep.Message
+                        <small>&mdash; @cheep.Timestamp</small>
+                    </p>
+                </li>
             }
-    </ul>
+        </ul>
     }
     else
     {
-    <em>There are no cheeps so far.</em>
+        <em>There are no cheeps so far.</em>
     }
 </div>

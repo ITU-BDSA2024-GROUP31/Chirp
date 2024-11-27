@@ -23,7 +23,7 @@ using System.Security.Claims;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
-namespace Chirp.Razor.Areas.Identity.Pages.Account
+namespace Chirp.Web.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
@@ -124,28 +124,28 @@ namespace Chirp.Razor.Areas.Identity.Pages.Account
                     UserName = Input.Email,
                     Name = Input.Name,
                     Email = Input.Email,
-                }; 
-                var result = await _userManager.CreateAsync(user, Input.Password); 
-                
+                };
+                var result = await _userManager.CreateAsync(user, Input.Password);
+
                 if (result.Succeeded)
                 {
-                    var claim = new Claim("FullName", Input.Name); 
-                    await _userManager.AddClaimAsync(user, claim); 
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user); 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email", code); 
-                    await _signInManager.SignInAsync(user, isPersistent:false);
+                    var claim = new Claim("FullName", Input.Name);
+                    await _userManager.AddClaimAsync(user, claim);
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email", code);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
 
                     returnUrl = returnUrl ?? Url.Content($"~/{user.Name}");
                     return LocalRedirect(returnUrl);
                 }
 
-                foreach (var error in result.Errors) 
-                { 
+                foreach (var error in result.Errors)
+                {
                     ModelState.AddModelError(string.Empty, error.Description);
                     Console.WriteLine(error.Description);
-                } 
-            } 
-             return Page(); 
+                }
+            }
+            return Page();
         }
 
         private Author CreateUser()

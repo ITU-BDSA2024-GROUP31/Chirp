@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Chirp.Razor.Repositories;
+namespace Chirp.Infrastructure.Repositories;
 
 public class AuthorRepository : IAuthorRepository
 {
@@ -33,7 +33,7 @@ public class AuthorRepository : IAuthorRepository
                         Name = name,
                         Email = email,
                         Cheeps = cheeps
-                        
+
                 };
 
                 await _context.Authors.AddAsync(nwAuthor);

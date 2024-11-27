@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System.Collections.Generic; 
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Chirp.Razor;
+namespace Chirp.Core.Entities;
 
 public class Author : IdentityUser<int>
 {
