@@ -21,20 +21,9 @@ builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 
 // Configure the DbContext to use SQLite and Identity
-
-// Configure the DbContext to use SQLite for development and production,
-// and in-memory for testing
-if (builder.Environment.IsEnvironment("Testing"))
-{
-    builder.Services.AddDbContext<ChatDbContext>(options =>
-        options.UseInMemoryDatabase("TestDatabase"));
-    Console.WriteLine("Using InMemoryDatabase aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-}
-else
-{
-    builder.Services.AddDbContext<ChatDbContext>(options =>
+builder.Services.AddDbContext<ChatDbContext>(options =>
         options.UseSqlite(connectionString));
-}
+
 
 // Add Identity services
 builder.Services.AddDefaultIdentity<Author>(options =>
