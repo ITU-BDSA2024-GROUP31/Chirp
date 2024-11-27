@@ -1,33 +1,31 @@
 name: Build and test application
 run-name: ${{ github.actor }} is running ${{ github.workflow }}
-
 on:
   push:
     branches: [ main ]
+    
+  workflow_dispatch:
   pull_request:
     branches: [ main ]
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Check out code
-        uses: actions/checkout@v4
-
-      - name: Set up .NET
+      - uses: actions/checkout@v4
+      - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.401
-
+          
       - name: Restore dependencies
         run: dotnet restore
+        
+      - name: Build
+        run: dotnet build --no-restore
 
-      - name: Build the project
-        run: dotnet build
-
-      - name: Install Playwright Browsers
-        run: playwright install --force
-
-      - name: Run Playwright Tests
+      - name: Playwright
+        run: pwsh bin/Debug/netX/playwright.ps1 install
+        
+      - name: Test
         run: dotnet test --no-build --verbosity normal
