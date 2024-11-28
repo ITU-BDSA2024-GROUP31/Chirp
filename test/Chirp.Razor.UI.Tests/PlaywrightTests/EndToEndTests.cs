@@ -9,86 +9,14 @@ namespace PlaywrightTests;
 [Parallelizable(ParallelScope.None)]
 [TestFixture]
 
-/*
- * Setup and Cleanup methods are adapted from the following source:
- * https://github.com/ITU-BDSA2024-GROUP21/Chirp/blob/main/test/Chirp.Razor.Tests/PlaywrightTests/UIEnd2EndTest.cs
- * 
- * The cleanup method is modified to also kill any "dotnet" processes that may be running after the test is executed.
- *
- * Credit: Group 21, ITU BDSA 2024 Course
- */ 
-
-public class EndToEndTests : PageTest
+public class EndToEndTests : PlaywrightSetupTearDownUtil
 {
-    private Process _serverProcess;
-    private IBrowser _browser;
-    
-    public override BrowserNewContextOptions ContextOptions()
-    {
-        return new BrowserNewContextOptions
-        {
-            IgnoreHTTPSErrors = true
-        };
-    }
-    
-    
-    // TODO: Add a method to reset the database after each test and make the databse work for some reason it dosnt work
-    [SetUp]
-    public async Task Setup()
-    {
-        _serverProcess = await TestingUtilForServer.StartServer();
-        Thread.Sleep(1000); // Increase this if needed
-
-        _browser = await Playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions {Headless = true});
-    }
-    
-    
-    [TearDown]
-    public async Task Cleanup()
-    {
-        if (!_serverProcess.HasExited)
-        {
-            _serverProcess.Kill(true); // Forcefully kill the process and child processes.
-            await _serverProcess.WaitForExitAsync();
-            
-            await _browser.DisposeAsync();
-
-            _serverProcess.Dispose();
-        }
-        
-    }
-
-    // Minimize redundancy
-    private async Task LoginHelper()
-    {
-        await Page.GotoAsync("http://localhost:5273/Account/Login");
-
-        // Logging in with the user we registered
-        await Page.GetByPlaceholder("name@example.com").ClickAsync();
-        await Page.GetByPlaceholder("name@example.com").FillAsync("Debug123@itu.dk");
-        await Page.GetByPlaceholder("password").ClickAsync();
-        await Page.GetByPlaceholder("password").FillAsync("Debug123!");
-        await Page.GetByLabel("Remember me?").CheckAsync();
-        await Page.GetByRole(AriaRole.Button, new() { Name = "Log in" }).ClickAsync();
-    }
-    
-    
-    private async Task LogOutHelper()
-    {
-        var logoutLink = Page.GetByRole(AriaRole.Link, new() { Name = "Logout [Debug123@itu.dk]" });
-        if (await logoutLink.IsVisibleAsync())
-        {
-            await logoutLink.ClickAsync();
-            await Page.GetByRole(AriaRole.Button, new() { Name = "Click here to Logout" }).ClickAsync();
-        }
-    }
-    
     
     // Test the front page of the application by checking what elements are visible
     [Test, Category("Playwright")]
     public async Task TestStartPage()
     {
-        await Page.GotoAsync("http://localhost:5273");
+        await Page.GotoAsync("http://localhost:5273/");
         // Expect a title of string "Chirp".
         await Expect(Page).ToHaveTitleAsync("Chirp!");
         
@@ -97,7 +25,8 @@ public class EndToEndTests : PageTest
         
         // Expect not visible since we haven't logged in.
         await Expect(Page.Locator("My Timeline")).Not.ToBeVisibleAsync();
-        await Expect(Page.Locator("Logout")).Not.ToBeVisibleAsync();
+        await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "Logout [Debug]" })).Not.ToBeVisibleAsync();
+
     }
     
     
@@ -115,7 +44,7 @@ public class EndToEndTests : PageTest
         await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "Public Timeline" })).ToBeVisibleAsync();
         
         
-        // Expect Public Timeline url to include /.
+        // Expect Public Timeline url 
         await Expect(Page).ToHaveURLAsync(new Regex("http://localhost:5273/"));
         
     }
@@ -124,7 +53,7 @@ public class EndToEndTests : PageTest
     [Test, Category("Playwright")]
     public async Task TestClickingRegisterNav()
     {
-        await Page.GotoAsync("http://localhost:5273");
+        await Page.GotoAsync("http://localhost:5273/");
         
         // Navigating to the register page.
         await Page.GetByRole(AriaRole.Link, new() { Name = "Register" }).ClickAsync();
@@ -153,11 +82,14 @@ public class EndToEndTests : PageTest
     [Test, Category("Playwright")]
     public async Task TestClickingLogInNav()
     {
-        await Page.GotoAsync("http://localhost:5273");
+        await Page.GotoAsync("http://localhost:5273/");
         
         // Navigate to login page
 
         await Page.GetByRole(AriaRole.Link, new() { Name = "Login" }).ClickAsync();
+        await Page.GetByRole(AriaRole.Link, new() { Name = "Login" }).ClickAsync();
+
+        
         
         // Expect to be visible since we are on the login page
         
@@ -165,11 +97,9 @@ public class EndToEndTests : PageTest
         
         await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "Use a local account to log in." })).ToBeVisibleAsync();
         
-        await Expect(Page.GetByPlaceholder("name@example.com")).ToBeVisibleAsync();
+        await Expect(Page.GetByPlaceholder("Username")).ToBeVisibleAsync();
         
-        await Expect(Page.GetByPlaceholder("password")).ToBeVisibleAsync();
-        
-        await Expect(Page.GetByText("Remember me?")).ToBeVisibleAsync();
+        await Expect(Page.GetByLabel("Password", new() { Exact = true })).ToBeVisibleAsync();
         
         await Expect(Page.GetByRole(AriaRole.Button, new() { Name = "Log in" })).ToBeVisibleAsync();
         
@@ -191,47 +121,52 @@ public class EndToEndTests : PageTest
     /*[Test, Category("Playwright")]
     public async Task TestRegistering()
     {
+        Nav to register page
         await Page.GotoAsync("http://localhost:5273/Account/Register");
         
+        // Fill out register form
         await Page.GetByPlaceholder("Your Name").ClickAsync();
-        await Page.GetByPlaceholder("Your Name").FillAsync("DebugTest");
-        
+        await Page.GetByPlaceholder("Your Name").FillAsync("Debug");
         await Page.GetByPlaceholder("name@example.com").ClickAsync();
-        await Page.GetByPlaceholder("name@example.com").FillAsync("Debug123@itu.dk");
-        
+        await Page.GetByPlaceholder("name@example.com").FillAsync("Debug@itu.dk");
         await Page.GetByLabel("Password", new() { Exact = true }).ClickAsync();
         await Page.GetByLabel("Password", new() { Exact = true }).FillAsync("Debug123!");
-
         await Page.GetByLabel("Confirm Password").ClickAsync();
         await Page.GetByLabel("Confirm Password").FillAsync("Debug123!");
-        
         await Page.GetByRole(AriaRole.Button, new() { Name = "Register" }).ClickAsync();
         
+        // Expect to be visible since we registered
         await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "My Timeline" })).ToBeVisibleAsync();
-        
-        await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "Public Timeline" })).ToBeVisibleAsync();
-        
-        await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "Logout [Debug123@itu.dk]" })).ToBeVisibleAsync();
-        
-    }
-    */
+        await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "Logout [Debug]" })).ToBeVisibleAsync();
+        await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "What's on your mind, Debug?" })).ToBeVisibleAsync();
+        await Expect(Page.GetByRole(AriaRole.Button, new() { Name = "Share" })).ToBeVisibleAsync();
+    }*/
     
-    /*[Test, Category("Playwright")]
+    
+    [Test, Category("Playwright")]
     public async Task TestingIfWeSuccefullyLoggedInByCheckingUi()
     {
         await LoginHelper();
         
         // Expecting new elements since we are logged in
-        await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "Logout [Debug123@itu.dk]" })).ToBeVisibleAsync();
+        // Public timeline
+        await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "Logout [Debug]" })).ToBeVisibleAsync();
 
         await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "My Timeline" })).ToBeVisibleAsync();
         
         await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "What's on your mind?" })).ToBeVisibleAsync();
         
+        // User timeline
+        await Page.GetByRole(AriaRole.Link, new() { Name = "My Timeline" }).ClickAsync();
+
+        await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "Debug's Timeline" })).ToBeVisibleAsync();
+        
+        await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "What's on your mind, Debug?" })).ToBeVisibleAsync();
+        
         await Expect(Page.Locator("form")).ToBeVisibleAsync();
         
         await Expect(Page.GetByRole(AriaRole.Button, new() { Name = "Share" })).ToBeVisibleAsync();
-    }*/
+    }
     
     [Test, Category("Playwright")]
     public async Task TestingUnsuccessfulLogin()
@@ -240,34 +175,33 @@ public class EndToEndTests : PageTest
         await Page.GotoAsync("http://localhost:5273/Account/Login");
         
         // Fill out log in information with incorrect information 
-        await Page.GetByPlaceholder("name@example.com").ClickAsync();
-        
-        await Page.GetByPlaceholder("name@example.com").FillAsync("Gamer@itu.dk");
-        
+        await Page.GetByPlaceholder("Username").ClickAsync();
+        await Page.GetByPlaceholder("Username").FillAsync("Debug");
         await Page.GetByPlaceholder("password").ClickAsync();
-        
-        await Page.GetByPlaceholder("password").FillAsync("Gamer123");
-        
+        await Page.GetByPlaceholder("password").FillAsync("Debug1234!");
+        await Page.GetByLabel("Remember me?").CheckAsync();
         await Page.GetByRole(AriaRole.Button, new() { Name = "Log in" }).ClickAsync();
+        
         
         // Expect error mesage to be visible 
         await Expect(Page.GetByText("Invalid login attempt.")).ToBeVisibleAsync();
     }
     
-    /*[Test, Category("Playwright")]
+    [Test, Category("Playwright")]
     public async Task TestingLogginOut()
     {
         // Use helpers to log ing and out
         await LoginHelper();
-        //await LogOutHelper();
+        await LogOutHelper();
 
-        // // Expect to be visible since we are logged out
+        // Expect to be visible since we are logged out
         await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "Login" })).ToBeVisibleAsync();
         
         await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "Register", Exact = true })).ToBeVisibleAsync();
 
-    }*/
+    }
     
+    // Make this test to follow the new design of the application
     // Need to make a delete cheep button since every time we run dotnet test we add the same cheep to the database
     // We need to delete the cheep from the database after each test
     /*[Test, Category("Playwright")]
@@ -288,6 +222,14 @@ public class EndToEndTests : PageTest
         
         await Expect(Page.Locator("li").Filter(new() { HasText = "Debug123@itu.dk Motivated — 2024-11-26 14:40:02" })).ToBeVisibleAsync();
         
-        
     }*/
+    
+    // // Make end2end ui test from log in to logout 
+    // [Test, Category("Playwright")]
+    // public async Task TestEndToEnd()
+    // {
+    //     
+    //     
+    // }
+    
 }
