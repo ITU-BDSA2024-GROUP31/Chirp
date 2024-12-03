@@ -8,6 +8,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Chirp.Core\Chirp.Core.csproj" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10"/>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
   </ItemGroup>
   
 </Project>
