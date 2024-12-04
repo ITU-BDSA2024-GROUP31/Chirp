@@ -27,7 +27,6 @@ jobs:
       - name: Test
         run: dotnet test --no-build --verbosity normal --filter "TestCategory!=Playwright"
 
-
       # Build for Windows
       - name: Build Windows Executable
         run: dotnet publish src/Chirp.Razor/Chirp.Razor.csproj -c Release -r win-x64 --self-contained -o ./publish/windows/
