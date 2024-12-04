@@ -1,21 +1,26 @@
-﻿<!DOCTYPE html>
+﻿@using Chirp.Core.Entities
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>@ViewData["Title"]</title>
     <link href="/css/style.css" rel="stylesheet" type="text/css" />
     <link rel="icon" type="image/png" href="/favicon/favicon.ico">
 </head>
+
 <body>
-<div class=page>
-    <h1><img src="/images/icon1.png" alt="Icon1"/>Chirp!</h1>
+    <div class=page>
+        <h1><img src="/images/icon1.png" alt="Icon1" />Chirp!</h1>
 
         <div class=navigation>
             @if (User.Identity != null && User.Identity.IsAuthenticated)
             {
+                var userManager = Context.RequestServices.GetService(typeof(UserManager<Author>)) as UserManager<Author>;
+                var user = await userManager.GetUserAsync(User);
                 <div>
-                    <a href="/@(User.Identity.Name)">My Timeline</a> |
+                    <a href="/@user.Name">My Timeline</a> |
                     <a href="/">Public Timeline</a> |
-                    <a href="/Account/logout">Logout [@(User.Identity.Name)]</a>
+                    <a href="/Account/logout">Logout [@user.Name]</a>
                 </div>
             }
             else
@@ -28,14 +33,15 @@
             }
         </div>
 
-    <div class=body>
+        <div class=body>
             @RenderBody()
+        </div>
+        <div class=footer>
+            Chirp &mdash; An ASP.NET Application
+        </div>
     </div>
-    <div class=footer>
-        Chirp &mdash; An ASP.NET Application
-    </div>
-</div>
 
 </body>
 @await RenderSectionAsync("Scripts", required: false)
+
 </html>

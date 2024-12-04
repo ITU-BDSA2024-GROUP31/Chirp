@@ -2,6 +2,7 @@ using Chirp.Core.Entities;
 using Chirp.Core.RepositoryInterfaces;
 using Chirp.Core.DTOs;
 using System.Collections.Generic;
+using Chirp.Razor.Repositories;
 
 namespace Chirp.Infrastructure.Services
 {
