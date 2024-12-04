@@ -19,8 +19,10 @@ builder.Services.AddRazorPages();
 
 // Register your services
 builder.Services.AddScoped<ICheepService, CheepService>();
+builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+
 
 // Configure the DbContext to use SQLite and Identity
 builder.Services.AddDbContext<ChatDbContext>(options =>

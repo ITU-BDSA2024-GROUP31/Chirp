@@ -1,0 +1,37 @@
+﻿@page "/{userName}/UserInformation"
+@model Chirp.Web.Pages.UserInformationModel
+@{
+    ViewData["Title"] = "Chirp!";
+    Layout = "Shared/_Layout";
+}
+
+<h1>Stored information about you.</h1>
+<div>
+    @{
+        if (User.Identity?.IsAuthenticated ?? false)
+        {
+            <p>Username: @User.Identity?.Name</p>
+            <p>Email: @Model.Email </p>
+            <h2>Your cheeps</h2>
+            <ul id="messagelist" class="cheeps">
+                @foreach (var cheep in Model.Cheeps)
+                {
+                    <li>
+                        <p>
+                            <strong>
+                                <a href="/@cheep.Author">@cheep.Author</a>
+                            </strong>
+                            @cheep.Message
+                            <small>&mdash; @cheep.Timestamp</small>
+                        </p>
+                    </li>
+                }
+                </ul>
+        }
+        else
+        {
+            <p>Not authenticated</p>
+
+        }
+    }
+</div>
