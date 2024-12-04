@@ -1,14 +1,9 @@
-using Chirp.Web;
 using Chirp.Infrastructure.Repositories;
 using Chirp.Core.Entities;
 using Chirp.Infrastructure.Database;
 using Chirp.Infrastructure.Services;
 using Chirp.Core.RepositoryInterfaces;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,8 +19,10 @@ builder.Services.AddRazorPages();
 
 // Register your services
 builder.Services.AddScoped<ICheepService, CheepService>();
+builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+
 
 // Configure the DbContext to use SQLite and Identity
 builder.Services.AddDbContext<ChatDbContext>(options =>

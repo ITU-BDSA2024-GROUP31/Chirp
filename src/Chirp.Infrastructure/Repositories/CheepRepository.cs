@@ -71,7 +71,6 @@ namespace Chirp.Infrastructure.Repositories
                 Timestamp = DateTime.Now
             };
 
-
             author.Cheeps.Add(newCheep);
 
 
