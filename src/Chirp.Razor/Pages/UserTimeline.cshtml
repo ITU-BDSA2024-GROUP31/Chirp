@@ -9,50 +9,67 @@
 <div>
     <h2> @routeName's Timeline </h2>
     @{
-        if ((User.Identity?.IsAuthenticated ?? false) && !routeName.Equals(Model.CurrentUser?.Name ?? string.Empty)) 
+        if ((User.Identity?.IsAuthenticated ?? false) && !routeName.Equals(Model.CurrentUser?.Name ?? string.Empty))
         {
-            <text>Current user is not viewing their own timeline.</text>
-          
+        <text>Current user is not viewing their own timeline.</text>
+
             if (Model.CurrentUser?.Following.Any(f => f.FolloweeAuthor.Name == routeName) ?? false)
             {
-                <form method="post" asp-page-handler="Unfollow">
-                    <input type="hidden" name="followeeId" value="@Model.Author?.Id" />
-                    <button type="submit">Unfollow</button>
-                </form>
+        <form method="post" asp-page-handler="Unfollow">
+            <input type="hidden" name="followeeId" value="@Model.Author?.Id" />
+            <button type="submit">Unfollow</button>
+        </form>
             }
-            else 
+            else
             {
-                <form method="post" asp-page-handler="Follow">
-                    <input type="hidden" name="followeeId" value="@Model.Author?.Id" />
-                    <button type="submit">Follow</button>
-                </form>
+        <form method="post" asp-page-handler="Follow">
+            <input type="hidden" name="followeeId" value="@Model.Author?.Id" />
+            <button type="submit">Follow</button>
+        </form>
             }
         }
         else
         {
-            <text>Current user is viewing their own timeline.</text>
+        <text>Current user is viewing their own timeline.</text>
         }
-    }
+    } <!-- Debug Section: Display All Authors the Current User is Following -->
+    @if (Model.CurrentUser?.Following != null && Model.CurrentUser.Following.Any())
+{
+    <div>
+        <h3>People You Are Following:</h3>
+        <ul>
+            @foreach (var follow in Model.CurrentUser.Following)
+            {
+            <li>@follow.FolloweeAuthor?.Name ?? "Unknown" (@follow.FolloweeId)</li>
+            }
+        </ul>
+    </div>
+}
+else
+{
+    <p>You are not following anyone.</p>
+}
+
 
     @if (Model.Cheeps.Any())
     {
-        <ul id="messagelist" class="cheeps">
-            @foreach (var cheep in Model.Cheeps)
+    <ul id="messagelist" class="cheeps">
+        @foreach (var cheep in Model.Cheeps)
             {
-                <li>
-                    <p>
-                        <strong>
-                            <a href="/@cheep.Author.Name">@cheep.Author.Name</a>
-                        </strong>
-                        @cheep.Message
-                        <small>&mdash; @cheep.Timestamp</small>
-                    </p>
-                </li>
+        <li>
+            <p>
+                <strong>
+                    <a href="/@cheep.Author.Name">@cheep.Author.Name</a>
+                </strong>
+                @cheep.Message
+                <small>&mdash; @cheep.Timestamp</small>
+            </p>
+        </li>
             }
-        </ul>
+    </ul>
     }
     else
     {
-        <em>There are no cheeps so far.</em>
+    <em>There are no cheeps so far.</em>
     }
 </div>

@@ -8,5 +8,6 @@ public interface IAuthorRepository
     
     Task FollowAuthor(int followerId, int followeeId);
     Task UnfollowAuthor(int followerId, int followeeId);
+    Task<Author?> FindAuthorById(int authorId);
 
 }
