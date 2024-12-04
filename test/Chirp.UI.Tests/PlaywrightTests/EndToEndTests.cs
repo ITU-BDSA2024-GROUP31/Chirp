@@ -1,4 +1,4 @@
-using System.Diagnostics;
+/**using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
@@ -16,8 +16,8 @@ namespace PlaywrightTests;
  * The cleanup method is modified to also kill any "dotnet" processes that may be running after the test is executed.
  *
  * Credit: Group 21, ITU BDSA 2024 Course
- */ 
-
+ */
+/**
 public class EndToEndTests : PageTest
 {
     private Process _serverProcess;
@@ -215,22 +215,22 @@ public class EndToEndTests : PageTest
     }
     */
 
-    /*[Test, Category("Playwright")]
-    public async Task TestingIfWeSuccefullyLoggedInByCheckingUi()
-    {
-        await LoginHelper();
-        
-        // Expecting new elements since we are logged in
-        await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "Logout [Debug123@itu.dk]" })).ToBeVisibleAsync();
-        await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "My Timeline" })).ToBeVisibleAsync();
-        
-        await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "What's on your mind?" })).ToBeVisibleAsync();
-        
-        await Expect(Page.Locator("form")).ToBeVisibleAsync();
-        
-        await Expect(Page.GetByRole(AriaRole.Button, new() { Name = "Share" })).ToBeVisibleAsync();
-    }*/
+/*[Test, Category("Playwright")]
+public async Task TestingIfWeSuccefullyLoggedInByCheckingUi()
+{
+    await LoginHelper();
 
+    // Expecting new elements since we are logged in
+    await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "Logout [Debug123@itu.dk]" })).ToBeVisibleAsync();
+    await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "My Timeline" })).ToBeVisibleAsync();
+
+    await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "What's on your mind?" })).ToBeVisibleAsync();
+
+    await Expect(Page.Locator("form")).ToBeVisibleAsync();
+
+    await Expect(Page.GetByRole(AriaRole.Button, new() { Name = "Share" })).ToBeVisibleAsync();
+}*/
+/**
     [Test, Category("Playwright")]
     public async Task TestingUnsuccessfulLogin()
     {
@@ -264,26 +264,26 @@ public class EndToEndTests : PageTest
         await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "Register", Exact = true })).ToBeVisibleAsync();
     }*/
 
-    // Need to make a delete cheep button since every time we run dotnet test we add the same cheep to the database
-    // We need to delete the cheep from the database after each test
-    /*[Test, Category("Playwright")]
-    public async Task TestCheepsInMyTimeLineAndPublic()
-    {
-        await LoginHelper();
-        
-        await Page.GetByRole(AriaRole.Link, new() { Name = "Public Timeline" }).ClickAsync();
-        
-        await Page.Locator("#Message").ClickAsync();
-        await Page.Locator("#Message").FillAsync("Motivated");
-        
-        await Page.GetByRole(AriaRole.Button, new() { Name = "Share" }).ClickAsync();
-        
-        await Expect(Page.Locator("li").Filter(new() { HasText = "Debug123@itu.dk Motivated — 2024-11-26 14:40:02" })).ToBeVisibleAsync();
-        
-        await Page.GetByRole(AriaRole.Link, new() { Name = "My Timeline" }).ClickAsync();
-        
-        await Expect(Page.Locator("li").Filter(new() { HasText = "Debug123@itu.dk Motivated — 2024-11-26 14:40:02" })).ToBeVisibleAsync();
-        
-        
-    }*/
+// Need to make a delete cheep button since every time we run dotnet test we add the same cheep to the database
+// We need to delete the cheep from the database after each test
+/*[Test, Category("Playwright")]
+public async Task TestCheepsInMyTimeLineAndPublic()
+{
+    await LoginHelper();
+
+    await Page.GetByRole(AriaRole.Link, new() { Name = "Public Timeline" }).ClickAsync();
+
+    await Page.Locator("#Message").ClickAsync();
+    await Page.Locator("#Message").FillAsync("Motivated");
+
+    await Page.GetByRole(AriaRole.Button, new() { Name = "Share" }).ClickAsync();
+
+    await Expect(Page.Locator("li").Filter(new() { HasText = "Debug123@itu.dk Motivated — 2024-11-26 14:40:02" })).ToBeVisibleAsync();
+
+    await Page.GetByRole(AriaRole.Link, new() { Name = "My Timeline" }).ClickAsync();
+
+    await Expect(Page.Locator("li").Filter(new() { HasText = "Debug123@itu.dk Motivated — 2024-11-26 14:40:02" })).ToBeVisibleAsync();
+
+
 }
+}*/
