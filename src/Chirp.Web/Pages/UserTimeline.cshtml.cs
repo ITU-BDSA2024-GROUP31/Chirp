@@ -10,47 +10,49 @@ namespace Chirp.Web.Pages;
 
 public class UserTimelineModel : PageModel
 {
-    private readonly ICheepService _service;
+    private readonly ICheepService _cheepService;
+    private readonly IAuthorService _authorService;
     public List<CheepDto> Cheeps { get; set; } = new List<CheepDto>();
     public Author? Author { get; set; }
     [BindProperty]
     [Required]
     public string Message { get; set; }
 
-    public UserTimelineModel(ICheepService service)
+    public UserTimelineModel(ICheepService CheepService, IAuthorService authorService)
     {
-        _service = service;
+        _cheepService = CheepService;
+        _authorService = authorService;
     }
 
  
     public ActionResult OnGet(string author, [FromQuery] int page = 1)
     {
-        Cheeps = _service.GetCheepsFromAuthor(author, page);
+        Cheeps = _cheepService.GetCheepsFromAuthor(author, page);
         return Page();
     }
 
     public ActionResult OnPostNewCheep(string text, string userName)
     {
-        Cheeps = _service.CreateNewCheep(text, userName);
+        Cheeps = _cheepService.CreateNewCheep(text, userName);
         return Page();
 
     }
     
     public ActionResult OnGetByUserName(string userName)
     {
-        Author = _service.GetAuthorByName(userName);
+        Author = _authorService.GetAuthorByName(userName);
         return Page();
     }
     
     public ActionResult OnGetByEmail(string email)
     {
-        Author = _service.GetAuthorByEmail(email);
+        Author = _authorService.GetAuthorByEmail(email);
         return Page();
     }
     
     public ActionResult OnPostCreateAuthor(int id, string name, string email, List<Cheep> cheeps)
     {
-        Author = _service.CreateNewAuthor(id, name, email, cheeps);
+        Author = _authorService.CreateNewAuthor(id, name, email, cheeps);
         return Page();
     }
 }

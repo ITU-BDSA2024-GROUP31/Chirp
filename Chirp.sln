@@ -5,27 +5,24 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DAFFE711-1EBB-47C4-BD12-01D950EC9EAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.Core", "src\Chirp.Core\Chirp.Core.csproj", "{97CA5204-CAD3-4373-A7BE-012E2A936184}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chirp.Core", "src\Chirp.Core\Chirp.Core.csproj", "{97CA5204-CAD3-4373-A7BE-012E2A936184}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.Infrastructure", "src\Chirp.Infrastructure\Chirp.Infrastructure.csproj", "{19735929-0E90-4AF7-91DA-55CEEACCC569}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chirp.Infrastructure", "src\Chirp.Infrastructure\Chirp.Infrastructure.csproj", "{19735929-0E90-4AF7-91DA-55CEEACCC569}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.Web", "src\Chirp.Web\Chirp.Web.csproj", "{2B905286-3129-461B-A8A4-0AED9E7FE55E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chirp.Web", "src\Chirp.Web\Chirp.Web.csproj", "{2B905286-3129-461B-A8A4-0AED9E7FE55E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{FB7603D9-5D19-4F00-9F8E-202523F9DCB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.Tests", "test\Chirp.Tests\Chirp.Tests.csproj", "{C317FDAC-D9CB-4CBD-9671-725F2379357D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chirp.Tests", "test\Chirp.Tests\Chirp.Tests.csproj", "{C317FDAC-D9CB-4CBD-9671-725F2379357D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chirp.UI.Tests", "Chirp.UI.Tests", "{7464F58F-CAFD-4F6E-986C-E261E13D9D6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playwrighttests", "test\Chirp.UI.Tests\PlaywrightTests\Playwrighttests.csproj", "{DD03B03E-DBB9-4075-B345-E6CF9E93290F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Playwrighttests", "test\Chirp.UI.Tests\PlaywrightTests\Playwrighttests.csproj", "{DD03B03E-DBB9-4075-B345-E6CF9E93290F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{97CA5204-CAD3-4373-A7BE-012E2A936184}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -49,6 +46,9 @@ Global
 		{DD03B03E-DBB9-4075-B345-E6CF9E93290F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD03B03E-DBB9-4075-B345-E6CF9E93290F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{97CA5204-CAD3-4373-A7BE-012E2A936184} = {DAFFE711-1EBB-47C4-BD12-01D950EC9EAD}
 		{19735929-0E90-4AF7-91DA-55CEEACCC569} = {DAFFE711-1EBB-47C4-BD12-01D950EC9EAD}
@@ -56,5 +56,8 @@ Global
 		{C317FDAC-D9CB-4CBD-9671-725F2379357D} = {FB7603D9-5D19-4F00-9F8E-202523F9DCB0}
 		{7464F58F-CAFD-4F6E-986C-E261E13D9D6D} = {FB7603D9-5D19-4F00-9F8E-202523F9DCB0}
 		{DD03B03E-DBB9-4075-B345-E6CF9E93290F} = {7464F58F-CAFD-4F6E-986C-E261E13D9D6D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8204683D-BBAF-4A79-A790-206D1F841234}
 	EndGlobalSection
 EndGlobal

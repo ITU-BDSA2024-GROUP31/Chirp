@@ -10,21 +10,16 @@ namespace Chirp.Infrastructure.Services
         List<CheepDto> GetCheeps(int page);
         List<CheepDto> GetCheepsFromAuthor(string author, int page);
         List<CheepDto> CreateNewCheep(string text, string userName);
-        Author? GetAuthorByName(string name);
-        Author? GetAuthorByEmail(string email);
-        Author CreateNewAuthor(int id, string name, string email, List<Cheep> cheeps);
     }
 
     public class CheepService : ICheepService
     {
         private readonly ICheepRepository _cheepRepository;
-        private readonly IAuthorRepository _authorRepository;
         private const int PageSize = 32;
 
         public CheepService(ICheepRepository cheepRepository, IAuthorRepository authorRepository)
         {
             _cheepRepository = cheepRepository;
-            _authorRepository = authorRepository;
         }
 
         public List<CheepDto> GetCheeps(int page)
@@ -42,21 +37,6 @@ namespace Chirp.Infrastructure.Services
         public List<CheepDto> CreateNewCheep(string text, string userName)
         {
             return _cheepRepository.NewCheep(text, userName).Result;
-        }
-
-        public Author? GetAuthorByName(string name)
-        {
-            return _authorRepository.FindAuthorByName(name).Result;
-        }
-
-        public Author? GetAuthorByEmail(string email)
-        {
-            return _authorRepository.FindAuthorByEmail(email).Result;
-        }
-
-        public Author CreateNewAuthor(int id, string name, string email, List<Cheep> cheeps)
-        {
-            return _authorRepository.NewAuthor(id, name, email, cheeps).Result;
         }
     }
 }
