@@ -45,24 +45,24 @@ public class AuthorRepository : IAuthorRepository
                 return nwAuthor;
         }
 
-    public async Task<Author?> DeleteAuthorInfo(string userName)
-    {
-        var author = await _context.Authors.Include(a => a.Cheeps).Where(a => a.Name == userName).FirstOrDefaultAsync();
-
-        if (author != null)
+        public async Task<Author?> DeleteAuthorInfo(string userName)
         {
-            author.Name = "Anonymous";
-            author.Email = null;
+            var author = await _context.Authors.Where(a => a.Name == userName).FirstOrDefaultAsync();
 
-            foreach (var cheep in author.Cheeps)
+            if (author == null)
             {
-                cheep.AuthorId = 0; // Set to a default value or handle as needed
-                cheep.Author = null;
+                return null;
             }
 
+            // Delete related cheeps
+            var cheeps = await _context.Cheeps.Where(c => c.AuthorId == author.Id).ToListAsync();
+            _context.Cheeps.RemoveRange(cheeps);
+
+            _context.Authors.Remove(author);
             await _context.SaveChangesAsync();
+
+            return author;
         }
 
-        return author;
-    }
+
 }

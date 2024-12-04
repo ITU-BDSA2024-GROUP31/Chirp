@@ -10,6 +10,8 @@ namespace Chirp.Infrastructure.Services
         Author? GetAuthorByName(string name);
         Author? GetAuthorByEmail(string email);
         Author CreateNewAuthor(int id, string name, string email, List<Cheep> cheeps);
+
+        Author? DeleteAuthorInfo(string UserName);
     }
 
     public class AuthorService : IAuthorService
@@ -35,5 +37,11 @@ namespace Chirp.Infrastructure.Services
         {
             return _authorRepository.NewAuthor(id, name, email, cheeps).Result;
         }
+
+        public Author? DeleteAuthorInfo(string UserName)
+        {
+            return _authorRepository.DeleteAuthorInfo(UserName).Result;
+        }
+
     }
 }

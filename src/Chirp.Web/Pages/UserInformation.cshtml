@@ -10,8 +10,12 @@
     @{
         if (User.Identity?.IsAuthenticated ?? false)
         {
-            <p>Username: @User.Identity?.Name</p>
-            <p>Email: @Model.Email </p>
+            <p>Username: @Model.Username</p>
+            <p>Email: @(string.IsNullOrEmpty(Model.Email) ? "None" : Model.Email)</p>
+            <form method="post" asp-area="Identity">
+                <button type="submit" class="btn btn-danger">Forget Me</button>
+            </form>
+
             <h2>Your cheeps</h2>
             <ul id="messagelist" class="cheeps">
                 @foreach (var cheep in Model.Cheeps)
@@ -26,7 +30,7 @@
                         </p>
                     </li>
                 }
-                </ul>
+            </ul>
         }
         else
         {
