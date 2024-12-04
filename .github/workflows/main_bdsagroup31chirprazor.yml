@@ -6,11 +6,11 @@ on:
       - main
 
 env:
-  WEBAPP_NAME: bdsagroup31chirprazor  # Name of your Azure Web App
-  WEBAPP_PACKAGE_PATH: src/Chirp.Web/published  # Output path for published files
+  WEBAPP_NAME: bdsagroup31chirprazor # Name of your Azure Web App
+  WEBAPP_PACKAGE_PATH: src/Chirp.Web/published # Output path for published files
   CONFIGURATION: Release
   DOTNET_VERSION: 8.0.x
-  DIRECTORY: src/Chirp  # Project directory
+  DIRECTORY: src/Chirp.Web # Project directory
 
 jobs:
   build:
