@@ -15,6 +15,6 @@ public class CheepDtoUnitTests
         var result = cheepDto.Timestamp;
         
         // Assert
-        Assert.Equal(currentTime.ToString("yyyy-MM-dd HH.mm.ss"), result);
+        Assert.Equal(currentTime.ToString("yyyy-MM-dd HH:mm:ss"), result);
     }
 }

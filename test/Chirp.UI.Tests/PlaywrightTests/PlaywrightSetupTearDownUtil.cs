@@ -63,9 +63,9 @@ public class PlaywrightSetupTearDownUtil : PageTest
 
         // Logging in with the user we registered
         await Page.GetByPlaceholder("Username").ClickAsync();
-        await Page.GetByPlaceholder("Username").FillAsync("Debug");
+        await Page.GetByPlaceholder("Username").FillAsync("TestChirp");
         await Page.GetByPlaceholder("password").ClickAsync();
-        await Page.GetByPlaceholder("password").FillAsync("Debug123!");
+        await Page.GetByPlaceholder("password").FillAsync("TestChirp123!");
         await Page.GetByLabel("Remember me?").CheckAsync();
         await Page.GetByRole(AriaRole.Button, new() { Name = "Log in" }).ClickAsync();
     }
@@ -73,7 +73,7 @@ public class PlaywrightSetupTearDownUtil : PageTest
     
     protected async Task LogOutHelper()
     {
-        var logoutLink = Page.GetByRole(AriaRole.Link, new() { Name = "Logout [Debug]" });
+        var logoutLink = Page.GetByRole(AriaRole.Link, new() { Name = "Logout [TestChirp]" });
         if (await logoutLink.IsVisibleAsync())
         {
             await logoutLink.ClickAsync();
