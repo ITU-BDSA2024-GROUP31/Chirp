@@ -14,13 +14,15 @@ public class UserTimelineModel : PageModel
     private readonly IAuthorService _authorService;
     public List<CheepDto> Cheeps { get; set; } = new List<CheepDto>();
     public Author? Author { get; set; }
+    
+    
     [BindProperty]
-    [Required]
-    public string Message { get; set; }
+    [StringLength(160)]
+    public required string Message { get; set; }
 
-    public UserTimelineModel(ICheepService CheepService, IAuthorService authorService)
+    public UserTimelineModel(ICheepService cheepService, IAuthorService authorService)
     {
-        _cheepService = CheepService;
+        _cheepService = cheepService;
         _authorService = authorService;
     }
 
@@ -54,5 +56,11 @@ public class UserTimelineModel : PageModel
     {
         Author = _authorService.CreateNewAuthor(id, name, email, cheeps);
         return Page();
+    }
+    
+    public ActionResult OnPostDeleteCheep (int cheepId)
+    {
+        _cheepService.DeleteCheep(cheepId);
+        return RedirectToPage();
     }
 }

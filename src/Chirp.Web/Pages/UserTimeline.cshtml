@@ -29,19 +29,36 @@
             @foreach (var cheep in Model.Cheeps)
             {
                 <li>
-                    <p>
-                        <strong>
-                            <a href="/@cheep.Author">@cheep.Author</a>
-                        </strong>
-                        @cheep.Message
-                        <small>&mdash; @cheep.Timestamp</small>
-                    </p>
+                    <div class="cheep-content">
+                        <p>
+                            <strong>
+                                <a href="/@cheep.Author">@cheep.Author</a>
+                            </strong>
+                            @cheep.Message
+                            <small>&mdash; @cheep.Timestamp</small>
+                        </p>
+                    </div>
+                    @if (User.Identity?.IsAuthenticated ?? false)
+                    {
+                        @if (User.Identity.Name == (string?)routeName)
+                        {
+                            <div class="delete-button-div">
+                                <form method="post" asp-page-handler="DeleteCheep">
+                                    <input type="hidden" name="cheepId" value="@cheep.CheepId" />
+                                    <button type="submit" class="delete-button">Delete</button>
+                                </form>
+                            </div>
+                        }
+                    }
                 </li>
             }
         </ul>
+
     }
     else
     {
         <em>There are no cheeps so far.</em>
     }
+
+
 </div>

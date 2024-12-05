@@ -24,18 +24,19 @@ namespace Chirp.Infrastructure.Repositories
                 .Include(c => c.Author)
                 .Where(c => c.Author.Name == userName)
                 .OrderByDescending(c => c.Timestamp)
-                .Select(c => new CheepDto(c.Author.Name, c.Text, c.Timestamp))
+                .Select(c => new CheepDto(c.CheepId, c.Author.Name, c.Text, c.Timestamp))
                 .ToListAsync();
 
             return cheeps;
         }
+
 
         public async Task<List<CheepDto>> ReadAllCheeps()
         {
             var cheeps = await _context.Cheeps
                 .Include(c => c.Author)
                 .OrderByDescending(c => c.Timestamp)
-                .Select(c => new CheepDto(c.Author.Name, c.Text, c.Timestamp))
+                .Select(c => new CheepDto(c.CheepId, c.Author.Name, c.Text, c.Timestamp))
                 .ToListAsync();
 
             return cheeps;
@@ -81,10 +82,25 @@ namespace Chirp.Infrastructure.Repositories
 
 
             var cheepList = author.Cheeps
-                .Select(c => new CheepDto(c.Author.Name, c.Text, c.Timestamp))
+                .Select(c => new CheepDto(c.CheepId, c.Author.Name, c.Text, c.Timestamp))
                 .ToList();
 
             return cheepList;
+        }
+
+        public async Task<bool> DeleteCheep(int cheepId)
+        {
+            var cheep = await _context.Cheeps.FirstOrDefaultAsync(c => c.CheepId == cheepId);
+
+            if (cheep == null)
+            {
+                return false;
+            }
+
+            _context.Cheeps.Remove(cheep);
+            await _context.SaveChangesAsync();
+
+            return true;
         }
     }
 }

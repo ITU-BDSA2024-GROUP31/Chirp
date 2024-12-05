@@ -9,7 +9,7 @@ public class CheepDtoUnitTests
     {
         // Arrange
         var currentTime = DateTime.Now;
-        var cheepDto = new CheepDto("author", "message", currentTime);
+        var cheepDto = new CheepDto(2,"author", "message", currentTime);
         
         // Act
         var result = cheepDto.Timestamp;

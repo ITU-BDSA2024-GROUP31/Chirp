@@ -5,9 +5,12 @@ public class CheepDto
     public string Author;
     public string Message;
     public string Timestamp;
+    public int CheepId;
 
-    public CheepDto(string author, string message, DateTime timestamp)
+
+    public CheepDto(int cheepId, string author, string message, DateTime timestamp)
     {
+        this.CheepId = cheepId;
         this.Author = author;
         this.Message = message;
         this.Timestamp = ConvertDateTimeToString(timestamp);

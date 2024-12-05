@@ -1,20 +1,18 @@
 using Chirp.Infrastructure.Repositories;
 using Chirp.Core.RepositoryInterfaces;
 using Chirp.Infrastructure.Database;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using Xunit;
 
 namespace Chirp.Tests;
 
-public class Cheep_test : IDisposable
+public class CheepTest : IDisposable
 {
     private readonly SqliteConnection _connection;
     private readonly ChatDbContext _context;
-    private readonly ICheepRepository _repository;
+    private readonly ICheepRepository _cheepRepository;
 
-    public Cheep_test() 
+    public CheepTest() 
     {
         _connection = new SqliteConnection("Filename=:memory:"); 
         _connection.OpenAsync().Wait(); 
@@ -25,7 +23,7 @@ public class Cheep_test : IDisposable
         _context = new ChatDbContext(builder.Options);
         _context.Database.EnsureCreatedAsync().Wait(); 
 
-        _repository = new CheepRepository(_context);
+        _cheepRepository = new CheepRepository(_context);
         DbInitializer.SeedTestDatabase(_context);
     }
 
@@ -33,7 +31,7 @@ public class Cheep_test : IDisposable
     public void TestCheepInfo()
     {
         // Act
-        var allCheeps =  _repository.ReadAllCheeps();
+        var allCheeps =  _cheepRepository.ReadAllCheeps();
 
         // Assert
         Assert.NotNull(allCheeps);
@@ -45,7 +43,7 @@ public class Cheep_test : IDisposable
     {
         
         // Act
-        var author = _context.Authors.FirstOrDefault(a => a.Name == "Helge");
+        var author = _context.Authors.Include(author => author.Cheeps).FirstOrDefault(a => a.Name == "Helge");
 
         // Assert
         Assert.NotNull(author);
@@ -64,7 +62,7 @@ public class Cheep_test : IDisposable
     }
 
     [Fact]
-    public void testContentOfCheep()
+    public void TestContentOfCheep()
     {
         // Act
         var cheep = _context.Cheeps.FirstOrDefault(c => c.AuthorId == 11);
@@ -83,6 +81,22 @@ public class Cheep_test : IDisposable
 
         Dispose();
         
+    }
+    
+    [Fact]
+    public void TestIfCheepIsDeletedFromDb ()
+    {
+        // Arrange
+        var cheep = _context.Cheeps.FirstOrDefault(c => c.CheepId == 1);
+        
+        // Act
+        _cheepRepository.DeleteCheep(cheep?.CheepId ?? 0);
+        
+        // Assert
+        var noCheepCheck = _context.Cheeps.FirstOrDefault(c => c.CheepId == 1);
+        Assert.Null(noCheepCheck);
+        
+        Dispose();
     }
 
 
