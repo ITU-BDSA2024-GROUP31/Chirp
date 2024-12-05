@@ -120,13 +120,14 @@ public class EndToEndTests : PlaywrightSetupTearDownUtil
     }
     
     
-    // Registering a dummy user to use for login test and future tests
-    // Cant test this without a delete info button since once we test the test dummy is alreay in the database
-    // We need to delete the dummy user from the database after each test 
-    /*[Test, Category("Playwright")]
+    /* Registering a dummy user to use for login test and future tests
+     * Cant test this without a delete info button since once we test the test dummy is alreay in the database
+     * We need to delete the dummy user from the database after each test 
+     */
+    [Test, Category("Playwright")]
     public async Task TestRegistering()
     {
-        Nav to register page
+        
         await Page.GotoAsync("http://localhost:5273/Account/Register");
         
         // Fill out register form
@@ -145,7 +146,22 @@ public class EndToEndTests : PlaywrightSetupTearDownUtil
         await Expect(Page.GetByRole(AriaRole.Link, new() { Name = "Logout [Debug]" })).ToBeVisibleAsync();
         await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "What's on your mind, Debug?" })).ToBeVisibleAsync();
         await Expect(Page.GetByRole(AriaRole.Button, new() { Name = "Share" })).ToBeVisibleAsync();
-    }*/
+        
+        await Page.GetByRole(AriaRole.Link, new() { Name = "User Information" }).ClickAsync();
+        await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "Stored information about you." })).ToBeVisibleAsync();
+        await Expect(Page.GetByText("Username: Debug")).ToBeVisibleAsync();
+        await Expect(Page.GetByText("Email: Debug@itu.dk")).ToBeVisibleAsync();
+        await Expect(Page.GetByRole(AriaRole.Button, new() { Name = "Forget Me" })).ToBeVisibleAsync();
+        await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "Your cheeps" })).ToBeVisibleAsync();
+
+        /* Clicking forget me button to delete the user so when we run dotnet test again and be able to reuse the same
+         * username, email and password
+         */
+        await Page.GetByRole(AriaRole.Button, new() { Name = "Forget Me" }).ClickAsync();
+
+
+
+    }
     
     
     [Test, Category("Playwright")]
@@ -206,9 +222,12 @@ public class EndToEndTests : PlaywrightSetupTearDownUtil
 
     }
     
-    // Make this test to follow the new design of the application
-    // Need to make a delete cheep button since every time we run dotnet test we add the same cheep to the database
-    // We need to delete the cheep from the database after each test
+    
+    /* Make this test to follow the new design of the application
+     * Need to make a delete cheep button since every time we run dotnet test we add the same cheep to the database
+     * We need to delete the cheep from the database after each test
+     */
+    
     /*[Test, Category("Playwright")]
     public async Task TestCheepsInMyTimeLineAndPublic()
     {
