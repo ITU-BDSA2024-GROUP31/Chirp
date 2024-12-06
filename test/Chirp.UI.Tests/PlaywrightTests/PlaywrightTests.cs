@@ -243,4 +243,36 @@ public class PlaywrightTests : PlaywrightSetupTearDownUtil
 
 
     }
+
+    /*[Test, Category("Playwright")]
+    public async Task TestThatYouCantPostMoreThen160CharOnly160AndLess()
+    {
+        await LoginHelper();
+        
+        // Posting a message and sharing it
+        await Page.Locator("#Message").ClickAsync();
+        await Page.Locator("#Message").FillAsync("Flarnizzle, Brakondle, Snorflick, Jibbontash, Quendriffle, Zonkplust, Viroglant, Churtlefest, Drimplesnack, Fizzlenark, Grunkwibble, Zortleplop, Mivrantook.aaaaaaaa");
+        
+        await Page.GetByRole(AriaRole.Button, new() { Name = "Share" }).ClickAsync();
+        
+        // Expect not visible 
+        await Expect(Page.GetByText("Flarnizzle, Brakondle, Snorflick, Jibbontash, Quendriffle, Zonkplust, Viroglant, Churtlefest, Drimplesnack, Fizzlenark, Grunkwibble, Zortleplop, Mivrantook.aaaaaaaa")).Not.ToBeVisibleAsync();
+        
+        // clearing the input field
+        await Page.Locator("#Message").ClickAsync();
+        await Page.Locator("#Message").PressAsync("ControlOrMeta+a");
+        await Page.Locator("#Message").FillAsync("");
+        
+        // Posting a message with 160 characters
+        await Page.Locator("#Message").ClickAsync();
+        
+        await Page.Locator("#Message").FillAsync("Flarnizzle, Brakondle, Snorflick, Jibbontash, Quendriffle, Zonkplust, Viroglant, Churtlefest, Drimplesnack, Fizzlenark, Grunkwibble, Zortleplop, Mivrantook.aaaa");
+
+        // Expect visible
+        await Expect(Page.GetByText("Flarnizzle, Brakondle, Snorflick, Jibbontash, Quendriffle, Zonkplust, Viroglant, Churtlefest, Drimplesnack, Fizzlenark, Grunkwibble, Zortleplop, Mivrantook.aaaa")).ToBeVisibleAsync();
+
+        await Page.Locator("li").Filter(new() { HasText = "TestChirp Flarnizzle, Brakondle, Snorflick, Jibbontash, Quendriffle, Zonkplust, Viroglant, Churtlefest, Drimplesnack, Fizzlenark, Grunkwibble, Zortleplop, Mivrantook.aaaa" }).ClickAsync();
+        
+        
+    }  */      
 }
