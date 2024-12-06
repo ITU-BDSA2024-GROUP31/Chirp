@@ -9,9 +9,10 @@ namespace Chirp.Web.Pages;
 public class SubmitMessageModel : PageModel
 {
     private readonly ICheepService _service;
+    
     [BindProperty]
-    [Required]
-    public string Message { get; set; }
+    [StringLength(160)]
+    public required string Message { get; set; }
 
     public SubmitMessageModel(ICheepService service)
     {
@@ -21,11 +22,15 @@ public class SubmitMessageModel : PageModel
 
     public ActionResult OnPost()
     {
-      
-        if (User.Identity.IsAuthenticated)
+        if (!ModelState.IsValid)
         {
-            string Name = User.Identity.Name;
-            _service.CreateNewCheep(Message, Name);
+            return Page();
+        }
+      
+        if (User.Identity != null && User.Identity.IsAuthenticated)
+        {
+            string? name = User.Identity.Name;
+            _service.CreateNewCheep(Message, name ?? string.Empty);
             return Redirect("/"); // Redirect to the Public Timeline after submitting
         }
 

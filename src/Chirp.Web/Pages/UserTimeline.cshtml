@@ -10,16 +10,20 @@
     <h2> @routeName's Timeline </h2>
     @{
         if (User.Identity?.IsAuthenticated ?? false)
-        { <div class = "cheepbox">
-            <h3>What's on your mind, @routeName?</h3>
-            <form asp-page="SubmitMessage" method="post">
+        { 
+            @if (User.Identity.Name == (string?)routeName)
+            {
+                <div class = "cheepbox">
+                    <h3>What's on your mind, @routeName?</h3>
+                    <form asp-page="SubmitMessage" method="post">
                 
-                <textarea asp-for="Message" required></textarea>
-                <span asp-validation-for="Message"></span>
+                        <textarea asp-for="Message" required maxlength="160"></textarea>
+                        <span asp-validation-for="Message"></span>
                 
-                <input required type="submit" value="Share" />
-            </form>
-            </div>
+                        <input required type="submit" value="Share" />
+                    </form>
+                </div>
+            }
         }
     }
 
@@ -29,19 +33,36 @@
             @foreach (var cheep in Model.Cheeps)
             {
                 <li>
-                    <p>
-                        <strong>
-                            <a href="/@cheep.Author">@cheep.Author</a>
-                        </strong>
-                        @cheep.Message
-                        <small>&mdash; @cheep.Timestamp</small>
-                    </p>
+                    <div class="cheep-content">
+                        <p>
+                            <strong>
+                                <a href="/@cheep.Author">@cheep.Author</a>
+                            </strong>
+                            @cheep.Message
+                            <small>&mdash; @cheep.Timestamp</small>
+                        </p>
+                    </div>
+                    @if (User.Identity?.IsAuthenticated ?? false)
+                    {
+                        @if (User.Identity.Name == (string?)routeName)
+                        {
+                            <div class="delete-button-div">
+                                <form method="post" asp-page-handler="DeleteCheep">
+                                    <input type="hidden" name="cheepId" value="@cheep.CheepId" />
+                                    <button type="submit" class="delete-button">Delete</button>
+                                </form>
+                            </div>
+                        }
+                    }
                 </li>
             }
         </ul>
+
     }
     else
     {
         <em>There are no cheeps so far.</em>
     }
+
+
 </div>

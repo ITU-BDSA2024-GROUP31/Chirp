@@ -7,4 +7,5 @@ public interface ICheepRepository
     public Task<List<CheepDto>> ReadCheepsFromAuthor(string userName);
     public Task<List<CheepDto>> ReadAllCheeps();
     public Task<List<CheepDto>> NewCheep(string text, string userName);
+    public Task<bool> DeleteCheep(int cheepId);
 }

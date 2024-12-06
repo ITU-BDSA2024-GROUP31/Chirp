@@ -10,6 +10,7 @@ namespace Chirp.Infrastructure.Services
         List<CheepDto> GetCheeps(int page);
         List<CheepDto> GetCheepsFromAuthor(string author, int page);
         List<CheepDto> CreateNewCheep(string text, string userName);
+        bool DeleteCheep(int cheepId);
     }
 
     public class CheepService : ICheepService
@@ -37,6 +38,11 @@ namespace Chirp.Infrastructure.Services
         public List<CheepDto> CreateNewCheep(string text, string userName)
         {
             return _cheepRepository.NewCheep(text, userName).Result;
+        }
+        
+        public bool DeleteCheep(int cheepId)
+        {
+            return _cheepRepository.DeleteCheep(cheepId).Result;
         }
     }
 }

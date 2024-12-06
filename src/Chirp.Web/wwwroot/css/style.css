@@ -28,16 +28,21 @@ input[type="password"] {
 }
 
 input[type="submit"] {
-  background: #571010;
-  border: 1px solid #3b0707;
+  background-color: #cc6e6e;
+  border: none;
   padding: 1px 3px;
   font-family: 'Trebuchet MS', sans-serif;
   font-size: 14px;
   font-weight: bold;
   border-radius: 2px;
   -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
+  -webkit-border-radius:10px;
   color: white;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #8b4949;
 }
 
 div.page {
@@ -136,6 +141,7 @@ div.page ul.cheeps li {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   min-height: 48px;
+  position: relative;
 }
 
 div.page ul.cheeps p {
@@ -159,13 +165,14 @@ div.page div.cheepbox {
   border: 1px solid #e29494;
   border-radius: 2px;
   -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
+  -webkit-border-radius: 9px;
 }
 
 div.page div.cheepbox textarea{
     width: 100%;
     box-sizing: border-box;
     min-height: 80px;
+    border-radius: 8px;
 }
 
 div.page div.cheepbox h3 {
@@ -264,6 +271,7 @@ button {
     text-align: center;
     text-decoration: none;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 button:hover {
@@ -293,5 +301,27 @@ ul.nav li a {
 ul.nav li a:hover {
     background-color: #8b4949;
 }
+
+.delete-button-div {
+    position: absolute;
+    top: 24px;
+    right: 10px;
+}
+
+.delete-button {
+    font-size: 12px;
+    padding: 5px 10px;
+    background-color: #cc6e6e;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #8b4949;
+}
+
+
 
 

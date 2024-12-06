@@ -12,8 +12,8 @@ namespace Chirp.Web.Pages
         private readonly IAuthorService _authorService;
         private readonly SignInManager<Author> _signInManager;
 
-        public string Username { get; set; }
-        public string Email { get; set; }
+        public string? Username { get; set; }
+        public string? Email { get; set; }
         public List<CheepDto> Cheeps { get; set; } = new List<CheepDto>();
 
         public Author? Author { get; set; }

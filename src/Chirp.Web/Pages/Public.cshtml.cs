@@ -13,8 +13,8 @@ public class PublicModel : PageModel
     public List<CheepDto> Cheeps { get; set; } = new List<CheepDto>();
 
     [BindProperty]
-    [Required]
-    public string Message { get; set; }
+    [StringLength(160)]
+    public required string Message { get; set; }
 
 
     public PublicModel(ICheepService service )

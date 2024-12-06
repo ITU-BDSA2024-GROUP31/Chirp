@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
         public int CheepId { get; set; }
         public int AuthorId { get; set; }
 
-        public Author Author { get; set; }
+        public required Author Author { get; set; }
 
         [StringLength(160)]
         public required string Text {get; set;}
