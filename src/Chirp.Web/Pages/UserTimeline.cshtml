@@ -14,7 +14,7 @@
             <h3>What's on your mind, @routeName?</h3>
             <form asp-page="SubmitMessage" method="post">
                 
-                <textarea asp-for="Message" required></textarea>
+                <textarea asp-for="Message" required maxlength="160"></textarea>
                 <span asp-validation-for="Message"></span>
                 
                 <input required type="submit" value="Share" />

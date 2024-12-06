@@ -9,9 +9,10 @@ namespace Chirp.Web.Pages;
 public class SubmitMessageModel : PageModel
 {
     private readonly ICheepService _service;
+    
     [BindProperty]
-    [Required]
-    public string Message { get; set; }
+    [StringLength(160)]
+    public required string Message { get; set; }
 
     public SubmitMessageModel(ICheepService service)
     {
@@ -21,6 +22,10 @@ public class SubmitMessageModel : PageModel
 
     public ActionResult OnPost()
     {
+        if (!ModelState.IsValid)
+        {
+            return Page();
+        }
       
         if (User.Identity.IsAuthenticated)
         {

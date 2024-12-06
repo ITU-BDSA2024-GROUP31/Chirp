@@ -304,8 +304,8 @@ ul.nav li a:hover {
 
 .delete-button-div {
     position: absolute;
-    top: 20px; 
-    right: 10px; 
+    top: 24px;
+    right: 10px;
 }
 
 .delete-button {
@@ -316,10 +316,12 @@ ul.nav li a:hover {
     color: white;
     border-radius: 10px;
     cursor: pointer;
-    
 }
 
 .delete-button:hover {
-    background-color: #8b4949; 
+    background-color: #8b4949;
 }
+
+
+
 
