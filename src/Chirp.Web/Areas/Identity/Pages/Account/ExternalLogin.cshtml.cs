@@ -92,7 +92,8 @@ namespace Chirp.Web.Areas.Identity.Pages.Account
 
                 var githubUsername = info.Principal.FindFirstValue(ClaimTypes.Name);
                 user.UserName = githubUsername;
-                user.Name = githubUsername;
+                user.Name = githubUsername ?? string.Empty;
+                
 
                 await _userStore.SetUserNameAsync(user, githubUsername, CancellationToken.None);
 

@@ -27,10 +27,10 @@ public class SubmitMessageModel : PageModel
             return Page();
         }
       
-        if (User.Identity.IsAuthenticated)
+        if (User.Identity != null && User.Identity.IsAuthenticated)
         {
-            string Name = User.Identity.Name;
-            _service.CreateNewCheep(Message, Name);
+            string? name = User.Identity.Name;
+            _service.CreateNewCheep(Message, name ?? string.Empty);
             return Redirect("/"); // Redirect to the Public Timeline after submitting
         }
 
