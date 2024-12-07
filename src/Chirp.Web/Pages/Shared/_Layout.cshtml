@@ -9,31 +9,31 @@
 <div class=page>
     <h1><img src="/images/icon1.png" alt="Icon1"/>Chirp!</h1>
 
-        <div class=navigation>
-            @if (User.Identity != null && User.Identity.IsAuthenticated)
-            {
-                <div>
-                    <a href="/@(User.Identity.Name)">My Timeline</a> |
-                    <a href="/">Public Timeline</a> |
-                    <a href="/Account/logout">Logout [@(User.Identity.Name)]</a> |
-                    <a href="/@(User.Identity.Name)/UserInformation">User Information</a>
-                </div>
-            }
-            else
-            {
-                <div>
-                    <a href="/">Public Timeline</a> |
-                    <a href="/Account/Register">Register</a> |
-                    <a href="/Account/Login">Login</a>
-                </div>
-            }
-        </div>
-
+    <div class=navigation>
+        @if (User.Identity != null && User.Identity.IsAuthenticated)
+        {
+            <div>
+                <a href="/@(User.Identity.Name)">My Timeline</a> |
+                <a href="/">Public Timeline</a> |
+                <a href="/Account/logout">Logout [@(User.Identity.Name)]</a> |
+                <a href="/@(User.Identity.Name)/UserInformation">User Information</a>
+            </div>
+        }
+        else
+        {
+            <div>
+                <a href="/">Public Timeline</a> |
+                <a href="/Account/Register">Register</a> |
+                <a href="/Account/Login">Login</a>
+            </div>
+        }
+    </div>
     <div class=body>
-            @RenderBody()
+        @RenderBody()
     </div>
     <div class=footer>
         Chirp &mdash; An ASP.NET Application
+        <p>Robots lovingly delivered by <a href="https://robohash.org" target="_blank" rel="noopener noreferrer">Robohash.org</a></p>
     </div>
 </div>
 
