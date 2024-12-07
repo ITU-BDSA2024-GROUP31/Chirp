@@ -114,6 +114,8 @@ div.page div.footer {
   color: #888;
   padding: 5px 10px;
   font-size: 12px;
+  text-align: center;
+  margin-top: 50px;
 }
 
 div.page div.followstatus {
@@ -322,6 +324,25 @@ ul.nav li a:hover {
     background-color: #8b4949;
 }
 
+.avatar-large {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; 
+    margin-right: 10px;
+    float: left; 
+    object-fit: cover;
+}
+
+.cheep-content {
+    overflow: hidden; 
+}
 
 
 

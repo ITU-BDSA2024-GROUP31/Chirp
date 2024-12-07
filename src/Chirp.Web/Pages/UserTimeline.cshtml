@@ -6,6 +6,19 @@
     var routeName = HttpContext.GetRouteValue("author");
 }
 
+
+<div class="profile">
+    @{
+        if(User.Identity?.IsAuthenticated ?? false)
+        {
+            <div class="profile">
+                <h2>@routeName's Profile</h2>
+                <img src="https://robohash.org/@routeName?set=any" alt="Avatar for @routeName" class="avatar-large" /> 
+            </div>
+        }
+    }
+</div>
+
 <div>
     <h2> @routeName's Timeline </h2>
     @{
@@ -33,6 +46,7 @@
             @foreach (var cheep in Model.Cheeps)
             {
                 <li>
+                    <img src="https://robohash.org/@cheep.Author?set=any" alt="Avatar for @cheep.Author" class="avatar" />
                     <div class="cheep-content">
                         <p>
                             <strong>
