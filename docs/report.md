@@ -39,6 +39,10 @@ Each Author will gain two new collections:
 - `Followers`: A list of **Follower** entities representing the Authors who are following them.
 - `Following`: A list of **Follower** entities representing the Authors they are following.
 
+<div align="center">
+    <img src="./images/domain_model_follower.drawio.png" alt="Domain Model with follower">
+</div>
+
 This change will enable the system to track follower-followee relationships while maintaining data integrity. The **Follower** entity will act as a bridge table, ensuring scalability and flexibility for managing user relationships. Once this functionality is completed, the domain model will support features like displaying followers, private timelines, and more.
 
 ## Architecture — In the small
