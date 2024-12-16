@@ -14,7 +14,10 @@ numbersections: true
 
 ### **Domain Model**
 
-![Domain Model as an UML class diagram](./images/domain_model.png)
+
+<div align="center">
+    <img src="./images/domain_model.png" alt="Domain Model">
+</div>
 
 The domain model for the Chirp application consists of two main entities: **Author** and **Cheep**, which represent users and their posts, respectively. The **Author** entity inherits from `IdentityUser<int>` to integrate with ASP.NET Core Identity for authentication and user management. Each Author has a unique `Id`, a `Name` (required), and an optional `Email`. An Author can also have a list of **Cheeps** that they have posted.
 
