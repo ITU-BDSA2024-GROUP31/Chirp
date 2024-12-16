@@ -61,6 +61,71 @@ This change will enable the system to track follower-followee relationships whil
 
 ## How to make _Chirp!_ work locally
 
+To run the Chirp! application locally, follow these step-by-step instructions. The Chirp! system is a Razor Pages web application built using ASP.NET Core with a SQLite database.
+
+---
+
+#### **Prerequisites**
+
+Ensure that the following tools are installed on your system:
+
+1. **.NET SDK** (minimum version 8.0) – [Download here](https://dotnet.microsoft.com/download).
+2. **Git** – [Download here](https://git-scm.com/downloads).
+
+#### **Setup Steps**
+
+1. **Clone the Repository**
+
+Start by cloning the Chirp! project to your local machine using Git:
+
+```bash
+git clone https://github.com/ITU-BDSA2024-GROUP31/Chirp.git
+cd Chirp
+```
+
+2. **Set Up Configuration**
+
+Setup your github client id and client secret for Github OAuth, To set up credentials use dotnet user-secrets:
+
+```bash
+dotnet user-secrets init
+dotnet user-secrets set "authentication_github_clientId" "<YOUR_CLIENTID>"
+dotnet user-secrets set "authentication_github_clientSecret" "<YOUR_CLIENTSECRET>"
+```
+
+3. **Build Application**
+
+Restore dependencies and build the project:
+
+```bash
+dotnet build
+```
+
+4. **Run Database Migrations**
+
+Apply database migrations to initialize the SQLite database:
+
+```bash
+dotnet ef database update
+```
+
+This ensures that all required tables are created.
+
+5. **Run Application**
+
+Start the development server with the following command:
+
+```bash
+dotnet run
+```
+
+6. **Open Application in web browser**
+Open your web browser and navigate to:
+
+[Localhost](http://localhost:5273/)
+
+
+
 ## How to run test suite locally
 
 # Ethics
