@@ -12,9 +12,13 @@ numbersections: true
 
 # Design and Architecture of _Chirp!_
 
-## Domain model
+### **Domain Model**
 
-![Illustration of the _Chirp!_ data model as UML class diagram.](docs\images\domain_model.png)
+![Domain Model as an UML class diagram](./images/domain_model.png)
+
+The domain model for the Chirp application consists of two main entities: **Author** and **Cheep**, which represent users and their posts, respectively. The **Author** entity inherits from `IdentityUser<int>` to integrate with ASP.NET Core Identity for authentication and user management. Each Author has a unique `Id`, a `Name` (required), and an optional `Email`. An Author can also have a list of **Cheeps** that they have posted.
+
+The **Cheep** entity represents a short post authored by a user. It contains a unique identifier `CheepId`, a foreign key `AuthorId` referencing the Author, the content of the post in the `Text` field (limited to 160 characters), and a `Timestamp` indicating when the post was created. Each Cheep is associated with exactly one Author, establishing a **one-to-many relationship** between Authors and their Cheeps.
 
 ## Architecture — In the small
 
