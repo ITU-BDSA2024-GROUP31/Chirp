@@ -58,10 +58,15 @@ This change will enable the system to track follower-followee relationships whil
 ## Build, test, release, and deployment
 
 ## Team work
-This is the project board at the time of writing before submission of the report
+### Project board
+This is the current project board
 <div align="center">
     <img src="./images/Project_board.png" alt="Project_board">
 </div>
+
+The only missing major feature is follow and unfollow which we will attempt to implement before the exam.
+
+
 
 ### Our process when creating a new issue:
 
@@ -81,7 +86,7 @@ At the start, when we were finished developing on a branch we simply merged the 
 Then a github workflow will run which builds the project and runs the test making sure that nothing is broken.
 
 After the workflow has ran and if nothing is broken, random group member(s) was assigned to review and examine the code changes for correctnes, and readability.
-If there were no issues with the changes, the reviewer(s) would approve the PR and the branch would be merged into the main branch
+If there were no issues with the changes, the reviewer(s) would approve the PR and the branch would be merged into the main branch. 
 
 
 
