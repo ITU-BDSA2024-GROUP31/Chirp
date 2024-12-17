@@ -58,6 +58,23 @@ This change will enable the system to track follower-followee relationships whil
 ## Build, test, release, and deployment
 
 ## Team work
+This is the project board at the time of writing before submission of the report
+<div align="center">
+    <img src="./images/Project_board.png" alt="Project_board">
+</div>
+
+### Our process when creating a new issue:
+
+When creating an issue we assigned different group members to different issues based on what the individual group members wanted to work on and what was possible in the given situation. At the beginning of the project we often solved issues with the entire group at the same time using the code with me extension in Rider, but later we started splitting up into teams of two people using pair programming.
+
+When creating an issue we labelled it based on which area of the project they would fall under.
+Additionally we decided not to describe user stories when naming our issues due to the preference of the group and our TA who approved of our naming convention.
+
+After the issue was created, a github workflow ensured that a branch with a corresponding name was created.
+
+As mentioned, at the beginning of the project and sporadically during the end of it, we worked on issues as the entire group. One person shared their screen through a tv or using the code with me extension to the entire group so we could all participate in the development of a feature simultaneously. This was particularly beneficial when development on some features were halted due to other features being required first. 
+
+
 
 ## How to make _Chirp!_ work locally
 
