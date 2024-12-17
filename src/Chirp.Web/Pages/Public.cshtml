@@ -15,7 +15,7 @@
 
                     <textarea asp-for="Message" required maxlength="160"></textarea>
                     <span asp-validation-for="Message"></span>
-                    
+
                     <input required type="submit" value="Share" />
                 </form>
             </div>
@@ -32,9 +32,9 @@
                         <strong>
                             <a href="/@cheep.Author">@cheep.Author</a>
                         </strong>
-                        @cheep.Message
                         <small>&mdash; @cheep.Timestamp</small>
                     </p>
+                    <p>@cheep.Message</p>
                 </li>
             }
         </ul>

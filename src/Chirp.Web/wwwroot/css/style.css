@@ -170,12 +170,17 @@ div.page div.cheepbox {
   -webkit-border-radius: 9px;
 }
 
-div.page div.cheepbox textarea{
-    width: 100%;
-    box-sizing: border-box;
-    min-height: 80px;
-    border-radius: 8px;
+div.page div.cheepbox textarea {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 80px;
+  border-radius: 8px;
+  word-wrap: break-word; 
+  overflow-wrap: break-word; 
+  white-space: normal; 
+  resize: vertical; 
 }
+
 
 div.page div.cheepbox h3 {
   margin: 0;
@@ -183,9 +188,12 @@ div.page div.cheepbox h3 {
   color: #7e2c2c;
 }
 
-div.page div.cheepbox p {
-  margin: 0;
+div.page ul.cheeps li p {
+  word-wrap: break-word; 
+  overflow-wrap: break-word;
+  white-space: normal; 
 }
+
 
 div.page div.cheepbox input[type="text"] {
   width: 585px;
@@ -305,24 +313,25 @@ ul.nav li a:hover {
 }
 
 .delete-button-div {
-    position: absolute;
-    top: 24px;
-    right: 10px;
+  position: absolute; 
+  top: 2px; 
+  right: 4px; 
 }
 
 .delete-button {
-    font-size: 12px;
-    padding: 5px 10px;
-    background-color: #cc6e6e;
-    border: none;
-    color: white;
-    border-radius: 10px;
-    cursor: pointer;
+  font-size: 10px;
+  padding: 3px 6px;
+  background-color: #cc6e6e;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .delete-button:hover {
-    background-color: #8b4949;
+  background-color: #8b4949;
 }
+
 
 .avatar-large {
     width: 100px;
@@ -340,9 +349,9 @@ ul.nav li a:hover {
     object-fit: cover;
 }
 
-.cheep-content {
-    overflow: hidden; 
-}
+
+
+
 
 
 
