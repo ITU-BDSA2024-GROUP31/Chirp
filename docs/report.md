@@ -157,7 +157,7 @@ This is the current project board
     <img src="./images/Project_board.png" alt="Project_board">
 </div>
 
-The only missing major feature is follow and unfollow which we will attempt to implement before the exam.
+The only missing major feature is follow and unfollow which we'll attempt to implement before the exam.
 
 ### Our process when creating a new issue:
 
