@@ -127,6 +127,10 @@ Additional components, such as development-specific settings, deployment scripts
 
 ## Architecture of deployed application
 
+<div align="center">
+    <img src="./images/ArchitectureDeployment.png" alt="ArchitectureDeployment">
+</div>
+
 ## User activities
 
 To understand the activities a user can perform in our implementation of Chirp, we have prepared two UML activity diagrams. One diagram dedicated to the activities of a non-authorized user, and another devoted to illustrate the possible acts of an authenticated user.
