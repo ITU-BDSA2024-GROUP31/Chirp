@@ -125,12 +125,21 @@ Surrounding all the layers are important **Infrastructure and Configuration** co
 
 Additional components, such as development-specific settings, deployment scripts, and configurations, ensure the application is easy to test, deploy, and maintain across development and production environments.
 
-
-
 ## Architecture of deployed application
 
-
 ## User activities
+
+To understand the activities a user can perform in our implementation of Chirp, we have prepared two UML activity diagrams. One diagram dedicated to the activities of a non-authorized user, and another devoted to illustrate the possible acts of an authenticated user.
+
+<div align="center">
+    <img src="./images/unauthorized.png" alt="unauthorized">
+</div>
+
+<div align="center">
+    <img src="./images/authentication.png" alt="authentication">
+</div>
+
+Naturally the amount of activities when authenticated is far more than the possible activities of a non-authorized user. In the first diagram (non-authorized user) we see the activity of registering an account, whilst we in the second diagram (authenticated user) see all the possible activities of a logged in user such as, writing a cheep, deleting a cheep, following another user, logging out and so on. Together the two UML activity diagrams sum up the journey, through our implementation of Chirp, that a user will have the possibility of going through.
 
 ## Sequence of functionality/calls trough _Chirp!_
 
@@ -139,15 +148,16 @@ Additional components, such as development-specific settings, deployment scripts
 ## Build, test, release, and deployment
 
 ## Team work
+
 ### Project board
+
 This is the current project board
+
 <div align="center">
     <img src="./images/Project_board.png" alt="Project_board">
 </div>
 
 The only missing major feature is follow and unfollow which we will attempt to implement before the exam.
-
-
 
 ### Our process when creating a new issue:
 
@@ -160,16 +170,14 @@ After the issue was created, a github workflow ensured that a branch with a corr
 
 As mentioned, at the beginning of the project and sporadically during the end of it, we worked on issues as the entire group. One person shared their screen through a tv or using the code with me extension to the entire group so we could all participate in the development of a feature simultaneously. This was particularly beneficial when development on some features were halted due to other features being required first, thereby avoiding some group members being idle while waiting for other to complete their development.
 
-When it wasn't necesscary for the entire group to be working on one feature we split up the work and assigned groups of two individuals to work on a feature or enhancement. When working in groups of two we utilized pair programming, the only change from traditional pair programming was further use of the code with me extension since we weren't always at the same physical location. 
+When it wasn't necesscary for the entire group to be working on one feature we split up the work and assigned groups of two individuals to work on a feature or enhancement. When working in groups of two we utilized pair programming, the only change from traditional pair programming was further use of the code with me extension since we weren't always at the same physical location.
 
-At the start, when we were finished developing on a branch we simply merged the branch into the main branch. But later on in the project we started creating pull requests which includes the summary of the changes, the purpose of them and any relevant context and details. 
+At the start, when we were finished developing on a branch we simply merged the branch into the main branch. But later on in the project we started creating pull requests which includes the summary of the changes, the purpose of them and any relevant context and details.
 
 Then a github workflow will run which builds the project and runs the test making sure that nothing is broken.
 
 After the workflow has ran and if nothing is broken, random group member(s) was assigned to review and examine the code changes for correctnes, and readability.
-If there were no issues with the changes, the reviewer(s) would approve the PR and the branch would be merged into the main branch. 
-
-
+If there were no issues with the changes, the reviewer(s) would approve the PR and the branch would be merged into the main branch.
 
 ## How to make _Chirp!_ work locally
 
@@ -232,11 +240,9 @@ dotnet run
 ```
 
 6. **Open Application in web browser**
-Open your web browser and navigate to:
+   Open your web browser and navigate to:
 
 [Localhost](http://localhost:5273/)
-
-
 
 ## How to run test suite locally
 
