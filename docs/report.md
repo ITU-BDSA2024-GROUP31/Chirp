@@ -47,7 +47,88 @@ This change will enable the system to track follower-followee relationships whil
 
 ## Architecture — In the small
 
+The Onion Architecture can be visually represented as follows:
+
+<div align="center">
+    <img src="./images/Onion.png" alt="Onion Architecture">
+</div>
+
+# Introduction
+
+Onion Architecture is a software design pattern that focuses on creating a robust, maintainable, and testable application by organizing the codebase into layers. It emphasizes a clear separation of concerns, where each layer has its specific responsibility and dependencies flow inward toward the core. This structure ensures that the system’s core domain logic remains independent of external frameworks, user interfaces, and infrastructure. This makes it highly adaptable to change.
+
+The architecture resembles an onion, where the innermost layers represent the most critical and stable components of the system, while the outer layers depend on these core elements. At the center lies the **Domain Entities**, which stores the core logic and essential data structures. Moving outward, we encounter layers like the **Repository Layer** for data persistence, the **Service Interface Layer** for workflow operations, and the **UI/Web Layer** for user interactions. Surrounding all these layers are **Infrastructure and Configuration** components, which support and enable the application to function seamlessly in different environments.
+
+This layered approach not only ensures flexibility and scalability but also enhances testability by decoupling components.
+
+---
+
+## UI/Web Layer
+
+The **UI/Web Layer** sits at the outermost part of the architecture and is responsible for all user interaction and presentation. This layer includes:
+
+- **Razor pages** for building dynamic and interactive user interfaces.
+- Shared components like **page layouts** to ensure consistency across the application.
+- Integrated **Identity** to handle user authentication and authorization, providing secure access to the system.
+- Resources such as stylesheets and images, organized in the `wwwroot` folder, ensuring a clean structure for web elements.
+- The `Program.cs` file, serving as the main entry point for the application, initializing and configuring the entire system (e.g., dependency injections).
+
+---
+
+## Service Interface Layer
+
+Moving inward, the **Service Interface Layer** acts as a bridge between the UI and the underlying layers. This is where we define service classes like the `CheepService` and `AuthorService`, which store the core operations for the application. These services:
+
+- Interact with repositories to retrieve or manipulate data.
+- Ensure workflows remain consistent.
+
+By isolating this functionality in its own layer, we achieve a clear separation of concerns, making the codebase easier to test, maintain, and extend. This layer can also support multiple purposes.
+
+---
+
+## Repository Layer
+
+The next layer is the **Repository Layer**, which handles all data persistence and database interactions. This layer:
+
+- Abstracts the complexities of working with the database.
+- Provides clean, reusable methods for accessing and managing data.
+
+Key components include:
+
+- Repositories like `CheepRepository` and `AuthorRepository`, which operate on domain objects.
+- The `ChatDBContext`, serving as the central Entity Framework context, managing database communication.
+- Tools like **EF Core migrations** to ensure the database schema evolves smoothly.
+- A **Database initializer** to help set up the database as needed.
+
+This layer ensures a clean and consistent way of accessing data across the application.
+
+---
+
+## Domain Entities
+
+At the very core of the architecture lies the **Domain Entities** layer, which represents the heart of the system. This layer defines:
+
+- Core logic and essential domain objects, such as the `Cheep` class and `Author` class, which store data and behavior central to the application’s functionality.
+- Supporting classes like `CheepDTO` and `AuthorDTO`, lightweight objects used for safely transferring data between layers.
+
+This layer is completely isolated from infrastructure and external dependencies, ensuring it remains the most stable and reusable part of the architecture, as it operates independently.
+
+---
+
+## Infrastructure and Configuration
+
+Surrounding all the layers are important **Infrastructure and Configuration** components that enable the application to function effectively in different environments. These include:
+
+- **Azure configurations** for cloud deployment.
+- **JSON launch settings** for runtime configurations.
+- `.csproj` files that manage project dependencies and setup.
+
+Additional components, such as development-specific settings, deployment scripts, and configurations, ensure the application is easy to test, deploy, and maintain across development and production environments.
+
+
+
 ## Architecture of deployed application
+
 
 ## User activities
 
