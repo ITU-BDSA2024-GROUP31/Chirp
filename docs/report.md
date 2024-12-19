@@ -49,7 +49,7 @@ _Analysis, Design and Software Architecture_, Bachelor in Software Development, 
 ## Domain Model
 
 <div align="center">
-    <img src="./images/domain_model.png" alt="Domain Model">
+    <img src="./images/domain_model.drawio.png" alt="Domain Model">
 </div>
 
 The domain model for the Chirp application consists of two main entities: **Author** and **Cheep**, which represent users and their posts, respectively. The **Author** entity inherits from `IdentityUser<int>` to integrate with ASP.NET Core Identity for authentication and user management. Each Author has a unique `Id`, a `Name` (required), and an optional `Email`. An Author can also have a list of **Cheeps** that they have posted.
@@ -64,13 +64,12 @@ This change introduces a new entity: **Follower**, which enables a **many-to-man
 
 The **Follower** entity will include:
 
-- `Id`: The unique identifier for the relationship.
+- `Id*`: The unique identifier for the relationship.
 - `FollowerId`: A reference to the Author who is following another Author.
 - `FolloweeId`: A reference to the Author being followed.
 
-Each Author will gain two new collections:
+Each Author will gain one new collection:
 
-- `Followers`: A list of **Follower** entities representing the Authors who are following them.
 - `Following`: A list of **Follower** entities representing the Authors they are following.
 
 <div align="center">
@@ -84,7 +83,7 @@ This change will enable the system to track follower-followee relationships whil
 The Onion Architecture can be visually represented as follows:
 
 <div align="center">
-    <img src="./images/Onion.png" alt="Onion Architecture">
+    <img src="./images/Onion arc.drawio.png" alt="Onion Architecture">
 </div>
 
 # Introduction
@@ -184,28 +183,28 @@ Naturally the amount of activities when authenticated is far more than the possi
 
 ## Sequence of functionality/calls trough _Chirp!_
 
-To better understand the sequence and flows of some of our most important functionality in our application we will look at 3 different sequence diagrams.
+To better understand the sequence and flow of some of our most important functionalities in our application we will be looking at 3 different sequence diagrams.
 
 ### Public Timline sequence diagram
 
 <div align="center">
     <img src=".\images\Public_Timeline.png" alt="Public TimeLine">
 </div>
-This sequence diagram showcases how a HTTP GET request sent by a unauthorized user from and endpoint, flows through our Chirp application and returns a page with all cheeps sent by their respective authors.
+This sequence diagram showcases how an HTTP GET request sent by a unauthorized user from an endpoint, flows through our Chirp application and returns a page with all cheeps sent by their respective authors.
 
 ### Posting a new cheep in public timeline
 
 <div align="center">
     <img src=".\images\PublicTimeline_NewCheep.png" alt="New Cheep In Public TimeLine">
 </div>
-The illustration above is a sequence diagram that illustrates when a user post a new cheep in the public timeline. The request goes through multiple layers in the application until the new cheep is saved in the database. It then return and redirect to public timeline which will showcase all cheep ordered by time.
+The illustration above is a sequence diagram that illustrates what happens when a user posts a new cheep on the public timeline. The request goes through multiple layers in the application until the new cheep is saved in the database. It then return and redirects the user to the public timeline which showcases all cheeps ordered by timestamp.
 
 ### Forget me feature
 
 <div align="center">
     <img src=".\images\Forget_Me.png" alt="Forget Me">
 </div>
-This last sequence diagram demonstrates when a user uses the forget me feature which deletes the user and their respective information from the database. First the user is logged out then after the deletion begins by moving down the layer. When the deletion is completed the now unauthorized user is then redirected to the public timeline.
+This last sequence diagram demonstrates when a user utilizes the forget me feature which deletes the user and their respective information from the database. First the user is logged out then the deletion begins by moving down the layer. When the deletion is completed the now unauthorized user is then redirected to the public timeline.
 
 # Process
 
@@ -368,7 +367,7 @@ The tests can be run by executing in your command line this following command **
 
 ## License
 
-We opted for the MIT License in our application, and there are several reasons for that. The MIT License is short, easy to understand and imposes very few restrictions. It allows for others to modify and freely use the code (also commercially), making it simple and flexible. The unrestricted use that is offered through the MIT License increases the likelihood of others contributing to or building upon the software. Whilst being so flexible and simple it still ensures that proper credit is given to the author(s) of the software. All these advantages are great, however there are also some downsides that we considered. Unlike other licenses the MIT License does not require developers that modify the software/improve it, to share it with the public. This could lead to fewer contributions coming back to the open-source ecosystem. Another aspect that was considered is the fact that the MIT License ensures no warranty or liability, meaning the software is provided “as is” and developers cannot hold the author(s) responsible for any problems resulting from using the software. Whilst this could be seen as an advantage for us as authors of the software, it is a disadvantage for the users of the software, as they’re using it at their own risk. Weighing the upsides against the downsides, we found the MIT License as being a great option, which is why it became the License of choice for our application.
+We opted for the MIT License in our application, and there are several reasons for that. The MIT License is short, easy to understand and imposes very few restrictions. It allows for others to modify and freely use the code (also commercially), making it simple and flexible. The unrestricted use that is offered through the MIT License increases the likelihood of others contributing to or building upon the software. Whilst being flexible and simple it still ensures that proper credit is given to the author(s) of the software. All these advantages are great, however there are also some downsides that we considered. Unlike other licenses the MIT License does not require developers that modify the software/improve it, to share it with the public. This could lead to fewer contributions coming back to the open-source ecosystem. Another aspect that was considered is the fact that the MIT License ensures no warranty or liability, meaning the software is provided “as is” and developers cannot hold the author(s) responsible for any problems resulting from using the software. Whilst this could be seen as an advantage for us as authors of the software, it is a disadvantage for the users of the software, as they’re using it at their own risk. Weighing the upsides against the downsides, we found the MIT License as being a great option, which is why it became the License of choice for our application.
 
 ## LLMs, ChatGPT, CoPilot, and others
 
