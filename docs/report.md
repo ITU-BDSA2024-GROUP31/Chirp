@@ -164,9 +164,12 @@ Additional components, such as development-specific settings, deployment scripts
     <img src="./images/ArchitectureDeployment.png" alt="ArchitectureDeployment">
 </div>
 
+<<<<<<< Updated upstream
 Our architecture is a layered web application with user authentication through GitHub and a secure connection to clients using HTTPS. The backend interacts with a SQLite database for persistence.
 The entire application is deployed via Microsoft Azure.
 
+=======
+>>>>>>> Stashed changes
 ## User activities
 
 To understand the activities a user can perform in our implementation of Chirp, we have prepared two UML activity diagrams. One diagram dedicated to the activities of a non-authorized user, and another devoted to illustrate the possible acts of an authenticated user.
