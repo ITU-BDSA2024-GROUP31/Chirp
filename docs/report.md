@@ -177,7 +177,7 @@ This last sequence diagram demonstrates when a user uses the forget me feature w
 
 ### Brief Introduction
 
-As you can see, we have 4 working GitHub workflows that aid us in building, testing, and deploying. Each of these workflows is responsible for performing different tasks and executing different parts of the workflow based on conditional statements. Below are 4 figures describing each of the workflows:
+As you can see, we have 4 working GitHub workflows that aid us in building, testing, releasing and deploying. Each of these workflows is responsible for performing different tasks and executing different parts of the workflow based on conditional statements. Below are 4 figures describing each of the workflows:
 
 #### Workflow 1
 
