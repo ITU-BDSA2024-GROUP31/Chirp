@@ -16,6 +16,8 @@ geometry:
 toc: true
 ---
 
+\pagebreak
+
 # Design and Architecture of _Chirp!_
 
 ## Domain Model
@@ -42,15 +44,17 @@ Each Author will gain one new collection:
 
 - `Following`: A list of **Follower** entities representing the Authors they are following.
 
-![Domain Model with follower](./images/domain_model_follower.drawio.png){ width=80% }{ width=80% }
+![Domain Model with follower](./images/domain_model_follower.drawio.png){ width=80% }
 
 This change will enable the system to track follower-followee relationships while maintaining data integrity. The **Follower** entity will act as a bridge table, ensuring scalability and flexibility for managing user relationships. Once this functionality is completed, the domain model will support features like displaying followers, private timelines, and more.
+
+\pagebreak
 
 ## Architecture — In the small
 
 The Onion Architecture can be visually represented as follows:
 
-![Onion Architecture](./images/Onion arc.drawio.png){ width=80% }{ width=80% }
+![Onion Architecture](./images/Onion arc.drawio.png){ width=80% }
 
 # Introduction
 
@@ -61,6 +65,8 @@ The architecture resembles an onion, where the innermost layers represent the mo
 This layered approach not only ensures flexibility and scalability but also enhances testability by decoupling components.
 
 ---
+
+\pagebreak
 
 ## UI/Web Layer
 
@@ -124,12 +130,16 @@ Surrounding all the layers are important **Infrastructure and Configuration** co
 
 Additional components, such as development-specific settings, deployment scripts, and configurations, ensure the application is easy to test, deploy, and maintain across development and production environments.
 
+\pagebreak
+
 ## Architecture of deployed application
 
 ![ArchitectureDeployment](./images/ArchitectureDeployment.png){ width=80% }
 
 Our architecture is a layered web application with user authentication through GitHub and a secure connection to clients using HTTPS. The backend interacts with a SQLite database for persistence.
 The entire application is deployed via Microsoft Azure.
+
+\pagebreak
 
 ## User activities
 
@@ -141,6 +151,8 @@ To understand the activities a user can perform in our implementation of Chirp, 
 
 Naturally the amount of activities when authenticated is far more than the possible activities of a non-authorized user. In the first diagram (non-authorized user) we see the activity of registering an account, whilst we in the second diagram (authenticated user) see all the possible activities of a logged in user such as, writing a cheep, deleting a cheep, following another user, logging out and so on. Together the two UML activity diagrams sum up the journey, through our implementation of Chirp, that a user will have the possibility of going through. As mentioned in the design and architectue section, the follow functionality is not yet up and running. However the functionality is still depicted in the second diagram, illustrating the end result of our implementation.
 
+\pagebreak
+
 ## Sequence of functionality/calls through _Chirp!_
 
 To better understand the sequence and flow of some of our most important functionalities in our application we will be looking at three different sequence diagrams.
@@ -151,17 +163,23 @@ To better understand the sequence and flow of some of our most important functio
 
 This sequence diagram showcases how an HTTP GET request sent by a unauthorized user from an endpoint, flows through our Chirp application and returns a page with all cheeps sent by their respective authors.
 
+\pagebreak
+
 ### Posting a new cheep in public timeline
 
-![New Cheep In Public TimeLine](./images/PublicTimeline_NewCheep.png){ width=80% }{ width=80% }
+![New Cheep In Public TimeLine](./images/PublicTimeline_NewCheep.png){ width=80% }
 
 The illustration above is a sequence diagram that illustrates what happens when a user posts a new cheep on the public timeline. The request goes through multiple layers in the application until the new cheep is saved in the database. It then returns and redirects the user to the public timeline which showcases all cheeps ordered by timestamp.
 
+\pagebreak
+
 ### Forget me feature
 
-![Forget Me](./images/Forget_Me.png){ width=80% }{ width=80% }
+![Forget Me](./images/Forget_Me.png){ width=80% }
 
 This last sequence diagram demonstrates when a user utilizes the "forget me" feature which deletes the user and their respective information from the database. First the user is logged out then the deletion begins by moving down the layer. When the deletion is completed the now unauthorized user is then redirected to the public timeline.
+
+\pagebreak
 
 # Process
 
@@ -177,11 +195,15 @@ This workflow is primarily responsible for building the project and making a rel
 
 ![cdactions](./images/cdactions.png){ width=80% }
 
+\pagebreak
+
 #### Workflow 2
 
 This workflow is primarily responsible for building the project and running all the unit and integration tests.
 
 ![ciactions](./images/ciactions.png){ width=80% }
+
+\pagebreak
 
 #### Workflow 3
 
@@ -189,11 +211,15 @@ This workflow is primarily responsible for creating branches whenever a new issu
 
 ![CreateBranchActions](./images/CreateBranchActions.png){ width=80% }
 
+\pagebreak
+
 #### Workflow 4
 
 This workflow is primarily responsible for deploying our web application whenever we push anything to the main branch. This workflow is divided into two parts, with the deploy part being dependent on the build part.
 
 ![mainactions](./images/mainactions.png){ width=80% }
+
+\pagebreak
 
 ## Team work
 
@@ -202,7 +228,10 @@ This workflow is primarily responsible for deploying our web application wheneve
 This is the current project board
 
 ![Project_board](./images/Project_board.png){ width=80% }
+
 The only missing major feature is follow and unfollow which we'll attempt to implement before the exam.
+
+\pagebreak
 
 ### Our process when creating a new issue:
 
