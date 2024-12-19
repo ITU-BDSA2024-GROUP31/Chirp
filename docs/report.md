@@ -9,6 +9,11 @@ author:
   - "Yacob Bakiz <yaba@itu.dk>"
   - "Youssef Wassim Noureddine <yono@itu.dk>"
 numbersections: true
+papersize: a4
+geometry:
+  - left=30mm
+  - right=30mm
+toc: true
 ---
 
 # IT-Universitet BSFDVNS1KU
