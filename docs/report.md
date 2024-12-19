@@ -50,13 +50,9 @@ This change will enable the system to track follower-followee relationships whil
 
 \pagebreak
 
-## Architecture — In the small
+# Architecture — In the small
 
-The Onion Architecture can be visually represented as follows:
-
-![Onion Architecture](./images/Onion arc.drawio.png){ width=80% }
-
-# Introduction
+## Introduction
 
 Onion Architecture is a software design pattern that focuses on creating a robust, maintainable, and testable application by organizing the codebase into layers. It emphasizes a clear separation of concerns, where each layer has its specific responsibility and dependencies flow inward toward the core. This structure ensures that the system’s core domain logic remains independent of external frameworks, user interfaces, and infrastructure. This makes it highly adaptable to change.
 
@@ -64,7 +60,9 @@ The architecture resembles an onion, where the innermost layers represent the mo
 
 This layered approach not only ensures flexibility and scalability but also enhances testability by decoupling components.
 
----
+The Onion Architecture can be visually represented as follows:
+
+![Onion Architecture](./images/Onion arc.drawio.png){ width=80% }
 
 \pagebreak
 
