@@ -18,6 +18,12 @@ numbersections: true
 
 ---
 
+<div align="center">
+    <img src="./images/Chirp_logo.png" alt="Chirp_logo">
+</div>
+
+---
+
 ### Authors:
 
 -**Adam Assi** | aass@itu.dk -**David Friis Jensen** | davj@itu.dk -**Dennis Waweru** | -**Frederik Harboe Hjortdal Andersen** |frean@itu.dk -**Yacob Bakiz** | yaba@itu.dk -**Youssef Wassim Noureddine** | yono@itu.dk
