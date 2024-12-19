@@ -153,11 +153,11 @@ To understand the activities a user can perform in our implementation of Chirp, 
 
 Naturally the amount of activities when authenticated is far more than the possible activities of a non-authorized user. In the first diagram (non-authorized user) we see the activity of registering an account, whilst we in the second diagram (authenticated user) see all the possible activities of a logged in user such as, writing a cheep, deleting a cheep, following another user, logging out and so on. Together the two UML activity diagrams sum up the journey, through our implementation of Chirp, that a user will have the possibility of going through. As mentioned in the design and architectue section, the follow functionality is not yet up and running. However the functionality is still depicted in the second diagram, illustrating the end result of our implementation.
 
-## Sequence of functionality/calls trough _Chirp!_
+## Sequence of functionality/calls through _Chirp!_
 
 To better understand the sequence and flow of some of our most important functionalities in our application we will be looking at three different sequence diagrams.
 
-### Public Timline sequence diagram
+### Public Timeline sequence diagram
 
 <div align="center">
     <img src=".\images\Public_Timeline.png" alt="Public TimeLine">
