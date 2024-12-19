@@ -27,18 +27,30 @@ public class EndToEndTests : PlaywrightSetupTearDownUtil
 
         // Posting a message and sharing it
         await Page.Locator("#Message").ClickAsync();
-        await Page.Locator("#Message").FillAsync("I am end2end testing");
+        await Page.Locator("#Message").FillAsync("Hi there, I am end2end testing");
         await Page.GetByRole(AriaRole.Button, new() { Name = "Share" }).ClickAsync();
+        
+        await Expect(Page.GetByText("Hi there, I am end2end testing").First).ToBeVisibleAsync();
 
+        
         // Navigating to my timeline and deleting the message
         await Page.GetByRole(AriaRole.Link, new() { Name = "My Timeline" }).ClickAsync();
-        await Page.Locator("li").Filter(new() { HasText = "TestChirp I am end2end testing" }).GetByRole(AriaRole.Button)
-            .ClickAsync();
+        await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "TestChirp's Profile" })).ToBeVisibleAsync();
+        await Expect(Page.GetByText("Hi there, I am end2end testing").First).ToBeVisibleAsync();
+        
+        // Deleting the message
+        await Page.GetByRole(AriaRole.Button, new() { Name = "Delete" }).ClickAsync();
+         await Expect(Page.GetByText("There are no cheeps so far.")).ToBeVisibleAsync();
         
         // Navigating to the public timeline and user information and logging out
         await Page.GetByRole(AriaRole.Link, new() { Name = "Public Timeline" }).ClickAsync();
         await Page.GetByRole(AriaRole.Link, new() { Name = "User Information" }).ClickAsync();
         await Page.GetByRole(AriaRole.Link, new() { Name = "Logout [TestChirp]" }).ClickAsync();
         await Page.GetByRole(AriaRole.Button, new() { Name = "Click here to Logout" }).ClickAsync();
+        
+        
+        // await Expect(Page.GetByText("Hi there, I am end2end testing").First).ToBeVisibleAsync();
+        // await Expect(Page.GetByText("Playwright is something else!")).ToBeVisibleAsync();
+        // await Page.Locator("li").Filter(new() { HasText = "TestChirp — 2024-12-19 06:35:" }).GetByRole(AriaRole.Button).ClickAsync();
     }
 }

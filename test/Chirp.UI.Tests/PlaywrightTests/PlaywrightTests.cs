@@ -226,53 +226,25 @@ public class PlaywrightTests : PlaywrightSetupTearDownUtil
         
         // Posting a message and sharing it
         await Page.Locator("#Message").ClickAsync();
-        await Page.Locator("#Message").FillAsync("I dont like playwright");
+        await Page.Locator("#Message").FillAsync("Playwright is something else!");
         
         await Page.GetByRole(AriaRole.Button, new() { Name = "Share" }).ClickAsync();
         
         // Expect the cheep to be visible in the public timeline
-        await Expect(Page.GetByText("TestChirp I dont like playwright")).ToBeVisibleAsync();
+        await Expect(Page.GetByText("Playwright is something else!")).ToBeVisibleAsync();
         
         // Navigating to my timeline and checking if the cheep is there
         await Page.GetByRole(AriaRole.Link, new() { Name = "My Timeline" }).ClickAsync();
         
-        await Expect(Page.GetByText("TestChirp I dont like playwright")).ToBeVisibleAsync();
+        await Expect(Page.GetByText("Playwright is something else!")).ToBeVisibleAsync();
         
         // Deleting the cheep
-        await Page.Locator("li").Filter(new() { HasText = "TestChirp I dont like playwright" }).GetByRole(AriaRole.Button).ClickAsync();
+        await Page.GetByRole(AriaRole.Button, new() { Name = "Delete" }).ClickAsync();
+        
+        // Expect no cheep on user timeline
+        await Expect(Page.GetByText("There are no cheeps so far.")).ToBeVisibleAsync();
 
+        
 
     }
-
-    /*[Test, Category("Playwright")]
-    public async Task TestThatYouCantPostMoreThen160CharOnly160AndLess()
-    {
-        await LoginHelper();
-        
-        // Posting a message and sharing it
-        await Page.Locator("#Message").ClickAsync();
-        await Page.Locator("#Message").FillAsync("Flarnizzle, Brakondle, Snorflick, Jibbontash, Quendriffle, Zonkplust, Viroglant, Churtlefest, Drimplesnack, Fizzlenark, Grunkwibble, Zortleplop, Mivrantook.aaaaaaaa");
-        
-        await Page.GetByRole(AriaRole.Button, new() { Name = "Share" }).ClickAsync();
-        
-        // Expect not visible 
-        await Expect(Page.GetByText("Flarnizzle, Brakondle, Snorflick, Jibbontash, Quendriffle, Zonkplust, Viroglant, Churtlefest, Drimplesnack, Fizzlenark, Grunkwibble, Zortleplop, Mivrantook.aaaaaaaa")).Not.ToBeVisibleAsync();
-        
-        // clearing the input field
-        await Page.Locator("#Message").ClickAsync();
-        await Page.Locator("#Message").PressAsync("ControlOrMeta+a");
-        await Page.Locator("#Message").FillAsync("");
-        
-        // Posting a message with 160 characters
-        await Page.Locator("#Message").ClickAsync();
-        
-        await Page.Locator("#Message").FillAsync("Flarnizzle, Brakondle, Snorflick, Jibbontash, Quendriffle, Zonkplust, Viroglant, Churtlefest, Drimplesnack, Fizzlenark, Grunkwibble, Zortleplop, Mivrantook.aaaa");
-
-        // Expect visible
-        await Expect(Page.GetByText("Flarnizzle, Brakondle, Snorflick, Jibbontash, Quendriffle, Zonkplust, Viroglant, Churtlefest, Drimplesnack, Fizzlenark, Grunkwibble, Zortleplop, Mivrantook.aaaa")).ToBeVisibleAsync();
-
-        await Page.Locator("li").Filter(new() { HasText = "TestChirp Flarnizzle, Brakondle, Snorflick, Jibbontash, Quendriffle, Zonkplust, Viroglant, Churtlefest, Drimplesnack, Fizzlenark, Grunkwibble, Zortleplop, Mivrantook.aaaa" }).ClickAsync();
-        
-        
-    }  */      
 }

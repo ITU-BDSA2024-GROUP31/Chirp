@@ -34,28 +34,12 @@ public static class TestingUtilForServer
                 CreateNoWindow = true
             }
         };
-
-        /*serverProcess.OutputDataReceived += (sender, args) =>
-        {
-            if (args.Data != null)
-            {
-                Console.WriteLine("Output: " + args.Data);
-            }
-        };
-
-        serverProcess.ErrorDataReceived += (sender, args) =>
-        {
-            if (args.Data != null)
-            {
-                Console.WriteLine("Error: " + args.Data);
-            }
-        };*/
-
+        
         serverProcess.Start();
         serverProcess.BeginOutputReadLine();
         serverProcess.BeginErrorReadLine();
 
-        await Task.Delay(500); // Give the server time to start.
+        await Task.Delay(600); // Give the server time to start.
         return serverProcess;
     }
 
