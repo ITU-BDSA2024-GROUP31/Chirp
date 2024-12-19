@@ -2,17 +2,17 @@
 title: _Chirp!_ Project Report
 subtitle: ITU BDSA 2024 Group 31
 author:
-  - "Adam Assi <aass@itu.dk>"
-  - "David Friis Jensen <davj@itu.dk>"
-  - "Dennis Waweru <denw@itu.dk>"
-  - "Frederik Harboe Hjørtdal Andersen <frean@itu.dk>"
-  - "Yacob Bakiz <yaba@itu.dk>"
-  - "Youssef Wassim Noureddine <yono@itu.dk>"
+    - "Adam Assi <aass@itu.dk>"
+    - "David Friis Jensen <davj@itu.dk>"
+    - "Dennis Waweru <denw@itu.dk>"
+    - "Frederik Harboe Hjørtdal Andersen <frean@itu.dk>"
+    - "Yacob Bakiz <yaba@itu.dk>"
+    - "Youssef Wassim Noureddine <yono@itu.dk>"
 numbersections: true
 papersize: a4
 geometry:
-  - left=30mm
-  - right=30mm
+    - left=30mm
+    - right=30mm
 toc: true
 ---
 
@@ -20,9 +20,7 @@ toc: true
 
 ## Domain Model
 
-<div align="center">
-    <img src="./images/domain_model.drawio.png" alt="Domain Model">
-</div>
+![Domain Model](./images/domain_model.drawio.png)
 
 The domain model for the Chirp application consists of two main entities: **Author** and **Cheep**, which represent users and their posts, respectively. The **Author** entity inherits from `IdentityUser<int>` to integrate with ASP.NET Core Identity for authentication and user management. Each Author has a unique `Id`, a `Name` (required), and an optional `Email`. An Author can also have a list of **Cheeps** that they have posted.
 
@@ -44,9 +42,7 @@ Each Author will gain one new collection:
 
 - `Following`: A list of **Follower** entities representing the Authors they are following.
 
-<div align="center">
-    <img src="./images/domain_model_follower.drawio.png" alt="Domain Model with follower">
-</div>
+![Domain Model with follower](./images/domain_model_follower.drawio.png)
 
 This change will enable the system to track follower-followee relationships while maintaining data integrity. The **Follower** entity will act as a bridge table, ensuring scalability and flexibility for managing user relationships. Once this functionality is completed, the domain model will support features like displaying followers, private timelines, and more.
 
@@ -54,9 +50,7 @@ This change will enable the system to track follower-followee relationships whil
 
 The Onion Architecture can be visually represented as follows:
 
-<div align="center">
-    <img src="./images/Onion arc.drawio.png" alt="Onion Architecture">
-</div>
+![Onion Architecture](./images/Onion arc.drawio.png)
 
 # Introduction
 
@@ -132,9 +126,7 @@ Additional components, such as development-specific settings, deployment scripts
 
 ## Architecture of deployed application
 
-<div align="center">
-    <img src="./images/ArchitectureDeployment.png" alt="ArchitectureDeployment">
-</div>
+![ArchitectureDeployment](./images/ArchitectureDeployment.png)
 
 Our architecture is a layered web application with user authentication through GitHub and a secure connection to clients using HTTPS. The backend interacts with a SQLite database for persistence.
 The entire application is deployed via Microsoft Azure.
@@ -143,13 +135,9 @@ The entire application is deployed via Microsoft Azure.
 
 To understand the activities a user can perform in our implementation of Chirp, we have prepared two UML activity diagrams. One diagram dedicated to the activities of a non-authorized user, and another devoted to illustrate the possible acts of an authenticated user.
 
-<div align="center">
-    <img src="./images/unauthorized.png" alt="unauthorized">
-</div>
+![unauthorized](./images/unauthorized.png)
 
-<div align="center">
-    <img src="./images/authentication.png" alt="authentication">
-</div>
+![authentication](./images/authentication.png)
 
 Naturally the amount of activities when authenticated is far more than the possible activities of a non-authorized user. In the first diagram (non-authorized user) we see the activity of registering an account, whilst we in the second diagram (authenticated user) see all the possible activities of a logged in user such as, writing a cheep, deleting a cheep, following another user, logging out and so on. Together the two UML activity diagrams sum up the journey, through our implementation of Chirp, that a user will have the possibility of going through. As mentioned in the design and architectue section, the follow functionality is not yet up and running. However the functionality is still depicted in the second diagram, illustrating the end result of our implementation.
 
@@ -159,23 +147,20 @@ To better understand the sequence and flow of some of our most important functio
 
 ### Public Timline sequence diagram
 
-<div align="center">
-    <img src=".\images\Public_Timeline.png" alt="Public TimeLine">
-</div>
+![Public TimeLine](./images/Public_Timeline.png)
+
 This sequence diagram showcases how an HTTP GET request sent by a unauthorized user from an endpoint, flows through our Chirp application and returns a page with all cheeps sent by their respective authors.
 
 ### Posting a new cheep in public timeline
 
-<div align="center">
-    <img src=".\images\PublicTimeline_NewCheep.png" alt="New Cheep In Public TimeLine">
-</div>
+![New Cheep In Public TimeLine](./images/PublicTimeline_NewCheep.png)
+
 The illustration above is a sequence diagram that illustrates what happens when a user posts a new cheep on the public timeline. The request goes through multiple layers in the application until the new cheep is saved in the database. It then returns and redirects the user to the public timeline which showcases all cheeps ordered by timestamp.
 
 ### Forget me feature
 
-<div align="center">
-    <img src=".\images\Forget_Me.png" alt="Forget Me">
-</div>
+![Forget Me](./images/Forget_Me.png)
+
 This last sequence diagram demonstrates when a user utilizes the "forget me" feature which deletes the user and their respective information from the database. First the user is logged out then the deletion begins by moving down the layer. When the deletion is completed the now unauthorized user is then redirected to the public timeline.
 
 # Process
@@ -190,33 +175,25 @@ As shown in the following, we have four working GitHub workflows that aid us in 
 
 This workflow is primarily responsible for building the project and making a release when a tag is associated with the commit.
 
-<div align="center">
-    <img src=".\images\cdactions.png" alt="cdactions">
-</div>
+![cdactions](./images/cdactions.png)
 
 #### Workflow 2
 
 This workflow is primarily responsible for building the project and running all the unit and integration tests.
 
-<div align="center">
-    <img src=".\images\ciactions.png" alt="ciactions">
-</div>
+![ciactions](./images/ciactions.png)
 
 #### Workflow 3
 
 This workflow is primarily responsible for creating branches whenever a new issue is created, ensuring that there is already an associated branch to start working on.
 
-<div align="center">
-    <img src=".\images\CreateBranchActions.png" alt="CreateBranchActions">
-</div>
+![CreateBranchActions](./images/CreateBranchActions.png)
 
 #### Workflow 4
 
 This workflow is primarily responsible for deploying our web application whenever we push anything to the main branch. This workflow is divided into two parts, with the deploy part being dependent on the build part.
 
-<div align="center">
-    <img src=".\images\mainactions.png" alt="mainactions">
-</div>
+![mainactions](./images/mainactions.png)
 
 ## Team work
 
@@ -224,9 +201,7 @@ This workflow is primarily responsible for deploying our web application wheneve
 
 This is the current project board
 
-<div align="center">
-    <img src="./images/Project_board.png" alt="Project_board">
-</div>
+![Project_board](./images/Project_board.png)
 
 The only missing major feature is follow and unfollow which we'll attempt to implement before the exam.
 
@@ -311,7 +286,7 @@ dotnet run
 ```
 
 6. **Open Application in web browser**
-   Open your web browser and navigate to:
+     Open your web browser and navigate to:
 
 [Localhost](http://localhost:5273/)
 
