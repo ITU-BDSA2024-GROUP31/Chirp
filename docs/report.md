@@ -336,20 +336,23 @@ dotnet run
 
 ## How to run test suite locally
 
-After completing the previous instruction on how to clone the Chirp application you will be able to run the tests in our test folders. The test folder consist of UI test which are tested using playwright and a serverProcess which run our application. It also consist of cheep test which are unit test and that run in a in memory database.
+After completing the previous instruction on how to clone the Chirp application you will be able to run the tests in our test folders. 
+The test folders consist of UI test which are tested using Playwright and a server process which runs our application. 
+It also consists of cheep test which are unit tests and that run in an in-memory database.
 
-The playwright UI test are testing the UI elements, the functionality of the different pages and navigation that our application Chirp consist of. It does it by simulation a user interaction with the different elements.
+The Playwright UI tests are evaluate the UI elements the functionality of the different pages and structure that our application Chirp. 
+It archives it by simulation a user interaction with the various elements.
 
-On the other hand the cheep test are testing the content of a cheep and interaction between the cheep and database.
+On the other hand, the Cheep tests focus on validating the content of a cheep and interaction between the cheep and database.
 
-### Step to run test locally
+### Steps to run test locally
 
-There is two places you can run the test from.
-The first one is from the root directory **_Chirp_** which will run all the test you have in your project.
+There are two places you can run the tests from.
+The first one is from the root directory **_Chirp_** which will run all the test in the project.
 
-The second place is from the folders that contain the test it selves which in our case is Chirp.Test or PlaywrightTests.
+The second place is from the folders that contains the test themselves which in our case is Chirp.Test or PlaywrightTests.
 
-The tests can be ran by writing in your command line in your preferred IDE **_dotnet test_**.
+The tests can be run by executing in your command line this following command **_dotnet test_**.
 
 # Ethics
 
