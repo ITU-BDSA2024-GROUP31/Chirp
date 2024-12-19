@@ -49,7 +49,7 @@ _Analysis, Design and Software Architecture_, Bachelor in Software Development, 
 ## Domain Model
 
 <div align="center">
-    <img src="./images/domain_model.png" alt="Domain Model">
+    <img src="./images/domain_model.drawio.png" alt="Domain Model">
 </div>
 
 The domain model for the Chirp application consists of two main entities: **Author** and **Cheep**, which represent users and their posts, respectively. The **Author** entity inherits from `IdentityUser<int>` to integrate with ASP.NET Core Identity for authentication and user management. Each Author has a unique `Id`, a `Name` (required), and an optional `Email`. An Author can also have a list of **Cheeps** that they have posted.
@@ -64,13 +64,12 @@ This change introduces a new entity: **Follower**, which enables a **many-to-man
 
 The **Follower** entity will include:
 
-- `Id`: The unique identifier for the relationship.
+- `Id*`: The unique identifier for the relationship.
 - `FollowerId`: A reference to the Author who is following another Author.
 - `FolloweeId`: A reference to the Author being followed.
 
-Each Author will gain two new collections:
+Each Author will gain one new collection:
 
-- `Followers`: A list of **Follower** entities representing the Authors who are following them.
 - `Following`: A list of **Follower** entities representing the Authors they are following.
 
 <div align="center">
@@ -342,11 +341,11 @@ dotnet run
 
 ## How to run test suite locally
 
-After completing the previous instruction on how to clone the Chirp application you will be able to run the tests in our test folders. 
-The test folders consist of UI test which are tested using Playwright and a server process which runs our application. 
+After completing the previous instruction on how to clone the Chirp application you will be able to run the tests in our test folders.
+The test folders consist of UI test which are tested using Playwright and a server process which runs our application.
 It also consists of cheep test which are unit tests and that run in an in-memory database.
 
-The Playwright UI tests are evaluate the UI elements the functionality of the different pages and structure that our application Chirp. 
+The Playwright UI tests are evaluate the UI elements the functionality of the different pages and structure that our application Chirp.
 It archives it by simulation a user interaction with the various elements.
 
 On the other hand, the Cheep tests focus on validating the content of a cheep and interaction between the cheep and database.
