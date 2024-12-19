@@ -54,7 +54,7 @@ _Analysis, Design and Software Architecture_, Bachelor in Software Development, 
 
 The domain model for the Chirp application consists of two main entities: **Author** and **Cheep**, which represent users and their posts, respectively. The **Author** entity inherits from `IdentityUser<int>` to integrate with ASP.NET Core Identity for authentication and user management. Each Author has a unique `Id`, a `Name` (required), and an optional `Email`. An Author can also have a list of **Cheeps** that they have posted.
 
-The **Cheep** entity represents post authored by a user. It contains a unique identifier `CheepId`, a foreign key `AuthorId` referencing the Author, the content of the post in the `Text` field (limited to 160 characters), and a `Timestamp` indicating when the post was created. Each Cheep is associated with exactly one Author, establishing a **one-to-many relationship** between Authors and their Cheeps.
+The **Cheep** entity represents posts authored by a user. It contains a unique identifier `CheepId`, a foreign key `AuthorId` referencing the Author, the content of the post in the `Text` field (limited to 160 characters), and a `Timestamp` indicating when the post was created. Each Cheep is associated with exactly one Author, establishing a **one-to-many relationship** between Authors and their Cheeps.
 
 ### Changes to the Domain Model
 
@@ -183,7 +183,7 @@ Naturally the amount of activities when authenticated is far more than the possi
 
 ## Sequence of functionality/calls trough _Chirp!_
 
-To better understand the sequence and flow of some of our most important functionalities in our application we will be looking at 3 different sequence diagrams.
+To better understand the sequence and flow of some of our most important functionalities in our application we will be looking at three different sequence diagrams.
 
 ### Public Timline sequence diagram
 
@@ -197,14 +197,14 @@ This sequence diagram showcases how an HTTP GET request sent by a unauthorized u
 <div align="center">
     <img src=".\images\PublicTimeline_NewCheep.png" alt="New Cheep In Public TimeLine">
 </div>
-The illustration above is a sequence diagram that illustrates what happens when a user posts a new cheep on the public timeline. The request goes through multiple layers in the application until the new cheep is saved in the database. It then return and redirects the user to the public timeline which showcases all cheeps ordered by timestamp.
+The illustration above is a sequence diagram that illustrates what happens when a user posts a new cheep on the public timeline. The request goes through multiple layers in the application until the new cheep is saved in the database. It then returns and redirects the user to the public timeline which showcases all cheeps ordered by timestamp.
 
 ### Forget me feature
 
 <div align="center">
     <img src=".\images\Forget_Me.png" alt="Forget Me">
 </div>
-This last sequence diagram demonstrates when a user utilizes the forget me feature which deletes the user and their respective information from the database. First the user is logged out then the deletion begins by moving down the layer. When the deletion is completed the now unauthorized user is then redirected to the public timeline.
+This last sequence diagram demonstrates when a user utilizes the "forget me" feature which deletes the user and their respective information from the database. First the user is logged out then the deletion begins by moving down the layer. When the deletion is completed the now unauthorized user is then redirected to the public timeline.
 
 # Process
 
@@ -212,7 +212,7 @@ This last sequence diagram demonstrates when a user utilizes the forget me featu
 
 ### Brief Introduction
 
-As you can see, we have 4 working GitHub workflows that aid us in building, testing, releasing and deploying. Each of these workflows is responsible for performing different tasks and executing different parts of the workflow based on conditional statements. Below are 4 figures describing each of the workflows:
+As shown in the following, we have four working GitHub workflows that aid us in building, testing, releasing and deploying. Each of these workflows is responsible for performing different tasks and executing different parts of the workflow based on conditional statements. Below are four figures describing each of the workflows:
 
 #### Workflow 1
 
@@ -260,9 +260,9 @@ The only missing major feature is follow and unfollow which we'll attempt to imp
 
 ### Our process when creating a new issue:
 
-When creating an issue we assigned different group members to different issues based on what the individual group members wanted to work on and what was possible in the given situation. At the beginning of the project we often solved issues with the entire group at the same time using the code with me extension in Rider, but later we started splitting up into teams of two people using pair programming.
+When creating an issue we assigned different group members to different issues based on what the individual group members wanted to work on and what was possible in the given situation. At the beginning of the project we often solved issues with the entire group at the same time using the code with me extension in Rider, but later we started splitting up into teams of two adopting pair programming technique.
 
-When creating an issue we labelled it based on which area of the project they would fall under.
+When creating an issue we labelled it based on which area of the project it would fall under.
 Additionally we decided not to describe user stories when naming our issues due to the preference of the group and our TA who approved of our naming convention.
 
 After the issue was created, a github workflow ensured that a branch with a corresponding name was created.
@@ -271,11 +271,11 @@ As mentioned, at the beginning of the project and sporadically during the end of
 
 When it wasn't necesscary for the entire group to be working on one feature we split up the work and assigned groups of two individuals to work on a feature or enhancement. When working in groups of two we utilized pair programming, the only change from traditional pair programming was further use of the code with me extension since we weren't always at the same physical location.
 
-At the start, when we were finished developing on a branch we simply merged the branch into the main branch. But later on in the project we started creating pull requests which includes the summary of the changes, the purpose of them and any relevant context and details.
+At the start, when we were finished developing on a branch we simply merged the branch into the main branch. However later on in the project we started creating pull requests which included a summary of the changes, the purpose of them and any relevant context and details.
 
-Then a github workflow will run which builds the project and runs the test making sure that nothing is broken.
+Then a github workflow would run which built the project and ran the test making sure that nothing was broken.
 
-After the workflow has ran and if nothing is broken, random group member(s) was assigned to review and examine the code changes for correctnes, and readability.
+After the workflow had ran and if nothing was broken, random group member(s) was assigned to review and examine the code changes for correctnes, and readability.
 If there were no issues with the changes, the reviewer(s) would approve the PR and the branch would be merged into the main branch.
 
 ## How to make _Chirp!_ work locally
@@ -347,21 +347,21 @@ dotnet run
 
 After completing the previous instruction on how to clone the Chirp application you will be able to run the tests in our test folders.
 The test folders consist of UI test which are tested using Playwright and a server process which runs our application.
-It also consists of cheep test which are unit tests and that run in an in-memory database.
+It also consists of cheep tests which are unit tests that run in an in-memory database.
 
-The Playwright UI tests are evaluate the UI elements the functionality of the different pages and structure that our application Chirp.
-It archives it by simulation a user interaction with the various elements.
+The Playwright UI tests evaluates the UI elements, the functionality of the different pages and structure that our application Chirp.
+It archives it by simulating a user interaction with the various elements.
 
-On the other hand, the Cheep tests focus on validating the content of a cheep and interaction between the cheep and database.
+The Cheep tests focus on validating the content of a cheep and interaction between the cheep and database.
 
 ### Steps to run test locally
 
 There are two places you can run the tests from.
-The first one is from the root directory **_Chirp_** which will run all the test in the project.
+The first one is from the root directory **_Chirp_** which will run all the tests in the project.
 
-The second place is from the folders that contains the test themselves which in our case is Chirp.Test or PlaywrightTests.
+The second place is from the folders that contain the tests themselves which in our case is Chirp.Test or PlaywrightTests.
 
-The tests can be run by executing in your command line this following command **_dotnet test_**.
+The tests can be run by navigating to the intended directory and executed by typing the following command **_dotnet test_**. in your command line.
 
 # Ethics
 
