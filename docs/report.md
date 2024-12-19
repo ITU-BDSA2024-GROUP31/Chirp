@@ -174,6 +174,29 @@ This last sequence diagram demonstrates when a user uses the forget me feature w
 
 ## Build, test, release, and deployment
 
+### Brief Introduction
+
+As you can see, we have 4 working GitHub workflows that aid us in building, testing, and deploying. Each of these workflows is responsible for performing different tasks and executing different parts of the workflow based on conditional statements. Below are 4 figures describing each of the workflows:
+
+#### Workflow 1
+
+This workflow is primarily responsible for building the project and making a release when a tag is associated with the commit.
+
+
+
+#### Workflow 2
+
+This workflow is primarily responsible for building the project and running all the unit and integration tests.
+
+#### Workflow 3
+
+This workflow is primarily responsible for creating branches whenever a new issue is created, ensuring that there is already an associated branch to start working on.
+
+#### Workflow 4
+
+This workflow is primarily responsible for deploying our web application whenever we push anything to the main branch. This workflow is divided into two parts, with the deploy part being dependent on the build part.
+
+
 ## Team work
 
 ### Project board
