@@ -11,7 +11,7 @@ author:
 numbersections: true
 ---
 
-# Design and Architecture of _Chirp!
+# Design and Architecture of \_Chirp!
 
 ## Domain Model
 
@@ -146,29 +146,30 @@ To understand the activities a user can perform in our implementation of Chirp, 
 
 Naturally the amount of activities when authenticated is far more than the possible activities of a non-authorized user. In the first diagram (non-authorized user) we see the activity of registering an account, whilst we in the second diagram (authenticated user) see all the possible activities of a logged in user such as, writing a cheep, deleting a cheep, following another user, logging out and so on. Together the two UML activity diagrams sum up the journey, through our implementation of Chirp, that a user will have the possibility of going through. As mentioned in the design and architectue section, the follow functionality is not yet up and running. However the functionality is still depicted in the second diagram, illustrating the end result of our implementation.
 
-## Sequence of functionality/calls trough _Chirp!
+## Sequence of functionality/calls trough \_Chirp!
+
 To better understand the sequence and flows of some of our most important functionality in our application we will look at 3 different sequence diagrams.
 
 ### Public Timline sequence diagram
+
 <div align="center">
     <img src=".\images\Public_Timeline.png" alt="Public TimeLine">
 </div>
 This sequence diagram showcases how a HTTP GET request sent by a unauthorized user from and endpoint, flows through our Chirp application and returns a page with all cheeps sent by their respective authors.
 
+### Posting a new cheep in public timeline
 
-### Posting a new cheep in public timeline 
 <div align="center">
     <img src=".\images\PublicTimeline_NewCheep.png" alt="New Cheep In Public TimeLine">
 </div>
-The illustration above is a sequence diagram that illustrates when a user post a new cheep in the public timeline. The request goes through multiple layers in the application until the new cheep is saved in the database. It then return and redirect to public timeline which will showcase all cheep ordered by time. 
-
+The illustration above is a sequence diagram that illustrates when a user post a new cheep in the public timeline. The request goes through multiple layers in the application until the new cheep is saved in the database. It then return and redirect to public timeline which will showcase all cheep ordered by time.
 
 ### Forget me feature
+
 <div align="center">
     <img src=".\images\Forget_Me.png" alt="Forget Me">
 </div>
 This last sequence diagram demonstrates when a user uses the forget me feature which deletes the user and their respective information from the database. First the user is logged out then after the deletion begins by moving down the layer. When the deletion is completed the now unauthorized user is then redirected to the public timeline.
-
 
 # Process
 
@@ -182,20 +183,33 @@ As you can see, we have 4 working GitHub workflows that aid us in building, test
 
 This workflow is primarily responsible for building the project and making a release when a tag is associated with the commit.
 
-
+<div align="center">
+    <img src=".\images\cdactions.png" alt="cdactions">
+</div>
 
 #### Workflow 2
 
 This workflow is primarily responsible for building the project and running all the unit and integration tests.
 
+<div align="center">
+    <img src=".\images\ciactions.png" alt="ciactions">
+</div>
+
 #### Workflow 3
 
 This workflow is primarily responsible for creating branches whenever a new issue is created, ensuring that there is already an associated branch to start working on.
+
+<div align="center">
+    <img src=".\images\CreateBranchActions.png" alt="CreateBranchActions">
+</div>
 
 #### Workflow 4
 
 This workflow is primarily responsible for deploying our web application whenever we push anything to the main branch. This workflow is divided into two parts, with the deploy part being dependent on the build part.
 
+<div align="center">
+    <img src=".\images\mainactions.png" alt="mainactions">
+</div>
 
 ## Team work
 
@@ -295,20 +309,21 @@ dotnet run
 [Localhost](http://localhost:5273/)
 
 ## How to run test suite locally
-After completing the previous instruction on how to clone the Chirp application you will be able to run the tests in our test folders. The test folder consist of UI test which are tested using playwright and a serverProcess which run our application. It also consist of cheep test which are unit test and that run in a in memory database. 
 
-The playwright UI test are testing the UI elements, the functionality of the different pages and navigation that our application Chirp consist of. It does it by simulation a user interaction with the different elements. 
+After completing the previous instruction on how to clone the Chirp application you will be able to run the tests in our test folders. The test folder consist of UI test which are tested using playwright and a serverProcess which run our application. It also consist of cheep test which are unit test and that run in a in memory database.
+
+The playwright UI test are testing the UI elements, the functionality of the different pages and navigation that our application Chirp consist of. It does it by simulation a user interaction with the different elements.
 
 On the other hand the cheep test are testing the content of a cheep and interaction between the cheep and database.
 
 ### Step to run test locally
-There is two places you can run the test from. 
+
+There is two places you can run the test from.
 The first one is from the root directory **_Chirp_** which will run all the test you have in your project.
 
 The second place is from the folders that contain the test it selves which in our case is Chirp.Test or PlaywrightTests.
 
 The tests can be ran by writing in your command line in your preferred IDE **_dotnet test_**.
-
 
 # Ethics
 
