@@ -164,6 +164,10 @@ Additional components, such as development-specific settings, deployment scripts
 <div align="center">
     <img src="./images/ArchitectureDeployment.png" alt="ArchitectureDeployment">
 </div>
+
+Our architecture is a layered web application with user authentication through GitHub and a secure connection to clients using HTTPS. The backend interacts with a SQLite database for persistence.
+The entire application is deployed via Microsoft Azure.
+
 ## User activities
 
 To understand the activities a user can perform in our implementation of Chirp, we have prepared two UML activity diagrams. One diagram dedicated to the activities of a non-authorized user, and another devoted to illustrate the possible acts of an authenticated user.
@@ -342,11 +346,11 @@ dotnet run
 
 ## How to run test suite locally
 
-After completing the previous instruction on how to clone the Chirp application you will be able to run the tests in our test folders. 
-The test folders consist of UI test which are tested using Playwright and a server process which runs our application. 
+After completing the previous instruction on how to clone the Chirp application you will be able to run the tests in our test folders.
+The test folders consist of UI test which are tested using Playwright and a server process which runs our application.
 It also consists of cheep test which are unit tests and that run in an in-memory database.
 
-The Playwright UI tests are evaluate the UI elements the functionality of the different pages and structure that our application Chirp. 
+The Playwright UI tests are evaluate the UI elements the functionality of the different pages and structure that our application Chirp.
 It archives it by simulation a user interaction with the various elements.
 
 On the other hand, the Cheep tests focus on validating the content of a cheep and interaction between the cheep and database.
