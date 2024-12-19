@@ -4,10 +4,16 @@ subtitle: ITU BDSA 2024 Group 31
 author:
   - "Adam Assi <aass@itu.dk>"
   - "David Friis Jensen <davj@itu.dk>"
+  - "Dennis Waweru <denw@itu.dk>"
   - "Frederik Harboe Hjørtdal Andersen <frean@itu.dk>"
   - "Yacob Bakiz <yaba@itu.dk>"
   - "Youssef Wassim Noureddine <yono@itu.dk>"
 numbersections: true
+papersize: a4
+geometry:
+  - left=30mm
+  - right=30mm
+toc: true
 ---
 
 # IT-Universitet BSFDVNS1KU
