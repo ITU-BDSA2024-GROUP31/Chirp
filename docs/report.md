@@ -26,7 +26,7 @@ numbersections: true
 
 ### Authors:
 
--**Adam Assi** | aass@itu.dk -**David Friis Jensen** | davj@itu.dk -**Dennis Waweru** | -**Frederik Harboe Hjortdal Andersen** |frean@itu.dk -**Yacob Bakiz** | yaba@itu.dk -**Youssef Wassim Noureddine** | yono@itu.dk
+-**Adam Assi** | aass@itu.dk -**David Friis Jensen** | davj@itu.dk -**Dennis Waweru** | denw@itu.dk -**Frederik Harboe Hjortdal Andersen** | frean@itu.dk -**Yacob Bakiz** | yaba@itu.dk -**Youssef Wassim Noureddine** | yono@itu.dk
 
 ---
 
