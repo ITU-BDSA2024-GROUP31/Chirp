@@ -1,0 +1,42 @@
+@startuml NewCheep
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam sequenceParticipant underline
+
+participant Client
+participant SubmitMessageModel
+participant CheepService 
+participant CheepRepository 
+database "ChatDbContext" as DbContext 
+
+Client -> SubmitMessageModel: POST /SubmitMessage
+activate SubmitMessageModel
+
+SubmitMessageModel -> CheepService: CreateNewCheep(...)
+activate CheepService
+
+CheepService -> CheepRepository: NewCheep(...)
+activate CheepRepository
+
+CheepRepository -> DbContext: Adds and saves new Cheep
+activate DbContext
+
+DbContext -> Database: Executes SQL
+activate Database
+
+Database --> DbContext: Returns Executed SQL 
+deactivate Database
+
+DbContext -> CheepRepository: Returns SQL result
+deactivate DbContext
+
+CheepRepository --> CheepService: Returns authors Cheeps
+deactivate CheepRepository
+
+CheepService --> SubmitMessageModel: Returns List<CheepDto>
+deactivate CheepService
+
+SubmitMessageModel --> Client: Render cheeps and return page
+deactivate SubmitMessageModel
+
+@enduml

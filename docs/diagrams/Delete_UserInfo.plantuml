@@ -1,0 +1,64 @@
+@startuml Delete user and info
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam sequenceParticipant underline
+
+actor  User
+participant UserInformationModel
+participant SignInManager
+participant IAuthorService
+participant AuthorService
+participant IAuthorRepository 
+participant AuthorRepository 
+participant ChatDbContext
+database Database
+
+User -> UserInformationModel: POST Request
+activate UserInformationModel
+
+UserInformationModel -> SignInManager: SignOutAsync()
+activate SignInManager
+
+UserInformationModel -> IAuthorService: DeleteAuthorInfo()
+activate IAuthorService
+
+IAuthorService -> AuthorService: DeleteAuthorInfo()
+activate AuthorService
+
+AuthorService -> IAuthorRepository: DeleteAuthorInfo()
+activate IAuthorRepository
+
+IAuthorRepository -> AuthorRepository: DeleteAuthorInfo()
+activate AuthorRepository
+
+AuthorRepository -> ChatDbContext: Remove cheeps and auther 
+activate ChatDbContext
+
+ChatDbContext -> Database: Execute SQL
+activate Database
+
+Database --> ChatDbContext: Returns Executed SQL 
+deactivate Database
+
+ChatDbContext --> AuthorRepository: Returns deleted auther 
+deactivate ChatDbContext
+
+AuthorRepository --> IAuthorRepository: Returns deleted auther 
+deactivate AuthorRepository
+
+IAuthorRepository --> AuthorService: Returns deleted auther 
+deactivate IAuthorRepository
+
+AuthorService --> IAuthorService: Returns deleted auther 
+deactivate AuthorService
+
+IAuthorService --> UserInformationModel: Returns deleted auther 
+deactivate IAuthorService
+
+SignInManager ->UserInformationModel: SignOutAsync()
+deactivate SignInManager
+
+UserInformationModel --> User: Redirect to homepage
+deactivate UserInformationModel
+
+@enduml

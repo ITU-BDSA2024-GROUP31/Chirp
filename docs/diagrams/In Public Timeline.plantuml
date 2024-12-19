@@ -1,0 +1,43 @@
+@startuml NewCheep In Public Timeline
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam sequenceParticipant underline
+
+participant Client
+participant SubmitMessageModel
+participant CheepService 
+participant CheepRepository 
+participant ChatDbContext  
+database Database  
+
+Client -> SubmitMessageModel: POST /SubmitMessage
+activate SubmitMessageModel
+
+SubmitMessageModel -> CheepService: CreateNewCheep(...)
+activate CheepService
+
+CheepService -> CheepRepository: NewCheep(...)
+activate CheepRepository
+
+CheepRepository -> ChatDbContext: Adds and saves a new cheep
+activate ChatDbContext
+
+ChatDbContext -> Database: Inserts new cheep into the tables
+activate Database
+
+Database --> ChatDbContext: Returns executed SQL 
+deactivate Database
+
+ChatDbContext --> CheepRepository: Returns SQL result
+deactivate ChatDbContext
+
+CheepRepository --> CheepService: Returns List<CheepDto>
+deactivate CheepRepository
+
+CheepService --> SubmitMessageModel: Returns List<CheepDto>
+deactivate CheepService
+
+SubmitMessageModel --> Client: Redirect to /
+deactivate SubmitMessageModel
+
+@enduml

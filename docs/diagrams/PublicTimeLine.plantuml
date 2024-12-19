@@ -1,0 +1,43 @@
+@startuml Public Timeline sequence diagram
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam sequenceParticipant underline
+
+actor  User
+participant PublicModel
+participant CheepService 
+participant CheepRepository 
+participant ChatDbContext
+database Database
+
+User -> PublicModel: GET /
+activate PublicModel
+
+PublicModel -> CheepService: GetCheeps(...)
+activate CheepService
+
+CheepService -> CheepRepository: ReadAllCheeps()
+activate CheepRepository
+
+CheepRepository -> ChatDbContext: Execute SQL
+activate ChatDbContext
+
+ChatDbContext -> Database: Retrieve executed SQL
+activate Database
+
+Database --> ChatDbContext: Returns executed SQL 
+deactivate Database
+
+ChatDbContext --> CheepRepository: Returns all cheeps
+deactivate ChatDbContext
+
+CheepRepository --> CheepService: Returns List<CheepDto>
+deactivate CheepRepository
+
+CheepService --> PublicModel: Returns List<CheepDto>
+deactivate CheepService
+
+PublicModel --> User: Render page
+deactivate PublicModel
+
+@enduml

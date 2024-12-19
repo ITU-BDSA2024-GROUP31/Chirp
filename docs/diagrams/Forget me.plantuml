@@ -1,0 +1,50 @@
+@startuml Forget me sequence diagram
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam sequenceParticipant underline
+
+actor  User
+participant UserInformationModel
+participant SignInManager
+participant AuthorService
+participant AuthorRepository 
+participant ChatDbContext
+database Database
+
+User -> UserInformationModel: POST /{userName}/UserInformation
+activate UserInformationModel
+
+UserInformationModel -> SignInManager: Await SignOutAsync()
+activate SignInManager
+
+SignInManager -->UserInformationModel: SignOutAsync()
+deactivate SignInManager
+
+UserInformationModel -> AuthorService: DeleteAuthorInfo(...)
+activate AuthorService
+
+AuthorService -> AuthorRepository: DeleteAuthorInfo(...)
+activate AuthorRepository
+
+AuthorRepository -> ChatDbContext: Remove author and authors cheeps
+activate ChatDbContext
+
+ChatDbContext -> Database: Execute SQL
+activate Database
+
+Database --> ChatDbContext: Returns Executed SQL 
+deactivate Database
+
+ChatDbContext --> AuthorRepository: Returns the deleted author 
+deactivate ChatDbContext
+
+AuthorRepository --> AuthorService: Returns deleted Author?
+deactivate AuthorRepository
+
+AuthorService --> UserInformationModel: Returns deleted Author?
+deactivate AuthorService
+
+UserInformationModel --> User: Redirect to /
+deactivate UserInformationModel
+
+@enduml
