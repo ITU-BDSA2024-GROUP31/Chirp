@@ -16,34 +16,6 @@ geometry:
 toc: true
 ---
 
-# IT-Universitet BSFDVNS1KU
-
-## Chirp
-
-### Group No. 31 Project Report
-
----
-
-<div align="center">
-    <img src="./images/chirp_logo.png" alt="Chirp_logo">
-</div>
-
----
-
-### Authors:
-
--**Adam Assi** | aass@itu.dk -**David Friis Jensen** | davj@itu.dk -**Dennis Waweru** | denw@itu.dk -**Frederik Harboe Hjortdal Andersen** | frean@itu.dk -**Yacob Bakiz** | yaba@itu.dk -**Youssef Wassim Noureddine** | yono@itu.dk
-
----
-
-### Under supervision of:
-
-**Helge Pfeiffer** and **Adrian Benedikt Hoff**
-
----
-
-_Analysis, Design and Software Architecture_, Bachelor in Software Development, IT University of Copenhagen
-
 # Design and Architecture of _Chirp!_
 
 ## Domain Model
