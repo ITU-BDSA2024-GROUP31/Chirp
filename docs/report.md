@@ -19,7 +19,7 @@ numbersections: true
 ---
 
 <div align="center">
-    <img src="./images/Chirp_logo.png" alt="Chirp_logo">
+    <img src="./images/chirp_logo.png" alt="Chirp_logo">
 </div>
 
 ---
