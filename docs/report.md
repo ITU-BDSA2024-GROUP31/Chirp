@@ -20,7 +20,7 @@ toc: true
 
 ## Domain Model
 
-![Domain Model](./images/domain_model.drawio.png){ width=80% }{ width=80% }
+![Domain Model](./images/domain_model.drawio.png){ width=80% }
 
 The domain model for the Chirp application consists of two main entities: **Author** and **Cheep**, which represent users and their posts, respectively. The **Author** entity inherits from `IdentityUser<int>` to integrate with ASP.NET Core Identity for authentication and user management. Each Author has a unique `Id`, a `Name` (required), and an optional `Email`. An Author can also have a list of **Cheeps** that they have posted.
 
@@ -126,7 +126,7 @@ Additional components, such as development-specific settings, deployment scripts
 
 ## Architecture of deployed application
 
-![ArchitectureDeployment](./images/ArchitectureDeployment.png){ width=80% }{ width=80% }
+![ArchitectureDeployment](./images/ArchitectureDeployment.png){ width=80% }
 
 Our architecture is a layered web application with user authentication through GitHub and a secure connection to clients using HTTPS. The backend interacts with a SQLite database for persistence.
 The entire application is deployed via Microsoft Azure.
@@ -135,9 +135,9 @@ The entire application is deployed via Microsoft Azure.
 
 To understand the activities a user can perform in our implementation of Chirp, we have prepared two UML activity diagrams. One diagram dedicated to the activities of a non-authorized user, and another devoted to illustrate the possible acts of an authenticated user.
 
-![unauthorized](./images/unauthorized.png){ width=80% }{ width=80% }
+![unauthorized](./images/unauthorized.png){ width=80% }
 
-![authentication](./images/authentication.png){ width=80% }{ width=80% }
+![authentication](./images/authentication.png){ width=80% }
 
 Naturally the amount of activities when authenticated is far more than the possible activities of a non-authorized user. In the first diagram (non-authorized user) we see the activity of registering an account, whilst we in the second diagram (authenticated user) see all the possible activities of a logged in user such as, writing a cheep, deleting a cheep, following another user, logging out and so on. Together the two UML activity diagrams sum up the journey, through our implementation of Chirp, that a user will have the possibility of going through. As mentioned in the design and architectue section, the follow functionality is not yet up and running. However the functionality is still depicted in the second diagram, illustrating the end result of our implementation.
 
@@ -147,7 +147,7 @@ To better understand the sequence and flow of some of our most important functio
 
 ### Public Timeline sequence diagram
 
-![Public TimeLine](./images/Public_Timeline.png){ width=80% }{ width=80% }
+![Public TimeLine](./images/Public_Timeline.png){ width=80% }
 
 This sequence diagram showcases how an HTTP GET request sent by a unauthorized user from an endpoint, flows through our Chirp application and returns a page with all cheeps sent by their respective authors.
 
@@ -175,25 +175,25 @@ As shown in the following, we have four working GitHub workflows that aid us in 
 
 This workflow is primarily responsible for building the project and making a release when a tag is associated with the commit.
 
-![cdactions](./images/cdactions.png){ width=80% }{ width=80% }
+![cdactions](./images/cdactions.png){ width=80% }
 
 #### Workflow 2
 
 This workflow is primarily responsible for building the project and running all the unit and integration tests.
 
-![ciactions](./images/ciactions.png){ width=80% }{ width=80% }
+![ciactions](./images/ciactions.png){ width=80% }
 
 #### Workflow 3
 
 This workflow is primarily responsible for creating branches whenever a new issue is created, ensuring that there is already an associated branch to start working on.
 
-![CreateBranchActions](./images/CreateBranchActions.png){ width=80% }{ width=80% }
+![CreateBranchActions](./images/CreateBranchActions.png){ width=80% }
 
 #### Workflow 4
 
 This workflow is primarily responsible for deploying our web application whenever we push anything to the main branch. This workflow is divided into two parts, with the deploy part being dependent on the build part.
 
-![mainactions](./images/mainactions.png){ width=80% }{ width=80% }
+![mainactions](./images/mainactions.png){ width=80% }
 
 ## Team work
 
@@ -201,8 +201,7 @@ This workflow is primarily responsible for deploying our web application wheneve
 
 This is the current project board
 
-![Project_board](./images/Project_board.png){ width=80% }{ width=80% }
-
+![Project_board](./images/Project_board.png){ width=80% }
 The only missing major feature is follow and unfollow which we'll attempt to implement before the exam.
 
 ### Our process when creating a new issue:
