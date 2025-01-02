@@ -39,7 +39,7 @@ public static class TestingUtilForServer
         serverProcess.BeginOutputReadLine();
         serverProcess.BeginErrorReadLine();
 
-        await Task.Delay(900); // Give the server time to start.
+        await Task.Delay(1000); // Give the server time to start.
         return serverProcess;
     }
 

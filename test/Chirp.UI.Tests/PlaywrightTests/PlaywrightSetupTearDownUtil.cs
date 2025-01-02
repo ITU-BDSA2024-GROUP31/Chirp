@@ -35,7 +35,7 @@ public class PlaywrightSetupTearDownUtil : PageTest
     public async Task Setup()
     {
         _serverProcess = await TestingUtilForServer.StartServer();
-        Thread.Sleep(500); // Increase this if needed
+        Thread.Sleep(800); // Increase this if needed
 
         _browser = await Playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions {Headless = true});
     }
