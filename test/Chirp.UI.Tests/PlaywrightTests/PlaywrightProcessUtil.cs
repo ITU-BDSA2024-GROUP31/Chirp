@@ -34,12 +34,12 @@ public static class TestingUtilForServer
                 CreateNoWindow = true
             }
         };
-        
+
         serverProcess.Start();
         serverProcess.BeginOutputReadLine();
         serverProcess.BeginErrorReadLine();
 
-        await Task.Delay(600); // Give the server time to start.
+        await Task.Delay(900); // Give the server time to start.
         return serverProcess;
     }
 
